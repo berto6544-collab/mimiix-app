@@ -8,8 +8,8 @@ import { FeedItemstyles } from "../../StyleComponent/Style";
 const {width: screenWidth} = Dimensions.get('window');
  
 export const MultiMedias = ({data}) =>{
-const [dataSource,setDataSource] = React.useState(data.PostImage.split(","));
-const [dataSourceMusic,setDataSourceMusic] = React.useState(data.PostImage.split(","));
+const [dataSource,setDataSource] = React.useState([]);
+const [dataSourceMusic,setDataSourceMusic] = React.useState([]);
 const [musicPlayer,setMusicPlayer] = React.useState([])
 const [ActiveSlide,setActiveSlide] = React.useState(0)
 const reffed = React.useRef(null)
@@ -26,8 +26,8 @@ React.useEffect(()=>{
 
 const GetData = () =>{
     
-    let con = dataSource;
-    let conn = dataSourceMusic;
+    let con = data.PostImage.split(",");
+    let conn = data.PostImage.split(",");
     
     var tmp = [];
   

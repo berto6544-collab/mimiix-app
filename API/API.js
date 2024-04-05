@@ -8,6 +8,27 @@ export async function userData(){
 
 }
 
+export async function SigninAPI(userEmail,userPassword){
+
+   const data = await fetch('https://mymiix.com/public/api/autth',{
+      method:'POST',
+      header:{
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body:JSON.stringify({
+        // we will pass our input data to server
+        email: userEmail,
+        password: userPassword
+      })
+      
+    })
+    .then((response) => response.json());
+
+    return data;
+
+
+}
 
 //Grabbing Feed items data API 
 export async function FeedsData(start){
@@ -18,3 +39,14 @@ export async function FeedsData(start){
     return data;
  
  }
+
+
+ //Grabbing Feed items data API 
+export async function ProfileDataAPI(username){
+    
+  const data = fetch('https://mymiix.com/public/api/userDatta?id='+username)
+  .then(res=>res.json());
+
+  return data;
+
+}

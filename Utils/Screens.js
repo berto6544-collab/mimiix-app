@@ -2,9 +2,14 @@ import HomeScreen from '../Screens/HomeScreen/HomeScreen';
 import Profile from '../Screens/ProfileScreen/ProfileScreen';
 import Signin from '../Screens/AuthScreen/SigninScreen';
 import Signup from '../Screens/AuthScreen/SignupScreen';
+import Reset from '../Screens/AuthScreen/ResetPasswordScreen';
 import Account from '../Screens/AccountScreen/AccountScreen';
 import Notifications from '../Screens/NotificationScreen/NotificationScreen';
+import Comment from '../Screens/CommentScreen/CommentScreen';
+import PostScreen from '../Screens/PostScreen/PostScreen';
 import { Containerstyles } from '../StyleComponent/Style';
+import { Button } from 'react-native';
+
 
 
 
@@ -14,20 +19,17 @@ export function LoginFunction(Stack){
 
 
     return (
-    
+        
        
      <Stack.Navigator  initialRouteName={'Home'} >
        <Stack.Screen  name="Home" options={{headerShown: false}} component={HomeScreen} />
         <Stack.Screen name="Notifications" options={{presentation:'modal'}} component={Notifications} />
         <Stack.Screen name="Profile" component={Profile} />
         <Stack.Screen name="Account" component={Account} />
-        <Stack.Screen  name="Signup" component={Signup} />
-        <Stack.Screen name="Signin"  component={Signin} />
-  
-        
-      
-     
-       
+        <Stack.Screen name="Comment" component={Comment} />
+        <Stack.Screen  name="passwordForgot" component={Reset} />
+        <Stack.Screen  name="Signup"  component={Signup} />
+        <Stack.Screen name="Signin"   component={Signin} />
         </Stack.Navigator>
         
        
@@ -35,7 +37,7 @@ export function LoginFunction(Stack){
 }
 
 
-export function Authenticated(Stack){
+export function Authenticated(Stack,navigation){
 
 
 
@@ -47,12 +49,11 @@ export function Authenticated(Stack){
         <Stack.Screen name="Notifications" options={{presentation:'modal'}} component={Notifications} />
         <Stack.Screen name="Profile" component={Profile} />
         <Stack.Screen name="Account" component={Account} />
+        <Stack.Screen name="Comment" component={Comment} />
         <Stack.Screen  name="Signup" component={Signup} />
+        <Stack.Screen  name="passwordForgot" component={Reset} />
         <Stack.Screen name="Signin"  component={Signin} />
-  
-      
-     
-       
+        <Stack.Screen name="CreatePost"  options={{presentation:'modal'}} component={ PostScreen} />
         </Stack.Navigator>
        
        

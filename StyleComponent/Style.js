@@ -27,6 +27,20 @@ export const Containerstyles = StyleSheet.create({
 
 
   
+  export const Quotestyles = StyleSheet.create({
+
+    QuoteBase: {
+      
+      alignItems: 'center',
+      width:'100%',
+      marginBottom:20,
+      paddingHorizontal:5,
+      paddingVertical:10
+    },
+
+
+
+  })
 
 
 export const FeedItemstyles = StyleSheet.create({
@@ -61,16 +75,34 @@ paddingVertical:0
 
     TopNav:{
       width:'100%',
-      height:70,
+      height:100,
+      paddingTop:30,
       backgroundColor:'rgb(240, 244, 248)',
+      paddingHorizontal:10,
       display:'flex',
       flexDirection:'row',
       alignItems:'center',
       justifyContent:'space-between',
-      padding:10,
+      
 
     },
 
+    BottomNav:{
+      width:'100%',
+      height:70,
+      paddingVertical:20,
+      backgroundColor:'rgb(240, 244, 248)',
+      paddingHorizontal:10,
+      zIndex:80,
+      display:'flex',
+      flexDirection:'row',
+      position:'absolute',
+      bottom:0,
+      alignItems:'center',
+      justifyContent:'space-between',
+      
+
+    },
     
 
     AvatarBase:{

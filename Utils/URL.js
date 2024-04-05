@@ -9,7 +9,7 @@ import { UrlPreview } from '../component/previewUrl/PreviewUrl';
 
 
 
-export function OpenUrl(url,data,postimage,postId,status){
+export function OpenUrl(url,data,navigation,postimage,postId,status){
   
     const handlePress = async (word) => {
       // Checking if the link is supported for links with custom URL scheme.
@@ -97,7 +97,7 @@ export function OpenUrl(url,data,postimage,postId,status){
   method:'GET'
 })
 .then(response =>response.json())
-               navigation.navigate('Profile',{Id: U});
+               navigation.navigate('Profile',{username:u});
 
               }else{
               
@@ -125,7 +125,7 @@ export function OpenUrl(url,data,postimage,postId,status){
   method:'GET'
 })
 
-            navigation.navigate('Profile',{Id: u});
+            navigation.navigate('Profile',{username:u});
            
 
         }}>{word+ separator}</Text> );
