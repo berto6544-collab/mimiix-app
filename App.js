@@ -3,18 +3,24 @@ import {userData} from './API/API'
 import { StatusBar } from 'expo-status-bar';
 import { Text, View } from 'react-native';
 import { Containerstyles } from './StyleComponent/Style';
-import Feed from './pages/FeedPage/FeedPage';
+import { LoginFunction,Authenticated } from './Utils/Screens';
+import { AuthContext } from './AuthContext/context';
+import { NavigationContainer} from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+const Stack = createNativeStackNavigator();
 
 
 export default function App() {
   const [Authuser,setAuthUser] = React.useState([]);
+  const [theme,setTheme] = React.useState('light');
 
 React.useEffect(()=>{
 
   userData().then(response=>{
-if(response.length == 0)
+if(response.length == 0 || response.length > 0 && response[0].UserName == "")
 return;
-setAuthUser(response); 
+setAuthUser(response);
   
 
 })
@@ -22,24 +28,25 @@ setAuthUser(response);
 },[]); 
 
 
-if(Authuser.length > 0 && Authuser[0].UserName == "" || Authuser.length == 0){
-  return (
-    <View style={Containerstyles.container}>
-      <Feed />
-      <StatusBar style="auto" />
-    </View>
-  )
-}
-  else{
 
-    
-  return (
-    <View style={Containerstyles.container}>
-     <Feed />
-      <StatusBar style="auto" />
-    </View>
-  )
-  }
+
+
+
+
+return(
+
+<AuthContext.Provider style={Containerstyles.container} value={{Authuser,setAuthUser,theme,setTheme}}>
+ <NavigationContainer>
+
+{Authuser.length > 0 && Authuser[0].UserName == "" || Authuser.length == 0 ? LoginFunction(Stack) : Authenticated(Stack)}
+
+</NavigationContainer>
+
+</AuthContext.Provider>
+
+)
+
+
 }
 
 

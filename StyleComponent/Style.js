@@ -4,7 +4,7 @@ import { StyleSheet,Dimensions} from 'react-native';
 export const Containerstyles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: '#fff',
+      backgroundColor: 'rgb(240, 244, 248)',
       alignItems: 'center',
       justifyContent: 'center',
     },
@@ -34,7 +34,7 @@ export const FeedItemstyles = StyleSheet.create({
       paddingTop:20,
       flex:1,
       width:'100%',
-      backgroundColor: 'lightgrey',
+      backgroundColor: 'rgb(240, 244, 248)',
       alignItems: 'center',
       marginBottom:20,
       paddingBottom:10
@@ -53,13 +53,16 @@ paddingVertical:0
     FeedItem: {
       backgroundColor: '#fff',
       alignItems: 'center',
-      marginBottom:60
+      marginBottom:20,
+      borderRadius:10,
+      shadowColor:'black',
+      paddingVertical:10
     },
 
     TopNav:{
       width:'100%',
       height:70,
-      
+      backgroundColor:'rgb(240, 244, 248)',
       display:'flex',
       flexDirection:'row',
       alignItems:'center',

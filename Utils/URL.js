@@ -97,7 +97,7 @@ export function OpenUrl(url,data,postimage,postId,status){
   method:'GET'
 })
 .then(response =>response.json())
-               // navigation.navigate('Profile',{Id: U});
+               navigation.navigate('Profile',{Id: U});
 
               }else{
               
@@ -125,7 +125,7 @@ export function OpenUrl(url,data,postimage,postId,status){
   method:'GET'
 })
 
-            //navigation.navigate('Profile',{Id: u});
+            navigation.navigate('Profile',{Id: u});
            
 
         }}>{word+ separator}</Text> );
@@ -152,7 +152,7 @@ export function OpenUrl(url,data,postimage,postId,status){
     
     return (
       
-        <View style={{width:'100%'}}>
+        <View style={{width:'100%',paddingHorizontal:10,paddingVertical:5}}>
           {<View style={{width:'100%',flexWrap:'wrap',flexDirection:'row'}}>{contentss}</View>}
           {contents}
           

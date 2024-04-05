@@ -106,7 +106,7 @@ if(item.match(/\.jpg|\.png|\.jpeg|\.gif/gi)){
 
 
     return(
-    <TouchableOpacity style={{height: Dimensions.get('window').height -470,position:'relative',zIndex:2, width: Dimensions.get('window').width}}>
+    <TouchableOpacity activeOpacity={1} style={{height: Dimensions.get('window').height -470,position:'relative',zIndex:2, width: Dimensions.get('window').width}}>
 
 
 <Icon name={'play'} style={{position:'absolute',top:'50%',zIndex:3,left:'50%',color:'blue'}}  type={'font-awesome'} /> 
@@ -125,7 +125,7 @@ if(item.match(/\.jpg|\.png|\.jpeg|\.gif/gi)){
 
 
     return(
-    <TouchableOpacity style={{height: Dimensions.get('window').height -470,position:'relative',zIndex:2, width: Dimensions.get('window').width,}}>
+    <TouchableOpacity activeOpacity={1} style={{height: Dimensions.get('window').height -470,position:'relative',zIndex:2, width: Dimensions.get('window').width,}}>
 
 <Icon name={'play'} style={{position:'absolute',top:'50%',zIndex:3,left:'50%',color:'blue'}}  type={'font-awesome'} /> 
 
@@ -144,7 +144,15 @@ if(item.match(/\.jpg|\.png|\.jpeg|\.gif/gi)){
 
         return(
         <View  style={{height: Dimensions.get('window').height -470,position:'relative',zIndex:2, width: Dimensions.get('window').width,}}>
-        
+        <Icon name={'play'} style={{position:'absolute',top:'50%',zIndex:3,left:'50%',color:'blue'}}  type={'font-awesome'} /> 
+
+        <Image style={{
+        width: "100%",
+        zIndex:2,
+        marginHorizontal: 0,
+        height: Dimensions.get('window').height -370, 
+        resizeMode: 'cover',
+        }} source={{uri:data.Poster}} />
         </View>
         
             )
@@ -168,7 +176,7 @@ return(
 
 
           
-  {dataSource.length > 1 ? <View style={{position:'absolute',right:10,zIndex:10,top:30,flexDirection:'column',backgroundColor:'rgba(52, 52, 52, 0.8)',padding:5,paddingHorizontal:10,borderRadius:80}}><Text style={{fontWeight:'300',color:'white'}}>{activeSlide +1 +'/'+dataSource.length}</Text></View>:null}
+  {/*dataSource.length > 1 ? <View style={{position:'absolute',right:10,zIndex:10,top:30,flexDirection:'column',backgroundColor:'rgba(52, 52, 52, 0.8)',padding:5,paddingHorizontal:10,borderRadius:80}}><Text style={{fontWeight:'300',color:'white'}}>{activeSlide +1 +'/'+dataSource.length}</Text></View>:null*/}
         
   <Carousel
   ref={carouselRef}
