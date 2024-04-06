@@ -50,3 +50,12 @@ export async function ProfileDataAPI(username){
   return data;
 
 }
+
+export async function StorieDataAPI(start,q){
+    
+  const data = fetch('https://mymiix.com/public/api/storieNative?start='+start+'&q='+q)
+  .then(res=>res.json());
+
+  return data;
+
+}

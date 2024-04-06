@@ -162,4 +162,586 @@ export function OpenUrl(url,data,navigation,postimage,postId,status){
     );
     
     }
+
+
+
     }
+
+
+
+    export function OpenStorieUrl(url,postimage,onReadMore,onImageLoaded,onOpen,Idd,PostId){
+  
+      const handlePress = async (word) => {
+        // Checking if the link is supported for links with custom URL scheme.
+        const supported = await Linking.canOpenURL(word);
+      
+        if (supported) {
+          // Opening the link with some app, if the URL scheme is "http" the web link should be opened
+          // by some browser in the mobile
+         // await Linking.openURL(word);
+         await WebBrowser.openBrowserAsync(word)
+        } else {
+         
+        }
+      
+      
+      
+      }
+      
+      if(url != undefined){
+    
+      if (typeof(url === 'string')) {
+      
+        // Split the content on space characters
+        var words = url.toString().split(/\s/);
+        
+       
+        // Loop through the words
+        var contents = words.map(function(word, i) {
+      
+          // Space if the word isn't the very last in the set, thus not requiring a space after it
+          var separator = i < (words.length - 1) ? ' ' : '';
+          
+    
+          
+          // The word is a URL, return the URL wrapped in a custom <Link> component
+          if (word.match(/^https?\:\//)) {
+           
+    
+            if (word.match(/http(?:s)?:\/\/(?:www\.)?(?:m\.)?twitch\.tv\/([a-zA-Z0-9_]+)/)) {
+    
+              var u = word.replace('https://www.twitch.tv/','');
+              if(postimage == ""){
+    
+              
+              }
+    
+            }
+    
+           
+    
+            else{
+          
+    
+          if(postimage == ""){
+    
+           
+            }
+            
+          }
+    
+    
+    
+          } 
+    
+         
+          else{
+            
+          }
+        });
+      
+        
+        var contentss = words.map(function(word, i) {
+          
+          // Space if the word isn't the very last in the set, thus not requiring a space after it
+          var separator = i < (words.length - 1) ? ' ' : '';
+      
+      
+          // The word is a URL, return the URL wrapped in a custom <Link> component
+          if (word.match(/^https?\:\//)) {
+            
+            
+    
+            if (word.match(/http(?:s)?:\/\/(?:www\.)?(?:m\.)?twitch\.tv\/([a-zA-Z0-9_]+)/)) {
+    
+              var u = word.replace(/http(?:s)?:\/\/(?:www\.)?(?:m\.)?twitch\.tv\//,'');
+              if(postimage == ""){
+    
+              return <TouchableOpacity onPress={()=>{
+                onOpen();
+              
+    
+                if(Idd != null){
+                fetch('https://www.mymiix.com/public/api/SponsoredAd?Id='+Idd+'&userId='+Utils.getUserId(),{
+                  method:'GET',
+                  header:{
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                  }
+                  
+                })
+                .then((response) => response.json())
+                 .then((responseJson)=>{
+                    
+                  
+                 
+                  fetch('https://mymiix.com/public/api/videoViewersReactNative?idd='+PostId,{
+                  method:'GET',
+                  header:{
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                  }
+                  
+                })
+                .then((response) => response.json())
+                 .then((responseJson)=>{
+                    
+                  
+                  
+                 
+                  
+                
+                  
+                
+                 });
+                 
+                  
+                
+                  
+                 });
+              
+                }
+    
+              }}  style={{justifyContent:'center',width:'100%',height:Dimensions.get('window').height -470,backgroundColor:'black'}}><WebView 
+              javaScriptEnabled={true} 
+              injectedJavaScript={runFirst}
+              onMessage={(event) => {}}
+              allowsLinkPreview={true}
+              onLoadEnd={onImageLoaded}
+              thirdPartyCookiesEnabled={true}
+              cacheEnabled={true}
+            cacheMode={'LOAD_CACHE_ELSE_NETWORK'}
+              allowsInlineMediaPlayback={true} style={{width:'100%', height:Dimensions.get('window').height -470,backgroundColor:'black'}} source={{uri: 'https://player.twitch.tv/?channel='+u+'&parent=mymiix.com&autoplay=false'}} ></WebView></TouchableOpacity>
+              }
+    
+            }
+    
+          if (word.match(/http(?:s)?:\/\/(?:open\.)?spotify\.com\/?track\/([a-zA-Z0-9_]+)/)) {
+    
+              
+              if(postimage == ""){
+    
+                var U =word.replace('https://open.spotify.com/track/','');
+              return <TouchableOpacity onPress={()=>{
+                onOpen();
+                
+    
+                if(Idd != null){
+                fetch('https://www.mymiix.com/public/api/SponsoredAd?Id='+Idd+'&userId='+Utils.getUserId(),{
+                  method:'GET',
+                  header:{
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                  }
+                  
+                })
+                .then((response) => response.json())
+                 .then((responseJson)=>{
+                    
+                  
+                 
+                  fetch('https://mymiix.com/public/api/videoViewersReactNative?idd='+PostId,{
+                  method:'GET',
+                  header:{
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                  }
+                  
+                })
+                .then((response) => response.json())
+                 .then((responseJson)=>{
+                    
+                  
+                  
+                 
+                  
+                
+                  
+                
+                 });
+                 
+                  
+                
+                  
+                 });
+                }
+              
+              }} style={{justifyContent:'center',width:'100%',height:Dimensions.get('window').height -470,backgroundColor:'black'}}><WebView 
+              javaScriptEnabled={true} 
+              injectedJavaScript={runFirst}
+              onMessage={(event) => {}}
+              allowsLinkPreview={true}
+              scalesPageToFit={true}
+              onLoadEnd={onImageLoaded}
+              thirdPartyCookiesEnabled={true}
+              cacheEnabled={true}
+            cacheMode={'LOAD_CACHE_ELSE_NETWORK'}
+              allowsInlineMediaPlayback={true} style={{width:'100%',height:Dimensions.get('window').height -470,borderRadius:10}} source={{uri:'https://open.spotify.com/embed/track/'+U+':autoplay:0'}} ></WebView></TouchableOpacity>
+              }
+    
+            }
+    
+    
+            if (word.match(/http(?:s)?:\/\/(?:open\.)?spotify\.com\/?episode\/([a-zA-Z0-9_]+)/)) {
+    
+              
+              if(postimage == ""){
+    
+                var U =word.replace('https://open.spotify.com/episode/','');
+              return <TouchableOpacity onPress={()=>{
+                onOpen();
+                
+    
+                if(Idd != null){
+                fetch('https://www.mymiix.com/public/api/SponsoredAd?Id='+Idd+'&userId='+Utils.getUserId(),{
+                  method:'GET',
+                  header:{
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                  }
+                  
+                })
+                .then((response) => response.json())
+                 .then((responseJson)=>{
+                    
+                  
+                 
+                  fetch('https://mymiix.com/public/api/videoViewersReactNative?idd='+PostId,{
+                  method:'GET',
+                  header:{
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                  }
+                  
+                })
+                .then((response) => response.json())
+                 .then((responseJson)=>{
+                    
+                  
+                  
+                 
+                  
+                
+                  
+                
+                 });
+                 
+                  
+                
+                  
+                 });
+                }
+              
+              }} style={{justifyContent:'center',width:'100%',height:Dimensions.get('window').height -470,backgroundColor:'black'}}><WebView 
+              javaScriptEnabled={true} 
+              injectedJavaScript={runFirst}
+              onMessage={(event) => {}}
+              allowsLinkPreview={true}
+              scalesPageToFit={true}
+              onLoadEnd={onImageLoaded}
+              thirdPartyCookiesEnabled={true}
+              cacheEnabled={true}
+            cacheMode={'LOAD_CACHE_ELSE_NETWORK'}
+              allowsInlineMediaPlayback={true} style={{width:'100%',height:Dimensions.get('window').height -470,borderRadius:10}} source={{uri:'https://open.spotify.com/embed-podcast/episode/'+U+':autoplay:0'}} ></WebView></TouchableOpacity>
+              }
+    
+            }
+    
+    
+    
+            if (word.match(/http(?:s)?:\/\/(?:open\.)?spotify\.com\/?embed-podcast\/?episode\/([a-zA-Z0-9_]+)/)) {
+    
+              
+              if(postimage == ""){
+    
+                var U =word.replace('https://open.spotify.com/embed-podcast/episode/','');
+              return <TouchableOpacity onPress={()=>{
+                onOpen();
+                
+    
+                if(Idd != null){
+                fetch('https://www.mymiix.com/public/api/SponsoredAd?Id='+Idd+'&userId='+Utils.getUserId(),{
+                  method:'GET',
+                  header:{
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                  }
+                  
+                })
+                .then((response) => response.json())
+                 .then((responseJson)=>{
+                    
+                  
+                 
+                  fetch('https://mymiix.com/public/api/videoViewersReactNative?idd='+PostId,{
+                  method:'GET',
+                  header:{
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                  }
+                  
+                })
+                .then((response) => response.json())
+                 .then((responseJson)=>{
+                    
+                  
+                  
+                 
+                  
+                
+                  
+                
+                 });
+                 
+                  
+                
+                  
+                 });
+                }
+              
+              }} style={{justifyContent:'center',width:'100%',height:Dimensions.get('window').height -470,backgroundColor:'black'}}><WebView 
+              javaScriptEnabled={true} 
+              injectedJavaScript={runFirst}
+              onMessage={(event) => {}}
+              allowsLinkPreview={true}
+              scalesPageToFit={true}
+              onLoadEnd={onImageLoaded}
+              thirdPartyCookiesEnabled={true}
+              cacheEnabled={true}
+            cacheMode={'LOAD_CACHE_ELSE_NETWORK'}
+              allowsInlineMediaPlayback={true} style={{width:'100%',height:Dimensions.get('window').height -470,borderRadius:10}} source={{uri:word}} ></WebView></TouchableOpacity>
+              }
+    
+            }
+    
+            if (word.match(/http(?:s)?:\/\/(?:open\.)?spotify\.com\/?album\/([a-zA-Z0-9_]+)/)) {
+    
+              
+              if(postimage == ""){
+    
+                var U =word.replace('https://open.spotify.com/album/','');
+              return <TouchableOpacity onPress={()=>{
+                onOpen();
+              
+                if(Idd != null){
+                fetch('https://www.mymiix.com/public/api/SponsoredAd?Id='+Idd+'&userId='+Utils.getUserId(),{
+                  method:'GET',
+                  header:{
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                  }
+                  
+                })
+                .then((response) => response.json())
+                 .then((responseJson)=>{
+                    
+                  
+                 
+                  fetch('https://mymiix.com/public/api/videoViewersReactNative?idd='+PostId,{
+                  method:'GET',
+                  header:{
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                  }
+                  
+                })
+                .then((response) => response.json())
+                 .then((responseJson)=>{
+                    
+                  
+                  
+                 
+                  
+                
+                  
+                
+                 });
+                 
+                  
+                
+                  
+                 });
+                }
+              
+              }} style={{justifyContent:'center',width:'100%',height:Dimensions.get('window').height -470,backgroundColor:'black'}}><WebView 
+              javaScriptEnabled={true} 
+              injectedJavaScript={runFirst}
+              onMessage={(event) => {}}
+              allowsLinkPreview={true}
+              scalesPageToFit={true}
+              onLoadEnd={onImageLoaded}
+              thirdPartyCookiesEnabled={true}
+              cacheEnabled={true}
+            cacheMode={'LOAD_CACHE_ELSE_NETWORK'}
+              allowsInlineMediaPlayback={true} style={{width:'100%',height:Dimensions.get('window').height -470,borderRadius:10}} source={{uri:'https://open.spotify.com/embed/album/'+U+''}} ></WebView></TouchableOpacity>
+              }
+    
+            }
+            
+            if ( word.match(/http(?:s)?:\/\/(?:open\.)?spotify\.com\/?playlist\/([a-zA-Z0-9_]+)/)) {
+    
+              
+              if(postimage == ""){
+    
+                var U =word.replace('https://open.spotify.com/playlist/','');
+              return <TouchableOpacity onPress={()=>{
+                onOpen();
+              
+                if(Idd != null){
+                fetch('https://www.mymiix.com/public/api/SponsoredAd?Id='+Idd+'&userId='+Utils.getUserId(),{
+                  method:'GET',
+                  header:{
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                  }
+                  
+                })
+                .then((response) => response.json())
+                 .then((responseJson)=>{
+                    
+                  
+                 
+                  fetch('https://mymiix.com/public/api/videoViewersReactNative?idd='+PostId,{
+                  method:'GET',
+                  header:{
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                  }
+                  
+                })
+                .then((response) => response.json())
+                 .then((responseJson)=>{
+                    
+                  
+                  
+                 
+                  
+                
+                  
+                
+                 });
+                 
+                  
+                
+                  
+                 });
+                }
+              
+              }} style={{justifyContent:'center',width:'100%',height:Dimensions.get('window').height -470,backgroundColor:'black'}}><WebView 
+              javaScriptEnabled={true} 
+              injectedJavaScript={runFirst}
+              onMessage={(event) => {}}
+              allowsLinkPreview={true}
+              scalesPageToFit={true}
+              thirdPartyCookiesEnabled={true}
+              cacheEnabled={true}
+              cacheMode={'LOAD_CACHE_ELSE_NETWORK'}
+              onLoadEnd={onImageLoaded
+    
+              
+              
+              }
+              allowsInlineMediaPlayback={true} style={{width:'100%',height:Dimensions.get('window').height -470,borderRadius:10}} source={{uri:'https://open.spotify.com/embed/playlist/'+U+''}} ></WebView></TouchableOpacity>
+              }
+    
+            }
+    
+    
+          else{
+    
+            if(postimage == ""){
+              
+    
+              return <TouchableOpacity style={{justifyContent:'center',height:Dimensions.get('window').height -470,width:'100%'}} onPress={()=>{
+                onReadMore();
+              
+                if(Idd != null){
+                fetch('https://www.mymiix.com/public/api/SponsoredAd?Id='+Idd+'&userId='+Utils.getUserId(),{
+                  method:'GET',
+                  header:{
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                  }
+                  
+                })
+                .then((response) => response.json())
+                 .then((responseJson)=>{
+                    
+                  
+                 
+                  fetch('https://mymiix.com/public/api/videoViewersReactNative?idd='+PostId,{
+                  method:'GET',
+                  header:{
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                  }
+                  
+                })
+                .then((response) => response.json())
+                 .then((responseJson)=>{
+                    
+                  
+                  
+                 
+                  
+                
+                  
+                
+                 });
+                 
+                  
+                
+                  
+                 });
+                }
+              
+              }} >
+                
+              <RNUrlPreview title={true} style={{margin:0,padding:0,width:'100',height:Dimensions.get('window').height -470}}
+              
+              onLoad={onImageLoaded}
+             
+              
+              imageProps={{resizeMode: 'cover'}}  imageStyle={{width:'100%',height:Dimensions.get('window').height -670,margin:0,padding:0,backgroundColor:'lightgrey', borderTopLeftRadius: 10,borderTopRightRadius: 10, }} containerStyle={{flexDirection:'column',height:Dimensions.get('window').height -470,backgroundColor:'lightgrey',borderRadius:10}} text={word}  />
+            </TouchableOpacity>
+              
+          }
+    
+            else{
+              if(postimage != "")
+              return <Text title={true} style={{fontWeight:'600',color:'#0086ff'}} onPress={()=>handlePress(word)} >{word + separator}</Text>;
+    
+              }
+          }
+    
+          } 
+         
+          
+          else {
+            return <Text style={[styles.sWord,{color: themes[Utils.getThemeMode()].Color}]}>{word + separator}</Text>;
+          }
+        });
+      
+      // The nested content was something else than a plain string
+      // Return the original content wrapped in a <Text> component
+      } else {
+        //return <></>;
+      }
+      
+      // Return the modified content wrapped in a <Text> component
+      
+      return (
+        
+          <View style={{width:'100%'}}>
+            <View style={{width:'100%',flexWrap:'wrap',alignItems:'center',flexDirection:'row'}}>{contentss}</View>
+            <View style={ contents.length > 0 ?{width:'100%',backgroundColor:'lightgrey',borderRadius:20}:{width:'100%',backgroundColor:'lightgrey',borderRadius:20}}>
+            {contents}
+            </View>
+            
+            
+            </View>
+        
+      );
+      
+      }
+      }

@@ -4,7 +4,7 @@ import { WebView } from 'react-native-webview';
 import { AuthContext } from "../../AuthContext/context";
 
 
-export default function Account({navigation}){
+export default function Creator({navigation}){
 
     const Auth = React.useContext(AuthContext)
 
@@ -45,7 +45,7 @@ export default function Account({navigation}){
         scalesPageToFit={true} 
         allowingReadAccessToURL={'file://'}
         showsVerticalScrollIndicator={false} 
-        source={{uri: 'https://mymiix.com/account'}} 
+        source={{uri: 'https://mymiix.com/creator-portal'}} 
         
         
         />)

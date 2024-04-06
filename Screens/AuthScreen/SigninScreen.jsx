@@ -16,7 +16,7 @@ export default function SigninScreen({navigation}){
   const [userPassword,setUserPassword] = React.useState('')
   const [status,setStatus] = React.useState('')
   const Auth = React.useContext(AuthContext);
-
+  
 
 
 
@@ -52,15 +52,15 @@ else{
        
 
 
-      
+       Auth.setToken(responseJson['Token'])
+       Auth.setUserData(responseJson['userAuth'])
     
        
           AsyncStorage.setItem('SCOM', responseJson['Token']);
           AsyncStorage.setItem('AuthUser', JSON.stringify(responseJson['userAuth']));
           AsyncStorage.setItem('AutthUser', JSON.stringify(responseJson['userAutth']));
           AsyncStorage.setItem('ProfileImage',responseJson['userAuth'].ProfileImage);
-          Auth.setToken(responseJson['Token'])
-Auth.setUserData(esponseJson['userAuth'])
+         
        
     
           //navigation.replace('Home');

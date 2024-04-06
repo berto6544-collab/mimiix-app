@@ -1,15 +1,17 @@
 import React from "react";
 import { Text,Card,Image,Avatar, Icon, } from "@rneui/themed";
 import { FeedsData } from "../../API/API";
-import { Dimensions, View } from "react-native";
+import { Dimensions, TouchableOpacity, View } from "react-native";
 import FeedItem from "../../component/feedItems/feedItem";
 import { FeedItemstyles } from "../../StyleComponent/Style";
 import {OptimizedFlatList} from 'react-native-optimized-flatlist';
 import QuoteComp from '../../component/Quote/QuoteComponent';
-
+import Storie  from '../../component/StoriesComp/StorieComp'
+import DrawerDialog from "../../Dialog/DrawerDialog";
 
 
 import { AuthContext } from "../../AuthContext/context";
+import DrawerCompMain from "../../component/DrawerComponents/DrawerCompMain";
 
 export default function Feed({navigation}){
 
@@ -17,6 +19,7 @@ export default function Feed({navigation}){
     const [PostData,setPostData] = React.useState(null);
     const [start,setStart] = React.useState(0)
     const [tabIndex,setTabIndex] = React.useState(0)
+    const [showDrawer,setShowDrawer] = React.useState(false)
 
   const Auth = React.useContext(AuthContext);
   
@@ -43,6 +46,7 @@ setStart(start+1)
 }
 
 
+
 const handleLoadMore = ()=>{
 
 
@@ -57,6 +61,10 @@ const handleLoadMore = ()=>{
 
 }
 
+
+const handleCloseDrawer = () =>{
+  setShowDrawer(false);
+}
 
 const onViewableItemsChanged = ({ viewableItems, changed }) => {
     
@@ -158,18 +166,54 @@ const onViewableItemsChanged = ({ viewableItems, changed }) => {
  <View style={FeedItemstyles.TopNav}>
 
   <View style={{display:'flex',flexDirection:'row',gap:5,alignItems:'center'}}>
-  <Icon name={'send'} size={25} type={'feather'} />
+
+    {/*Button navigates you to the message screen or if your not signed-in then the signin screen */}
+  <Icon name={'send'} size={25} onPress={()=>{
+if(Auth.Authuser.length > 0 ){
+  navigation.navigate('Message')
+  }else{
+    navigation.navigate('Signin')
+  }
+
+  }} type={'feather'} />
+
+
+ {/*Button navigates you to the explore screen */}
+<TouchableOpacity onPress={()=>{
+
+navigation.navigate('Explore')
+  
+}}
+
+>
   <Icon name={'compass-outline'} size={30} type={'ionicon'} />
+</TouchableOpacity>
+
   </View>
   <Image style={{width:100,height:40}} source={require('../../assets/img/logo(3).png')} />
  
   <View style={{display:'flex',flexDirection:'row',gap:10,alignItems:'center'}}>
-<Icon onPress={()=>{
 
-navigation.navigate('CreatePost')
+  {/*Button navigates you to create post screen or if your not signed-in then the signin screen */}
+  <TouchableOpacity onPress={()=>{
 
-}} name={'plus-square'} solid={true} size={27} type={'feather'} />
-<Avatar rounded={true} source={{uri:Auth.Authuser.length > 0 ? Auth.Authuser[0]?.ProfileImage:'https://mymiix.com/public/assets/img/no-avatar.jpg'}} />
+if(Auth.Authuser.length > 0 ){
+  navigation.navigate('CreatePost')
+  }else{
+    navigation.navigate('Signin')
+  }
+}}
+
+><Icon  name={'plus-square'} solid={true} size={27} type={'feather'} /></TouchableOpacity>
+
+<TouchableOpacity onPress={()=>{
+
+setShowDrawer(true)
+}}
+
+><Icon  name={'menu'} solid={true} size={27} type={'feather'} />
+</TouchableOpacity>
+
 
 </View>
 
@@ -183,16 +227,15 @@ navigation.navigate('CreatePost')
       
       
       ListHeaderComponent={
-      <View style={{width:'100%',display:'flex',paddingHorizontal:0,flexDirection:'column',gap:20,alignItems:'center'}}>
+      <View style={{width:'100%',display:'flex',paddingHorizontal:0,flexDirection:'column',gap:20,alignItems:'flex-start'}}>
       
-      
+      {<Storie query={''} Auth={Auth} />}
       <QuoteComp Auth={Auth} navigation={navigation} />
 
       </View>
       }
 
       removeClippedSubviews={true}
-      //style={[FeedItemstyles.container]} 
       data={Auth.PostDataSource}
       renderItem={({item,index}) => <FeedItem navigation={navigation} Auth={Auth} key={index} index={index} data={item} />}
       onEndReached={handleLoadMore} 
@@ -206,14 +249,22 @@ navigation.navigate('CreatePost')
 
 
 
+<DrawerDialog 
+setClose={handleCloseDrawer}
+Auth={Auth}
+overlayStyle={{flex:1,width:'100%',position:'relative',alignSelf:'flex-end'}}
+navigation={navigation} onshow={showDrawer} title={''} 
+username={Auth.Authuser.length > 0 ?Auth.Authuser[0].UserName:''} 
+profileImage={Auth.Authuser.length > 0 ?Auth.Authuser[0].ProfileImage:''}  
+userStats={Auth.Authuser.length > 0 ?Auth.Authuser[0].UsersStat:''} 
 
-<View style={FeedItemstyles.BottomNav}>
 
-  <Text>Feed</Text>
- 
+>
 
+<DrawerCompMain setStart={setStart} setClose={handleCloseDrawer} navigation={navigation} Auth={Auth} />
 
- </View>
+</DrawerDialog>
+
 
 
     </View>)

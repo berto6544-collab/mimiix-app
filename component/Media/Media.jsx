@@ -109,7 +109,7 @@ if(item.match(/\.jpg|\.png|\.jpeg|\.gif/gi)){
     <TouchableOpacity activeOpacity={1} style={{height: Dimensions.get('window').height -470,position:'relative',zIndex:2, width: Dimensions.get('window').width}}>
 
 
-<Icon name={'play'} style={{position:'absolute',top:'50%',zIndex:3,left:'50%',color:'blue'}}  type={'font-awesome'} /> 
+      <Icon name={'play'} style={{position:'absolute',top:'50%',zIndex:3,left:'50%',color:'blue'}}  type={'font-awesome-5'} /> 
 
       <Image style={{
         width: "100%",
@@ -127,7 +127,7 @@ if(item.match(/\.jpg|\.png|\.jpeg|\.gif/gi)){
     return(
     <TouchableOpacity activeOpacity={1} style={{height: Dimensions.get('window').height -470,position:'relative',zIndex:2, width: Dimensions.get('window').width,}}>
 
-<Icon name={'play'} style={{position:'absolute',top:'50%',zIndex:3,left:'50%',color:'blue'}}  type={'font-awesome'} /> 
+<Icon name={'play'} containerStyle={{position:'absolute',top:'45%',zIndex:3,left:'45%'}} size={70} color={'#0086ff'}  type={'font-awesome'} /> 
 
     <Image style={{
         width: "100%",
@@ -144,7 +144,7 @@ if(item.match(/\.jpg|\.png|\.jpeg|\.gif/gi)){
 
         return(
         <View  style={{height: Dimensions.get('window').height -470,position:'relative',zIndex:2, width: Dimensions.get('window').width,}}>
-        <Icon name={'play'} style={{position:'absolute',top:'50%',zIndex:3,left:'50%',color:'blue'}}  type={'font-awesome'} /> 
+        <Icon name={'play'} containerStyle={{position:'absolute',top:'45%',zIndex:3,left:'45%'}} size={70} color={'#0086ff'}  type={'font-awesome-5'} /> 
 
         <Image style={{
         width: "100%",

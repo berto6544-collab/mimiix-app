@@ -32,12 +32,25 @@ export const Containerstyles = StyleSheet.create({
     QuoteBase: {
       
       alignItems: 'center',
-      width:'100%',
+      alignContent:'flex-start',
+      width:Dimensions.get('screen').width,
       marginBottom:20,
-      paddingHorizontal:5,
-      paddingVertical:10
+      paddingHorizontal:5
     },
 
+
+
+  })
+
+  export const StorieStyle = StyleSheet.create({
+
+    StoryBase:{
+      display:'flex',
+      flexDirection:'row',
+      alignItems:'center',
+      paddingTop:15,
+      paddingHorizontal:5
+    }
 
 
   })
