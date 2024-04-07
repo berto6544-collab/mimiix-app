@@ -1,6 +1,6 @@
 import React from "react";
-import { Text,Card,Image,Avatar, Icon } from "@rneui/themed";
-import { TouchableOpacity, View } from "react-native";
+import { Card,Image,Avatar, Icon } from "@rneui/themed";
+import { Text,TouchableOpacity, View } from "react-native";
 
 import { FeedItemstyles } from "../../StyleComponent/Style";
 import { OpenUrl } from "../../Utils/URL";
@@ -24,7 +24,7 @@ export default function FeedItem({data,navigation,Auth}){
             navigation.navigate('Profile',{username:data.UserName, isMine:false})
 
         }
-    }} h4={true}>{data.PostedBy}</Text>
+    }} style={{fontSize:18,fontWeight:'500'}}>{data.PostedBy}</Text>
     </View>
     {data?.UserName == data?.MyUserName?<TouchableOpacity style={{position:'absolute',right:5}}><Icon color={'black'} name={'close'} type={'font-awesome'} /></TouchableOpacity>:null}
     

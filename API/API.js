@@ -68,3 +68,22 @@ export async function ProfilePostAPI(start,q){
   return data;
 
 }
+
+export async function ProfileBlogAPI(start,q){
+    
+  const data = fetch('https://mymiix.com/public/api/ProfileBlogList?username='+q+'&start='+start)
+  .then(res=>res.json());
+
+  return data;
+
+}
+
+
+export async function BlogAPI(start,q){
+    
+  const data = fetch('https://mymiix.com/public/api/Blog?uniqId='+q)
+  .then(res=>res.json());
+
+  return data;
+
+}

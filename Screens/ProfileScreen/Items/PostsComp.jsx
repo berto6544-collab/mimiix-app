@@ -1,6 +1,6 @@
 import React from "react";
 import { Text,Card,Image,Avatar, Icon,Tab } from "@rneui/themed";
-import { ProfilePostAPI } from "../../../API/API";
+import { ProfilePostAPI, ProfileBlogAPI } from "../../../API/API";
 import { Dimensions, TouchableOpacity, View } from "react-native";
 import FeedItem from "../../../component/feedItems/feedItem";
 import {} from '../styles/styles';
@@ -8,7 +8,7 @@ import {OptimizedFlatList} from 'react-native-optimized-flatlist';
 import AvatarItems from "../components/AvatarItems";
 import Status from "../components/Status";
 import { AuthContext } from "../../../AuthContext/context";
-
+import BlogItem from "../../../component/blogItems/blogItems";
 
 
 
@@ -47,7 +47,7 @@ setStart(start+1)
 
 if(Tabindex == 1) {
 
-    ProfilePostAPI(start,item.UserName).then(response=>{
+  ProfileBlogAPI(start,item.UserName).then(response=>{
         if(response.length == 0)
         return;
         setDataSource(response)
@@ -91,7 +91,7 @@ const handleLoadMore = ()=>{
     }
 
     if(Tabindex == 1 ){
-        ProfilePostAPI(start,item.UserName).then(response=>{
+      ProfileBlogAPI(start,item.UserName).then(response=>{
              if(response.length == 0)
              return;
              setDataSource(dataSource.concat(response))
@@ -204,7 +204,7 @@ const onViewableItemsChanged = ({ viewableItems, changed }) => {
   
 
 
-        <Tab value={Tabindex} onChange={(e)=>{
+        <Tab value={Tabindex} indicatorStyle={{backgroundColor:'black',height:3}} onChange={(e)=>{
             
             setTabIndex(e)
             
@@ -227,7 +227,7 @@ if(e == 1){
     setDataSource([])
     setStart(0)
     
-    ProfilePostAPI(0,item.UserName).then(response=>{
+    ProfileBlogAPI(0,item.UserName).then(response=>{
         if(response.length == 0)
         return;
         setDataSource(response)
@@ -254,16 +254,16 @@ if(e == 2){
 
 
             }} dense>
-        <Tab.Item >Posts</Tab.Item>
-        <Tab.Item  >Blogs</Tab.Item>
-        <Tab.Item>Events</Tab.Item>
+        <Tab.Item titleStyle={{color:'black'}}  >Posts</Tab.Item>
+        <Tab.Item  titleStyle={{color:'black'}}>Blogs</Tab.Item>
+        <Tab.Item titleStyle={{color:'black'}}>Events</Tab.Item>
         </Tab>
         </View>
         }
     
       removeClippedSubviews={true}
       data={dataSource}
-      renderItem={({item,index}) => <FeedItem navigation={navigation} Auth={Auth} key={index} index={index} data={item} />}
+      renderItem={({item,index}) => Tabindex != 1?<FeedItem navigation={navigation} Auth={Auth} key={index} index={index} data={item} />:<BlogItem navigation={navigation} Auth={Auth} key={index} index={index} data={item} />}
       onEndReached={handleLoadMore} 
       onEndReachedThreshold={0.9}
       //windowSize={5}
