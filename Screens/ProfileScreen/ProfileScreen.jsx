@@ -2,13 +2,11 @@ import React from "react";
 import { Text,TouchableOpacity,View } from "react-native";
 import { Icon } from "@rneui/themed";
 import { ProfileDataAPI } from "../../API/API";
-import AvatarItems from "./components/AvatarItems";
+import PostComp from './Items/PostsComp';
 import { Profilestyles } from "./styles/styles";
-import UserCounts from "./components/Status";
 import { AuthContext } from "../../AuthContext/context";
 import DrawerProfileDialog from "../../Dialog/DrawerProfileDialog";
 import DrawerDialog from "../../Dialog/DrawerDialog";
-
 import DrawerCompMain from "../../component/DrawerComponents/DrawerCompMain";
 import DrawerProfileCompMain from "../../component/DrawerComponents/DrawerProfileCompMain";
 
@@ -67,7 +65,10 @@ ProfileDataAPI(username).then((response)=>{
             title:username,
             headerRight: () => (
     
+                <View style={{display:'flex',flexDirection:'row',alignItems:'center',gap:5}}>
+                <TouchableOpacity onPress={()=>{navigation.navigate('CreatePost')}} ><Icon name={'add-box'} type={'materialicons'} /></TouchableOpacity>
                 <TouchableOpacity onPress={()=>{setIsVisible(true)}} ><Icon name={'bars'} type={'ant-design'} /></TouchableOpacity>
+                </View>
               
             ),
           });
@@ -84,10 +85,11 @@ const content = dataSource.map((item,index)=>{
 
     return(
         <View style={Profilestyles.container} key={index} >
-            <AvatarItems data={item} index={index}  username={item.UserName} profileImage={item.ProfileImage} userStats={''} />
-            <UserCounts data={item} index={index}  /> 
+        <PostComp username={username} navigation={navigation} index={index} item={item} />
+      
 
 
+            
 
 
 

@@ -7,7 +7,7 @@ import { OpenUrl } from "../../Utils/URL";
 import {MultiMedias} from '../Media/Media';
 
 
-export default function FeedItem({data,navigation,Auth}){
+export default function EventItem({data,navigation,Auth}){
 
 
     return(

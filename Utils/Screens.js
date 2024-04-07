@@ -8,7 +8,9 @@ import Notifications from '../Screens/NotificationScreen/NotificationScreen';
 import Comment from '../Screens/CommentScreen/CommentScreen';
 import PostScreen from '../Screens/PostScreen/PostScreen';
 import Creator from '../Screens/CreatorScreen/CreatorScreen';
+import SuportScreen from '../Screens/SupportScreen/SupportScreen';
 import { Containerstyles } from '../StyleComponent/Style';
+
 import { Button } from 'react-native';
 
 
@@ -24,11 +26,9 @@ export function LoginFunction(Stack){
        
      <Stack.Navigator  initialRouteName={'Home'} >
        <Stack.Screen  name="Home" options={{headerShown: false}} component={HomeScreen} />
-        <Stack.Screen name="Notifications" options={{presentation:'modal'}} component={Notifications} />
         <Stack.Screen name="Profile" component={Profile} />
-        <Stack.Screen name="Account" component={Account} />
-        <Stack.Screen name="Comment" component={Comment} />
         <Stack.Screen  name="passwordForgot" component={Reset} />
+        <Stack.Screen  name="Support" component={SuportScreen} />
         <Stack.Screen  name="Signup"  component={Signup} />
         <Stack.Screen name="Signin"   component={Signin} />
         </Stack.Navigator>
@@ -54,6 +54,7 @@ export function Authenticated(Stack,navigation){
         <Stack.Screen  name="Signup" component={Signup} />
         <Stack.Screen  name="CreatorPortal" component={Creator} />
         <Stack.Screen  name="passwordForgot" component={Reset} />
+        <Stack.Screen  name="Support" component={SuportScreen} />
         <Stack.Screen name="Signin"  component={Signin} />
         <Stack.Screen name="CreatePost"  options={{presentation:'modal'}} component={ PostScreen} />
         </Stack.Navigator>

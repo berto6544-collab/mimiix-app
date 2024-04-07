@@ -59,3 +59,12 @@ export async function StorieDataAPI(start,q){
   return data;
 
 }
+
+export async function ProfilePostAPI(start,q){
+    
+  const data = fetch('https://mymiix.com/public/api/profilepostsNative?id='+q+'&start='+start)
+  .then(res=>res.json());
+
+  return data;
+
+}

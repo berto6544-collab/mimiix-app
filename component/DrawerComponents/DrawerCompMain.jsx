@@ -82,13 +82,16 @@ export default DrawerCompMain = ({navigation,setClose,Auth,setStart}) =>{
  }}
 icon1={{name:'sharealt',type:'antdesign'}} title={'Invite Friend'} />
 <Buttons 
- onPressed={()=>{
-    
- }}
+ onPressed={support} 
 icon1={{name:'globe',type:'feather'}} title={'Support'} />
+
 <Buttons 
-onPressed={support} 
+onPressed={()=>{
+    
+}}
 icon1={{name:'person',type:'ionicons'}} title={'Deactivate Account'} />
+
+
 <Buttons
  onPressed={()=>{
     
