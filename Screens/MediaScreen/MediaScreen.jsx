@@ -1,6 +1,7 @@
 import React from "react";
 import {View,Text, Dimensions,Button} from 'react-native';
-import Video from "react-native-video";
+import { ResizeMode } from 'expo-av'
+import VideoPlayer from 'expo-video-player'
 import { AuthContext } from "../../AuthContext/context";
 
 export default MediaScreen  = ({route,navigation}) =>{
@@ -32,12 +33,23 @@ React.useEffect(()=>{
 
 if(Auth.mediaType == "video"){
 
-return(<View style={{flex:1,backgroundColor:'black',width:Dimensions.get('screen').width}}>
+return(
     
-    {/*<Video  style={{width:Dimensions.get('screen').width,flex:1}} controls={true} source={{uri:url}}  />*/}
+    <VideoPlayer    
+    
+     videoProps={{
+        shouldPlay: true,
+        style:{width:Dimensions.get('screen').width,height:Dimensions.get('screen').height},
+        resizeMode: ResizeMode.COVER,
+        slider:{visible:true},
+        defaultControlsVisible:true,
+        source: {
+            uri: ""+url,
+        },
+      }}
     
     
-    </View>)
+      />)
 
 
 }

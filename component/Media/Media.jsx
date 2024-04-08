@@ -130,7 +130,7 @@ if(item.match(/\.jpg|\.png|\.jpeg|\.gif/gi)){
 
       Auth.setMediaType('video')
      // Auth.setMediaDataSource([{url:item}])
-      navigation.navigate('Media',{title:data?.UserName, url:data.PostImage,type:'video'})
+      navigation.navigate('Media',{title:data.UserName, url:data?.PostImage,type:'video'})
 
     }} activeOpacity={1} style={{height: Dimensions.get('window').height -470,position:'relative',zIndex:2, width: Dimensions.get('window').width,}}>
 
@@ -166,7 +166,7 @@ if(item.match(/\.jpg|\.png|\.jpeg|\.gif/gi)){
         marginHorizontal: 0,
         height: Dimensions.get('window').height -370, 
         resizeMode: 'cover',
-        }} source={{uri:data.Poster}} />
+        }} source={{uri:''+data.Poster}} />
         </TouchableOpacity>
         
             )
