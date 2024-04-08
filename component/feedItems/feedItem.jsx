@@ -1,10 +1,11 @@
 import React from "react";
-import { Card,Image,Avatar, Icon } from "@rneui/themed";
-import { Text,TouchableOpacity, View } from "react-native";
+import { Card,Image,Avatar, Icon, Button } from "@rneui/themed";
+import { Dimensions, Text,TouchableOpacity, View } from "react-native";
 
 import { FeedItemstyles } from "../../StyleComponent/Style";
 import { OpenUrl } from "../../Utils/URL";
 import {MultiMedias} from '../Media/Media';
+import PaymentComponet from "./component/PaymentComponet";
 
 
 export default function FeedItem({data,navigation,Auth}){
@@ -32,7 +33,24 @@ export default function FeedItem({data,navigation,Auth}){
        
     </View>
     {OpenUrl(data.PostBody,data,navigation,data.PostImage,data.PostId,'')}
-    {data.PostImage != ""?<MultiMedias data={data} /> :null}
+    {data.PostImage != ""?<View style={{position:'relative',width:Dimensions.get('screen').width}}>
+
+    {data.Stat != "" && data.StatData != "0" && data.ShareData != "0" || !data.Payment.match(/acct\_([a-zA-Z0-9_]+)/) || data.PostsSecurity == "copyright" ||data.SubsData != "0" || data.ShareData != "0" || data.Stat == "" || data.MyUserName == data.UserName || data.usersID == 1 || data.thisID == 1  ?<MultiMedias navigation={navigation} data={data} /> :
+    
+        <View style={{position:'relative',width:Dimensions.get('screen').width,height: Dimensions.get('window').height -470}}>
+        
+        <View style={{position:'absolute',display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',width:'100%',zIndex:3,height: Dimensions.get('window').height -480,backgroundColor:'rgba(0,0,0,0.9)'}} >
+        
+        <PaymentComponet navigation={navigation} data={data} Auth={Auth} />
+
+        </View>
+        
+        <MultiMedias navigation={navigation} data={data} />
+        </View>
+        
+        
+        }
+    </View>:null}
 
     <View style={FeedItemstyles.FeedItemBottom}>
     {data?.LikesData == "0"?<TouchableOpacity onPress={()=>{
@@ -85,3 +103,5 @@ navigation.navigate('Comment');
 
 
 }
+
+

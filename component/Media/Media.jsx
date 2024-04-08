@@ -3,16 +3,18 @@ import { Text,Card,Image,Avatar, Icon } from "@rneui/themed";
 import { TouchableOpacity,Dimensions, View } from "react-native";
 import Carousel, { ParallaxImage } from 'react-native-snap-carousel';
 import { FeedItemstyles } from "../../StyleComponent/Style";
+import { AuthContext } from "../../AuthContext/context";
 
 
 const {width: screenWidth} = Dimensions.get('window');
  
-export const MultiMedias = ({data}) =>{
+export const MultiMedias = ({data,navigation}) =>{
 const [dataSource,setDataSource] = React.useState([]);
 const [dataSourceMusic,setDataSourceMusic] = React.useState([]);
 const [musicPlayer,setMusicPlayer] = React.useState([])
 const [ActiveSlide,setActiveSlide] = React.useState(0)
 const reffed = React.useRef(null)
+const Auth = React.useContext(AuthContext)
 const carouselRef = React.useRef(null);
 
 
@@ -124,9 +126,15 @@ if(item.match(/\.jpg|\.png|\.jpeg|\.gif/gi)){
 
 
     return(
-    <TouchableOpacity activeOpacity={1} style={{height: Dimensions.get('window').height -470,position:'relative',zIndex:2, width: Dimensions.get('window').width,}}>
+    <TouchableOpacity onPress={()=>{
 
-<Icon name={'play'} containerStyle={{position:'absolute',top:'45%',zIndex:3,left:'45%'}} size={70} color={'#0086ff'}  type={'font-awesome'} /> 
+      Auth.setMediaType('video')
+     // Auth.setMediaDataSource([{url:item}])
+      navigation.navigate('Media',{title:data?.UserName, url:data.PostImage,type:'video'})
+
+    }} activeOpacity={1} style={{height: Dimensions.get('window').height -470,position:'relative',zIndex:2, width: Dimensions.get('window').width,}}>
+
+    <Icon name={'play'} containerStyle={{position:'absolute',top:'45%',zIndex:3,left:'45%'}} size={70} color={'#0086ff'}  type={'font-awesome'} /> 
 
     <Image style={{
         width: "100%",
@@ -142,7 +150,14 @@ if(item.match(/\.jpg|\.png|\.jpeg|\.gif/gi)){
         
 
         return(
-        <View  style={{height: Dimensions.get('window').height -470,position:'relative',zIndex:2, width: Dimensions.get('window').width,}}>
+        <TouchableOpacity activeOpacity={1} onPress={()=>{
+
+        
+          Auth.setMediaType('audio')
+         // Auth.setMediaDataSource([{url:item}])
+          navigation.navigate('Media',{title:data?.UserName})
+
+        }}  style={{height: Dimensions.get('window').height -470,position:'relative',zIndex:2, width: Dimensions.get('window').width,}}>
         <Icon name={'play'} containerStyle={{position:'absolute',top:'45%',zIndex:3,left:'45%'}} size={70} color={'#0086ff'}  type={'font-awesome-5'} /> 
 
         <Image style={{
@@ -152,7 +167,7 @@ if(item.match(/\.jpg|\.png|\.jpeg|\.gif/gi)){
         height: Dimensions.get('window').height -370, 
         resizeMode: 'cover',
         }} source={{uri:data.Poster}} />
-        </View>
+        </TouchableOpacity>
         
             )
           }
