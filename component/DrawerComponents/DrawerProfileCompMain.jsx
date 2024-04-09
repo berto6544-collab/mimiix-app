@@ -1,7 +1,7 @@
 import React, { Children } from "react";
 import {  Avatar,Icon} from "@rneui/themed";
 import { Dimensions, Text, TouchableOpacity, View } from "react-native";
-
+import * as Sharing from 'expo-sharing';
 
 
 
@@ -53,7 +53,14 @@ export default DrawerProfileCompMain = ({navigation,data,setClose,Auth,setStart}
    
 }} icon1={{name:'block',type:'materialicons'}} title={'Block'} />
 
+<Buttons onPressed={()=>{
+  //navigator.clipboard.writeText('https://mymiix.com/profile/'+data.UserName);
+  const url = 'https://mymiix.com/profile/'+data.UserName;
+  
+  Sharing.shareAsync(url, {
 
+  })
+}} icon1={{name:'sharealt',type:'antdesign'}} title={'Copy Profile Url'} />
 
 
 

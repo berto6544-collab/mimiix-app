@@ -197,67 +197,76 @@ const onViewableItemsChanged = ({ viewableItems, changed }) => {
  <OptimizedFlatList 
       
       ListHeaderComponent={
-        <View style={{width:'100%',display:'flex',paddingHorizontal:0,flexDirection:'column',gap:20,alignItems:'flex-start',marginBottom:30}}>
+        <View style={{width:'100%',display:'flex',paddingHorizontal:0,flexDirection:'column',gap:20,alignItems:'flex-start',marginBottom:10}}>
         
         <AvatarItems data={item} index={index}  username={item.UserName} profileImage={item.ProfileImage} userStats={item.UsersStat} />
         <Status data={item} index={index}  /> 
   
 
 
-        <Tab value={Tabindex} indicatorStyle={{backgroundColor:'black',height:3}} onChange={(e)=>{
+        
             
-            setTabIndex(e)
-            
-if(e == 0){
-    setDataSource([])
-    setStart(0)
-   
-
-    ProfilePostAPI(0,item.UserName).then(response=>{
-        if(response.length == 0)
-        return;
-        setDataSource(response)
-        setStart(start+1)
+        <View style={{display:'flex',width:'100%',flexDirection:'row',alignItems:'center',justifyContent:'space-between',paddingHorizontal:30}}>
+        <TouchableOpacity onPress={()=>{
+          
+            setDataSource([])
+            setStart(0)
+            setTabIndex(0)
         
+            ProfilePostAPI(0,item.UserName).then(response=>{
+                if(response.length == 0)
+                return;
+                setDataSource(response)
+                setStart(start+1)
+                
+                
+                })
         
-        })
-}
-
-if(e == 1){
-    setDataSource([])
-    setStart(0)
-    
-    ProfileBlogAPI(0,item.UserName).then(response=>{
-        if(response.length == 0)
-        return;
-        setDataSource(response)
-        setStart(start+1)
+        }} style={{padding:'10',borderBottomWidth: Tabindex == 0?2:0}}><Text style={{color:'black',textAlign:'center',fontSize:20}}>Posts</Text></TouchableOpacity>
+        <TouchableOpacity
+        onPress={()=>{
+          
+          setDataSource([])
+          setStart(0)
+          setTabIndex(1)
+      
+          ProfileBlogAPI(0,item.UserName).then(response=>{
+              if(response.length == 0)
+              return;
+              setDataSource(response)
+              setStart(start+1)
+              
+              
+              })
+      
+      }}
         
-        
-        })
-}
-
-if(e == 2){
-    setDataSource([])
-    setStart(0)
-  
-    ProfilePostAPI(0,item.UserName).then(response=>{
-        if(response.length == 0)
-        return;
-        setDataSource(response)
-        setStart(start+1)
-        
-        
-        })
-}
+        style={{padding:'10',borderBottomWidth:Tabindex == 1?2:0}}><Text style={{color:'black',textAlign:'center',fontSize:20}}>Blogs</Text></TouchableOpacity>
 
 
 
-            }} dense>
-        <Tab.Item titleStyle={{color:'black'}}  >Posts</Tab.Item>
-        <Tab.Item  titleStyle={{color:'black'}}>Blogs</Tab.Item>
-        <Tab.Item titleStyle={{color:'black'}}>Events</Tab.Item>
-        </Tab>
+        <TouchableOpacity 
+        onPress={()=>{
+          
+          setDataSource([])
+          setStart(0)
+          setTabIndex(2)
+      
+          ProfilePostAPI(0,item.UserName).then(response=>{
+              if(response.length == 0)
+              return;
+              setDataSource(response)
+              setStart(start+1)
+              
+              
+              })
+      
+      }}
+        
+        style={{padding:'10',borderBottomWidth:Tabindex == 2?2:0}}><Text style={{color:'black',fontSize:20}}>Events</Text></TouchableOpacity>
+        
+        </View>
+        
         </View>
         }
     

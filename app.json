@@ -15,7 +15,9 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier":"org.reactjs.native.example.minglemiix"
+      
     },
     "android": {
       "adaptiveIcon": {

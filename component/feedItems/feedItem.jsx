@@ -6,7 +6,7 @@ import { FeedItemstyles } from "../../StyleComponent/Style";
 import { OpenUrl } from "../../Utils/URL";
 import {MultiMedias} from '../Media/Media';
 import PaymentComponet from "./component/PaymentComponet";
-
+import * as Sharing from 'expo-sharing';
 
 export default function FeedItem({data,navigation,Auth}){
 
@@ -88,9 +88,15 @@ navigation.navigate('Comment');
     }}><Icon  name={'comment-o'} type={'font-awesome'} /></TouchableOpacity>}
 
     
-    {<TouchableOpacity><Icon  name={'dollar'} type={'font-awesome'} /></TouchableOpacity>}
+    {<TouchableOpacity onPress={()=>{
+        navigation.navigate('Web',{url:'https://mymiix.com/@'+data.UserName+'/contribute'})
+    }}><Icon  name={'dollar'} type={'font-awesome'} /></TouchableOpacity>}
     {<TouchableOpacity><Icon  name={'share'} type={'font-awesome'} /></TouchableOpacity>}
-    {<TouchableOpacity><Icon  name={'share'} type={'font-awesome5'} /></TouchableOpacity>}
+    {<TouchableOpacity onPress={()=>{
+        const u = 'https://mymiix.com/p/'+data.UniqeId
+        Sharing.shareAsync(u)
+
+    }}><Icon  name={'share'} type={'font-awesome5'} /></TouchableOpacity>}
 
     </View>
     

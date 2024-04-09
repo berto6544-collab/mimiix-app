@@ -128,9 +128,23 @@ if(item.match(/\.jpg|\.png|\.jpeg|\.gif/gi)){
     return(
     <TouchableOpacity onPress={()=>{
 
+      const videoData = [{
+        trackNumber:1,
+        url:item,
+        uniqueId:data.UniqeId,
+        cover: ''+data.Poster,
+        artist:{
+          name:data?.UserName,
+          song:data?.PostTitle,
+          duration:'unknown',
+          tag:'',
+          genre:'',
+        }
+
+      }]
       Auth.setMediaType('video')
-     // Auth.setMediaDataSource([{url:item}])
-      navigation.navigate('Media',{title:data.UserName, url:data?.PostImage,type:'video'})
+      Auth.setMediaDataSource(videoData)
+      navigation.navigate('Media',{title:data?.PostTitle == undefined ? data?.UserName : data.PostTitle, url:item,type:'video'})
 
     }} activeOpacity={1} style={{height: Dimensions.get('window').height -470,position:'relative',zIndex:2, width: Dimensions.get('window').width,}}>
 
@@ -154,8 +168,8 @@ if(item.match(/\.jpg|\.png|\.jpeg|\.gif/gi)){
 
         
           Auth.setMediaType('audio')
-         // Auth.setMediaDataSource([{url:item}])
-          navigation.navigate('Media',{title:data?.UserName})
+          Auth.setMediaDataSource(musicPlayer)
+          navigation.navigate('Media',{title:data.UserName, url:item,type:'video'})
 
         }}  style={{height: Dimensions.get('window').height -470,position:'relative',zIndex:2, width: Dimensions.get('window').width,}}>
         <Icon name={'play'} containerStyle={{position:'absolute',top:'45%',zIndex:3,left:'45%'}} size={70} color={'#0086ff'}  type={'font-awesome-5'} /> 
