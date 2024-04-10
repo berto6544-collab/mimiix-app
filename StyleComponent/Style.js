@@ -58,13 +58,12 @@ export const Containerstyles = StyleSheet.create({
 
 export const FeedItemstyles = StyleSheet.create({
     container: {
-      paddingTop:20,
       flex:1,
       width:'100%',
       position:'relative',
       backgroundColor: 'rgb(240, 244, 248)',
       alignItems: 'center',
-      marginBottom:20,
+      marginBottom:40,
       paddingBottom:10
     },
 
@@ -89,14 +88,13 @@ paddingVertical:0
 
     TopNav:{
       width:'100%',
-      height:100,
-      paddingTop:30,
       backgroundColor:'rgb(240, 244, 248)',
       paddingHorizontal:10,
       display:'flex',
       flexDirection:'row',
       alignItems:'center',
       justifyContent:'space-between',
+      paddingVertical:10,
       
 
     },

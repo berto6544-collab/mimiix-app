@@ -34,6 +34,7 @@
     "react-native-big-list": "^1.6.1",
     "react-native-fast-image": "^8.6.3",
     "react-native-gesture-handler": "^2.16.0",
+    "react-native-google-mobile-ads": "^13.2.0",
     "react-native-insta-story": "^1.1.9",
     "react-native-optimized-flatlist": "^1.0.4",
     "react-native-reanimated": "^3.8.1",

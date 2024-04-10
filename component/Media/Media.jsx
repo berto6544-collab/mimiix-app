@@ -108,7 +108,10 @@ if(item.match(/\.jpg|\.png|\.jpeg|\.gif/gi)){
 
 
     return(
-    <TouchableOpacity activeOpacity={1} style={{height: Dimensions.get('window').height -470,position:'relative',zIndex:2, width: Dimensions.get('window').width}}>
+    <TouchableOpacity key={index} onPress={()=>{
+     
+
+    }} activeOpacity={1} style={{height: Dimensions.get('window').height -470,position:'relative',zIndex:2, width: Dimensions.get('window').width}}>
 
 
     
@@ -126,7 +129,7 @@ if(item.match(/\.jpg|\.png|\.jpeg|\.gif/gi)){
 
 
     return(
-    <TouchableOpacity onPress={()=>{
+    <TouchableOpacity key={index} onPress={()=>{
 
       const videoData = [{
         trackNumber:1,
@@ -164,7 +167,7 @@ if(item.match(/\.jpg|\.png|\.jpeg|\.gif/gi)){
         
 
         return(
-        <TouchableOpacity activeOpacity={1} onPress={()=>{
+        <TouchableOpacity key={index} activeOpacity={1} onPress={()=>{
 
         
           Auth.setMediaType('audio')

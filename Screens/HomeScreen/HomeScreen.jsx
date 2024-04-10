@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useRef} from "react";
 import { Text,Card,Image,Avatar, Icon, } from "@rneui/themed";
 import { FeedsData } from "../../API/API";
 import { Dimensions, TouchableOpacity, View } from "react-native";
@@ -8,10 +8,16 @@ import {OptimizedFlatList} from 'react-native-optimized-flatlist';
 import QuoteComp from '../../component/Quote/QuoteComponent';
 import Storie  from '../../component/StoriesComp/StorieComp'
 import DrawerDialog from "../../Dialog/DrawerDialog";
-
+import {FlashList, useBenchmark} from "@shopify/flash-list"
 
 import { AuthContext } from "../../AuthContext/context";
 import DrawerCompMain from "../../component/DrawerComponents/DrawerCompMain";
+import { SafeAreaView } from "react-native-safe-area-context";
+
+
+
+
+
 
 export default function Feed({navigation}){
 
@@ -20,9 +26,13 @@ export default function Feed({navigation}){
     const [start,setStart] = React.useState(0)
     const [tabIndex,setTabIndex] = React.useState(0)
     const [showDrawer,setShowDrawer] = React.useState(false)
+    const flashListRef = useRef(null);
 
   const Auth = React.useContext(AuthContext);
-  
+  /*const onBlankArea = useBenchmark (ref,(result)=>{
+
+
+  })*/
 
 React.useEffect(()=>{
 
@@ -66,92 +76,10 @@ const handleCloseDrawer = () =>{
   setShowDrawer(false);
 }
 
-const onViewableItemsChanged = ({ viewableItems, changed }) => {
+const onViewableItemsChanged = info => {
+console.log(info)    
     
-    
-    // console.log("Changed in this iteration", changed);
-    console.log("Visible items are", viewableItems);
-    
- viewableItems.forEach(ele => {
-       //  console.log(ele.key);
- 
- 
    
- 
- 
- if(ele.isViewable === true){
-   
-   if(ele.item['type'] == "banner"){
- 
-     //ele.item['Count'] += 1;
-     
- 
- /*if(ele.item['Vieweddd'] == 0){
-   ele.item['Vieweddd'] = 1;
- 
-      fetch('https://mymiix.com/public/api/SponsoredAd?Id='+ele.item['Id']+'&userId='+'',{
-           method:'GET',
-           header:{
-             'Accept': 'application/json',
-             'Content-Type': 'application/json'
-           }
-           
-         })
-         .then((response) => response.json())
-          .then((responseJson)=>{
-             
-           
-          
-           
-         
-           
-          });
- 
- 
- 
-         }*/
-       
- 
- 
-   }else{
- 
-     
-     //ele.item['Count'] += 1;
-     
-       if(ele.item['Vieweddd'] == 0){
-         ele.item['Vieweddd'] = 1;
-       
-       fetch('https://mymiix.com/public/api/videoViewersReactNative?idd='+ele.item['PostId']+"",{
-           method:'GET',
-           header:{
-             'Accept': 'application/json',
-             'Content-Type': 'application/json'
-           }
-           
-         })
-         .then((response) => response.json())
-          .then((responseJson)=>{
-             
-           
-           //this.ViewItem(ele.key,responseJson['Likes'])
-          
-           
-         
-           
-         
-          });
-         }
- 
-         
-         console.log(ele.item['Vieweddd'])
-         
-         }
-         }
- 
-       
-         
- 
-       });
        
       
  
@@ -161,7 +89,7 @@ const onViewableItemsChanged = ({ viewableItems, changed }) => {
 
 
     return(
-    <View>
+    <SafeAreaView style={{flex:1}}>
 
  <View style={FeedItemstyles.TopNav}>
 
@@ -223,9 +151,10 @@ setShowDrawer(true)
 
 
 
- <OptimizedFlatList 
+
+ <OptimizedFlatList
       
-      
+      ref={flashListRef}
       ListHeaderComponent={
       <View style={{width:'100%',display:'flex',paddingHorizontal:0,flexDirection:'column',gap:20,alignItems:'flex-start'}}>
       
@@ -234,16 +163,26 @@ setShowDrawer(true)
 
       </View>
       }
+      
 
-      removeClippedSubviews={true}
+      
       data={Auth.PostDataSource}
-      renderItem={({item,index}) => <FeedItem navigation={navigation} Auth={Auth} key={index} index={index} data={item} />}
+      renderItem={({item,index}) => {return(<FeedItem isProfile={false} navigation={navigation} Auth={Auth}  index={index} data={item} />)}}
       onEndReached={handleLoadMore} 
       onEndReachedThreshold={0.9}
-      //windowSize={5}
-      onViewableItemsChanged={onViewableItemsChanged}
-      
-       
+     // estimatedItemSize={100}
+     
+    
+     
+    onViewableItemsChanged={onViewableItemsChanged}
+    
+    keyExtractor={item=>item.PostId}
+   
+      /* viewabilityConfig={{
+        waitForInteraction:true,
+        itemVisiblePercentThreshold:50,
+        minimumViewTime:1000
+       }}*/
        
        />
 
@@ -267,5 +206,5 @@ userStats={Auth.Authuser.length > 0 ?Auth.Authuser[0].UsersStat:''}
 
 
 
-    </View>)
+    </SafeAreaView>)
 }

@@ -16,8 +16,7 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier":"org.reactjs.native.example.minglemiix"
-      
+      "bundleIdentifier": "org.reactjs.native.example.minglemiix"
     },
     "android": {
       "adaptiveIcon": {
@@ -27,6 +26,11 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "e7f78540-2d4b-46d2-bae5-8cc1f764a03d"
+      }
     }
   }
 }

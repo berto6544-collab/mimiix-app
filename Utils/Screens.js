@@ -32,6 +32,7 @@ export function LoginFunction(Stack){
         <Stack.Screen  name="passwordForgot" component={Reset} />
         <Stack.Screen  name="Support" component={SuportScreen} />
         <Stack.Screen  name="Signup"  component={Signup} />
+        <Stack.Screen name="Comment" options={{presentation:'modal'}} component={Comment} />
         <Stack.Screen name="Web"  options={{presentation:'modal'}} component={WebScreen} />
         <Stack.Screen name="Media"  options={{presentation:'modal'}} component={MediaScreen} />
         <Stack.Screen  name="Blog" component={BlogScreen} />
@@ -56,7 +57,7 @@ export function Authenticated(Stack,navigation){
         <Stack.Screen name="Profile" component={Profile} />
         <Stack.Screen  name="Blog" component={BlogScreen} />
         <Stack.Screen name="Account" component={Account} />
-        <Stack.Screen name="Comment" component={Comment} />
+        <Stack.Screen name="Comment" options={{presentation:'modal'}} component={Comment} />
         <Stack.Screen  name="Signup" component={Signup} />
         <Stack.Screen  name="CreatorPortal" component={Creator} />
         <Stack.Screen  name="Support" component={SuportScreen} />

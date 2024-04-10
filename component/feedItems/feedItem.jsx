@@ -7,8 +7,16 @@ import { OpenUrl } from "../../Utils/URL";
 import {MultiMedias} from '../Media/Media';
 import PaymentComponet from "./component/PaymentComponet";
 import * as Sharing from 'expo-sharing';
+import { PostLikeApi } from "../../API/API";
 
-export default function FeedItem({data,navigation,Auth}){
+//import { GAMBannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
+
+
+
+export default function FeedItem({data,navigation,index,Auth,isProfile}){
+
+   // const adUnitId = TestIds.GAM_BANNER
+
 
 
     return(
@@ -52,13 +60,28 @@ export default function FeedItem({data,navigation,Auth}){
         }
     </View>:null}
 
+
+    {data?.UserName == data?.MyUserName?<TouchableOpacity 
+    onPress={()=>{
+        navigation.navigate('Web',{url:'https://mymiix.com/promoanalytics/p/'+data.PostId,title:'Post Insight'})
+    }}
+    style={{marginBottom:10,paddingLeft:10,alignSelf:'flex-start'}}><Text style={{fontSize:15,color:'blue',fontWeight:'600'}}>Insight</Text></TouchableOpacity>:null}
+
     <View style={FeedItemstyles.FeedItemBottom}>
     {data?.LikesData == "0"?<TouchableOpacity onPress={()=>{
     if(Auth.Authuser.length  == 0){navigation.navigate('Signin');}else{
 
+        data.LikesData = 1;
+        data.LikesCount = Number(data.LikesCount)+1
+
+        Auth.setPostDataSource([...Auth.PostDataSource])
+
+        PostLikeApi(data.PostId,"","","")
+        
+
 
     }}} style={{display:'flex',alignItems:'center',flexDirection:'row',gap:5}}>
-        <Icon  name={'heart-o'} type={'font-awesome'} />
+        <Icon  name={'heart-o'}  type={'font-awesome'} />
         <Text>{data?.LikesCount}</Text>
         </TouchableOpacity>
         :
@@ -67,6 +90,12 @@ export default function FeedItem({data,navigation,Auth}){
         {navigation.navigate('Signin');}
         else{
     
+            data.LikesData = 0;
+            data.LikesCount = Number(data.LikesCount)-1
+    
+            Auth.setPostDataSource([...Auth.PostDataSource])
+            PostLikeApi(data.PostId,"","","")
+
     
         }}} style={{display:'flex',alignItems:'center',flexDirection:'row',gap:5}}>
             <Icon  color={'#0086ff'} name={'heart'} type={'font-awesome'} />
@@ -81,17 +110,24 @@ navigation.navigate('Signin');
 
 }else{
 
-navigation.navigate('Comment');
+navigation.navigate('Comment',{postId:data.PostId});
 
 }
         
     }}><Icon  name={'comment-o'} type={'font-awesome'} /></TouchableOpacity>}
 
     
-    {<TouchableOpacity onPress={()=>{
+    {data.Payment.match(/acct\_([a-zA-Z0-9_]+)/)?<TouchableOpacity onPress={()=>{
         navigation.navigate('Web',{url:'https://mymiix.com/@'+data.UserName+'/contribute'})
-    }}><Icon  name={'dollar'} type={'font-awesome'} /></TouchableOpacity>}
-    {<TouchableOpacity><Icon  name={'share'} type={'font-awesome'} /></TouchableOpacity>}
+    }}><Icon  name={'dollar'} type={'font-awesome'} /></TouchableOpacity>:null}
+
+
+{!isProfile?<TouchableOpacity onPress={()=>{
+        navigation.navigate('Web',{url:'https://mymiix.com/pininsight/'+data.PostId})
+    }}><Icon  name={'map-pin'} type={'font-awesome'} /></TouchableOpacity>:null}
+
+
+    {/*<TouchableOpacity><Icon  name={'share'} type={'font-awesome'} /></TouchableOpacity>*/}
     {<TouchableOpacity onPress={()=>{
         const u = 'https://mymiix.com/p/'+data.UniqeId
         Sharing.shareAsync(u)
@@ -102,6 +138,11 @@ navigation.navigate('Comment');
     
     
 
+
+    {/*<GAMBannerAd
+      unitId={adUnitId}
+      sizes={[BannerAdSize.FULL_BANNER]}
+/>*/}
 
     </View>
     

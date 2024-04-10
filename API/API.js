@@ -51,6 +51,23 @@ export async function ProfileDataAPI(username){
 
 }
 
+
+export async function GetcommentsAPi(postid,start){
+
+  const data = fetch('https://mymiix.com/public/api/commentsRN?postid='+postid+'&start='+start)
+  .then(response=>response.json())
+
+  return data;
+}
+
+export async function GetPinnedcommentsAPi(postid){
+
+  const data = fetch('https://mymiix.com/public/api/commentsPinned?postid='+postid+'start=0')
+  .then(response=>response.json())
+
+  return data;
+}
+
 export async function StorieDataAPI(start,q){
     
   const data = fetch('https://mymiix.com/public/api/storieNative?start='+start+'&q='+q)
@@ -76,6 +93,23 @@ export async function ProfileBlogAPI(start,q){
 
   return data;
 
+}
+
+
+export const PostLikeApi = async(Postid,likeCount,likeData,status) =>{
+
+  const data = await fetch('https://mymiix.com/public/api/ReactNativelikes?idd='+Postid+status+"&func=Like",{
+      method:'POST',
+      header:{
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+      
+      })
+      .then((response) => response.json())
+
+
+      return data;
 }
 
 

@@ -5,7 +5,7 @@ import { AuthContext } from "../../AuthContext/context";
 import { Icon, Image,Slider } from "@rneui/themed";
 import Cover from "./component/Cover";
 import DrawerProfileDialog from "../../Dialog/DrawerProfileDialog";
-
+import { MultiMedias } from "../../component/Media/Media";
 export default MediaScreen  = ({route,navigation}) =>{
 
     const {title,type,url} = route.params;
@@ -93,7 +93,7 @@ React.useEffect(()=>{
 
     navigation.setOptions({
         headerLeft:()=>(<View></View>),
-        headerTitle:() => (<Text style={{fontSize:18,width:'100%',color:'white',paddingRight:70,fontWeight:'700'}}>{Auth.mediaDataSource.length == 0?title:Auth.mediaDataSource[Auth.index].artist.song}</Text>),
+        headerTitle:() => (<Text style={{fontSize:18,width:'100%',color:'white',paddingRight:70,fontWeight:'700'}}>{Auth.mediaDataSource.length == 0?title:Auth.mediaDataSource[Auth.index]?.artist?.song}</Text>),
         headerStyle: {
             backgroundColor: 'black'
           },
@@ -139,6 +139,21 @@ return ()=>clearInterval(interval)
 
 
 if(Auth.mediaDataSource.length > 0){
+
+
+
+
+  if(Auth.mediaType == "image"){
+  
+  
+  <View style={{width:Dimensions.get('screen').width,height:Dimensions.get('screen').height,backgroundColor:'black',flex:1}}>
+
+<MultiMedias data={Auth.mediaDataSource} navigation={navigation} />
+
+  </View>
+  
+  
+  }
 
 
 if(Auth.mediaType == "video"){
@@ -332,7 +347,7 @@ VideoRef.current.playAsync();
 }
 
 else{
-    return(<View></View>)
+    return(<View style={{flex:1,backgroundColor:'black'}}></View>)
 }
 
 
