@@ -3,13 +3,15 @@ import {userData} from './API/API'
 import { StatusBar } from 'expo-status-bar';
 import { Text, View } from 'react-native';
 import { Containerstyles } from './StyleComponent/Style';
-import { LoginFunction,Authenticated } from './Utils/Screens';
+import { LoginFunction,Authenticated} from './Utils/Screens';
 import { AuthContext } from './AuthContext/context';
 import { NavigationContainer} from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+
 
 const Stack = createNativeStackNavigator();
-
+const Tab =  createBottomTabNavigator();
 
 export default function App({navigation}) {
   const [Authuser,setAuthUser] = React.useState([]);
@@ -45,9 +47,14 @@ return(
 <AuthContext.Provider style={Containerstyles.container} value={{Authuser,setAuthUser,PostDataSource,setPostDataSource,theme,setTheme,token,setToken,mediaType,setMediaType,mediaDataSource,setMediaDataSource,index,setIndex}}>
  <NavigationContainer>
 
-{Authuser.length > 0 && Authuser[0].UserName == "" || Authuser.length == 0 ? LoginFunction(Stack) : Authenticated(Stack,navigation)}
+{Authuser.length > 0 && Authuser[0].UserName == "" || Authuser.length == 0 ? LoginFunction(Stack,Tab) : Authenticated(Stack,Tab)}
+
+
+
 
 </NavigationContainer>
+
+
 
 </AuthContext.Provider>
 

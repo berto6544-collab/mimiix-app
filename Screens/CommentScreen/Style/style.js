@@ -50,7 +50,7 @@ TextAreaBase:{
 
     display:'flex',
     flexDirection:'column',
-    padding:10,
+    paddingHorizontal:10,
     backgroundColor:'white'
 }
 

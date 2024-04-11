@@ -89,8 +89,9 @@ console.log(info)
 
 
     return(
-    <SafeAreaView style={{flex:1}}>
+    <View style={{flex:1}}>
 
+<SafeAreaView edges={['top']}>
  <View style={FeedItemstyles.TopNav}>
 
   <View style={{display:'flex',flexDirection:'row',gap:5,alignItems:'center'}}>
@@ -147,7 +148,7 @@ setShowDrawer(true)
 
  </View>
     
-
+ </SafeAreaView>
 
 
 
@@ -167,7 +168,7 @@ setShowDrawer(true)
 
       
       data={Auth.PostDataSource}
-      renderItem={({item,index}) => {return(<FeedItem isProfile={false} navigation={navigation} Auth={Auth}  index={index} data={item} />)}}
+      renderItem={({item,index}) => {return(<FeedItem dataSource={Auth.PostDataSource} setDataSource={Auth.setPostDataSource} isProfile={false} navigation={navigation} Auth={Auth}  index={index} data={item} />)}}
       onEndReached={handleLoadMore} 
       onEndReachedThreshold={0.9}
      // estimatedItemSize={100}
@@ -188,6 +189,65 @@ setShowDrawer(true)
 
 
 
+<SafeAreaView edges={['bottom']} style={FeedItemstyles.BottomNav} >
+
+
+<View  style={{display:'flex',width:'100%',flexDirection:'row',alignItems:'center',justifyContent:'space-between'}}>
+
+ 
+    {/*Button navigates you to the message screen or if your not signed-in then the signin screen */}
+  <Icon name={'home'} size={33} color={'blue'} type={'fontisto'} onPress={()=>{
+if(Auth.Authuser.length > 0 ){
+  navigation.navigate('Home')
+  }else{
+    navigation.navigate('Signin')
+  }
+
+  }} />
+
+
+ {/*Button navigates you to the explore screen */}
+<TouchableOpacity onPress={()=>{
+if(Auth.Authuser.length > 0 ){
+navigation.navigate('Notifications')
+}else{
+
+navigation.navigate('Signin')
+
+}
+  
+}}
+
+>
+  <Icon name={'notifications'} size={35} type={'ionicon'} />
+</TouchableOpacity>
+
+
+
+  
+  {/*Button navigates you to create post screen or if your not signed-in then the signin screen */}
+  
+<TouchableOpacity onPress={()=>{
+if(Auth.Authuser.length > 0 ){
+  navigation.navigate('Profile',{username:Auth.Authuser[0].UserName,title:'@'+Auth.Authuser[0].UserName})
+  }else{
+    navigation.navigate('Signin')
+  }
+
+
+}}
+
+>{<Avatar size={40} rounded={true} source={{uri:Auth.Authuser.length > 0 ? Auth.Authuser[0].ProfileImage:''}} />}
+</TouchableOpacity>
+
+
+
+
+ </View>
+
+</SafeAreaView>
+
+
 <DrawerDialog 
 setClose={handleCloseDrawer}
 Auth={Auth}
@@ -206,5 +266,5 @@ userStats={Auth.Authuser.length > 0 ?Auth.Authuser[0].UsersStat:''}
 
 
 
-    </SafeAreaView>)
+    </View>)
 }

@@ -22,7 +22,7 @@ React.useEffect(()=>{
     navigation.setOptions({
         
             
-        title:username,
+        title:'',
         headerRight: () => (
 
             <TouchableOpacity onPress={()=>{
@@ -47,10 +47,11 @@ ProfileDataAPI(username).then((response)=>{
 
         headerTitle:()=>(
             <View style={{display:'flex',flexDirection:'row',alignItems:'center',gap:5}} >
-                <Text style={{fontSize:17,fontWeight:'600'}}>{username}</Text>
+                <Text style={{fontSize:17,fontWeight:'600'}}>{response[0].UserName}</Text>
                 {response[0].verified == "1"?<Icon name={'verified'} fontSize={15} type={'material-icons'} />:null}
                 </View>
         ),
+        title:response[0].UserName,
         headerRight: () => (
 
             <TouchableOpacity onPress={()=>{setIsVisible(true)}} ><Icon name={'bars'} type={'ant-design'} /></TouchableOpacity>
@@ -62,7 +63,7 @@ ProfileDataAPI(username).then((response)=>{
         navigation.setOptions({
         
             
-            title:username,
+            title:response[0].UserName,
             headerRight: () => (
     
                 <View style={{display:'flex',flexDirection:'row',alignItems:'center',gap:5}}>

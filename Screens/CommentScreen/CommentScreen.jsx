@@ -1,5 +1,5 @@
 import React from "react";
-import { Dimensions, TouchableOpacity, View,Text } from "react-native";
+import { Dimensions, TouchableOpacity, View,Text,Button } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { ListStyle } from "./Style/style";
 import ListArea from "./component/ListArea";
@@ -17,8 +17,17 @@ const [dataSourcePinned,setDataSourcePinned] = React.useState([]);
 const [start,setStart] = React.useState(0);
 
 
+
+
 React.useEffect(()=>{
 
+    navigation.setOptions({
+        headerLeft:()=>(<View></View>),
+        title:"Comments",
+        headerRight: () => (
+          <Button onPress={() => {navigation.goBack();}} title="Done" />
+        ),
+      });
 
     fetchData();
 
@@ -34,6 +43,8 @@ GetPinnedcommentsAPi(postId)
    setDataSourcePinned(res)
     
 })
+
+
 
     GetcommentsAPi(postId,start)
     .then(res=>{
@@ -64,12 +75,12 @@ const handleItem = () =>{
 }
 
 
-return(<SafeAreaView style={ListStyle.container}>
+return(<View style={ListStyle.container}>
 
-{dataSourcePinned.length == 0?null:<PinnedList dataSource={dataSourcePinned} navigation={navigation} />}
-<ListArea handleItem={handleItem} dataSourcePinned={dataSourcePinned} navigation={navigation} dataSource={dataSource} />
+{dataSourcePinned.length == 0?null:<PinnedList setDataSource={setDataSourcePinned} dataSource={dataSourcePinned} navigation={navigation} />}
+<ListArea handleItem={handleItem} setDataSource={setDataSource} dataSourcePinned={dataSourcePinned} navigation={navigation} dataSource={dataSource} />
 <TextArea postId={postId} dataSouce={dataSource} setDataSource={setDataSource} />
 
-</SafeAreaView>)
+</View>)
 
 }

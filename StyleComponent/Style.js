@@ -94,23 +94,19 @@ paddingVertical:0
       flexDirection:'row',
       alignItems:'center',
       justifyContent:'space-between',
-      paddingVertical:10,
+      paddingBottom:10,
       
 
     },
 
     BottomNav:{
       width:'100%',
-      height:70,
-      paddingVertical:20,
-      backgroundColor:'rgb(240, 244, 248)',
-      paddingHorizontal:10,
+      paddingTop:10,
+      backgroundColor:'white',
+      paddingHorizontal:15,
       zIndex:80,
       display:'flex',
       flexDirection:'row',
-      position:'absolute',
-      bottom:0,
-      alignItems:'center',
       justifyContent:'space-between',
       
 
@@ -141,41 +137,22 @@ paddingVertical:0
     container: {
       margin:0,
       padding:0,
-      width:'100',
-      paddingBottom:40,
-      backgroundColor:'lightgrey'
+      width:'100%',
+      backgroundColor:'lightgrey',
+      height:Dimensions.get('window').height -470,
+      position:'relative'
 
     },
 
     PreviewImage: {
       width:'100%',
-      height:Dimensions.get('window').height -670,
+      height:Dimensions.get('window').height -470,
       margin:0,
       padding:0,
       objectFit:'cover',
     },
 
-    TopNav:{
-      width:'100%',
-      height:50,
-      
-      display:'flex',
-      flexDirection:'row',
-      alignItems:'center',
-      justifyContent:'space-between',
-      padding:10,
-
-    },
-
-    AvatarBase:{
-      width:'100%',
-      alignItems:'center',
-      display:'flex',
-      flexDirection:'row',
-      paddingBottom:10,
-      gap:5,
-
-    },
+    
 
     
 

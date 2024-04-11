@@ -7,20 +7,31 @@ import { OpenUrl } from "../../Utils/URL";
 import {MultiMedias} from '../Media/Media';
 import PaymentComponet from "./component/PaymentComponet";
 import * as Sharing from 'expo-sharing';
-import { PostLikeApi } from "../../API/API";
-
-//import { GAMBannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
+import { PostDeleteAPi, PostLikeApi } from "../../API/API";
 
 
 
-export default function FeedItem({data,navigation,index,Auth,isProfile}){
+export default function FeedItem({data,navigation,dataSource,setDataSource,index,Auth,isProfile}){
 
-   // const adUnitId = TestIds.GAM_BANNER
 
+ const Delete = () =>{
+
+    PostDeleteAPi(data?.PostId)
+    .then(res=>{
+
+        if(res.length == 0)return;
+
+        dataSource.splice(index,1)
+        setDataSource([...dataSource])
+
+    })
+ }    
 
 
     return(
-    <View key={data.PostId} style={[FeedItemstyles.FeedItem,{position:'relative'}]}>
+    <TouchableOpacity activeOpacity={1} key={data.PostId} onPress={()=>{
+        navigation.navigate('Post',{uniqid:data?.UniqeId})
+    }} style={[FeedItemstyles.FeedItem,{position:'relative'}]}>
     <View style={[FeedItemstyles.AvatarBase,{position:'relative'}]}>
     <View style={{width:'100%',paddingHorizontal:5,display:'flex',flexDirection:'row',alignItems:'center',gap:5}}>
     <Avatar rounded={true} source={{uri:data?.ProfileImg}} />
@@ -35,7 +46,7 @@ export default function FeedItem({data,navigation,index,Auth,isProfile}){
         }
     }} style={{fontSize:18,fontWeight:'500'}}>{data.PostedBy}</Text>
     </View>
-    {data?.UserName == data?.MyUserName?<TouchableOpacity style={{position:'absolute',right:5}}><Icon color={'black'} name={'close'} type={'font-awesome'} /></TouchableOpacity>:null}
+    {data?.UserName == data?.MyUserName?<TouchableOpacity onPress={Delete} style={{position:'absolute',right:5}}><Icon color={'black'} name={'close'} type={'font-awesome'} /></TouchableOpacity>:null}
     
         
        
@@ -139,12 +150,9 @@ navigation.navigate('Comment',{postId:data.PostId});
     
 
 
-    {/*<GAMBannerAd
-      unitId={adUnitId}
-      sizes={[BannerAdSize.FULL_BANNER]}
-/>*/}
+  
 
-    </View>
+    </TouchableOpacity>
     
     )
 

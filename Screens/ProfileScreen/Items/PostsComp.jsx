@@ -272,7 +272,7 @@ const onViewableItemsChanged = ({ viewableItems, changed }) => {
     
       removeClippedSubviews={true}
       data={dataSource}
-      renderItem={({item,index}) => Tabindex != 1?<FeedItem isProfile={true} navigation={navigation} Auth={Auth} key={index} index={index} data={item} />:<BlogItem navigation={navigation} Auth={Auth} key={index} index={index} data={item} />}
+      renderItem={({item,index}) => Tabindex != 1?<FeedItem isProfile={true} dataSource={dataSource} setDataSource={setDataSource} navigation={navigation} Auth={Auth} key={index} index={index} data={item} />:<BlogItem navigation={navigation} Auth={Auth} key={index} index={index} data={item} />}
       onEndReached={handleLoadMore} 
       onEndReachedThreshold={0.9}
       //windowSize={5}

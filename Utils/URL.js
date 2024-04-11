@@ -51,7 +51,7 @@ export function OpenUrl(url,data,navigation,postimage,postId,status){
         if (word.match(/^https?\:\//)) {
 
         if(postimage == ""){
-          return <TouchableOpacity style={{justifyContent:'center',height:Dimensions.get('window').height -470,width:'100%'}} onPress={()=>{
+          return <TouchableOpacity activeOpacity={1} style={{justifyContent:'center',height:Dimensions.get('window').height -470,width:'100%',marginBottom:10}} onPress={()=>{
         
           
             handlePress(word)
@@ -152,8 +152,8 @@ export function OpenUrl(url,data,navigation,postimage,postId,status){
     
     return (
       
-        <View style={{width:'100%',paddingHorizontal:10,paddingVertical:5}}>
-          {<View style={{width:'100%',flexWrap:'wrap',flexDirection:'row'}}>{contentss}</View>}
+        <View style={{width:'100%'}}>
+          {<View style={{width:'100%',paddingHorizontal:10,paddingBottom:10,flexWrap:'wrap',flexDirection:'row'}}>{contentss}</View>}
           {contents}
           
           

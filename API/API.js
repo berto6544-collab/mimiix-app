@@ -51,10 +51,55 @@ export async function ProfileDataAPI(username){
 
 }
 
+export async function GetNotificationAPI(start){
+
+const data  = await fetch('https://mymiix.com/public/api/notificationn?start='+start)
+.then((response) => response.json())
+
+  return data;
+}
+
+
+
+export async function PostcommentsAPi(postid,Message){
+
+  const data = await fetch('https://mymiix.com/public/api/commentsNative?postid='+postid+'&func=Comment',{
+    method:'POST',
+    body:JSON.stringify({"comment":Message})
+  })
+  .then(response=>response.json())
+
+
+  return data;
+}
 
 export async function GetcommentsAPi(postid,start){
 
   const data = fetch('https://mymiix.com/public/api/commentsRN?postid='+postid+'&start='+start)
+  .then(response=>response.json())
+
+  return data;
+}
+
+export async function CommentsHideAPi(postid,commentid){
+
+  const data = fetch('https://mymiix.com/public/api/commentsHide?postid='+postid+'&commentid='+commentid)
+  .then(response=>response.json())
+
+  return data;
+}
+
+
+export async function PostDeleteAPi(postid){
+
+  const data = fetch('https://mymiix.com/public/api/Deletepost?posttid='+postid)
+  .then(response=>response.json())
+
+  return data;
+}
+export async function CommentsDeleteAPi(postid,commentid){
+
+  const data = fetch('https://mymiix.com/public/api/commentsDelete?postid='+postid+'&commentid='+commentid)
   .then(response=>response.json())
 
   return data;

@@ -4,18 +4,35 @@ import {OptimizedFlatList} from 'react-native-optimized-flatlist';
 import { ListStyle } from "../Style/style";
 import { Avatar} from "@rneui/themed";
 import { AuthContext } from "../../../AuthContext/context";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { PostcommentsAPi } from "../../../API/API";
 
-
-export default TextArea = ({dataSouce,setDataSource}) =>{
+export default TextArea = ({dataSouce,setDataSource,postId}) =>{
 
     const [comment,setComment] = React.useState('')
     const [errorMessage,setErrorMessage] = React.useState('')
 
     const Auth = React.useContext(AuthContext)
 
+
+
+    const SendComment = () =>{
+
+        PostcommentsAPi(postId,comment)
+        .then(res=>{
+
+            setDataSource(dataSouce.concat(res));
+            setComment("")
+        })
+        
+    }
+
+
+
+
     return(
 
-        <View style={ListStyle.TextAreaBase}>
+        <SafeAreaView edges={['bottom']} style={ListStyle.TextAreaBase}>
 
 
         <View style={{width:Dimensions.get('screen').width,paddingVertical:10}}>
@@ -29,10 +46,10 @@ export default TextArea = ({dataSouce,setDataSource}) =>{
       placeholder='Comment'
       errorStyle={{ color: 'red' }}
       editable={true}
+      onSubmitEditing={SendComment}
       style={{borderWidth:1,padding:10,borderRadius:5,width:Dimensions.get('screen').width /1.05}}
       errorMessage={errorMessage}
-      multiline={true}
-      numberOfLines={4}
+    
       enterKeyHint={'done'}
       onChangeText={(e)=>setComment(e)}
       value={comment}
@@ -40,7 +57,7 @@ export default TextArea = ({dataSouce,setDataSource}) =>{
     />
 
 </View>
-        </View>
+        </SafeAreaView>
     )
 
 }

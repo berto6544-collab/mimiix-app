@@ -9,19 +9,19 @@ import Items from "./Items";
 
 
 
-export default ListArea = ({handleItem,dataSource,navigation}) =>{
+export default ListArea = ({handleItem,dataSource,setDataSource,navigation}) =>{
 
 
 return(
-<SafeAreaView style={ListStyle.container}>
+<View style={ListStyle.container}>
 
 <FlashList
 data={dataSource}
-renderItem={({item,index})=><Items navigation={navigation} item={item} index={index} />}
+renderItem={({item,index})=><Items navigation={navigation} dataSource={dataSource} setDataSource={setDataSource} item={item} index={index} />}
 estimatedItemSize={100}
 
 />
 
-</SafeAreaView>)
+</View>)
 
 }

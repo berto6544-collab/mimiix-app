@@ -13,7 +13,8 @@ import { Containerstyles } from '../StyleComponent/Style';
 import BlogScreen from '../Screens/BlogScreen/BlogScreen';
 import WebScreen from '../Screens/WebScreen/WebScreen';
 import MediaScreen from '../Screens/MediaScreen/MediaScreen';
-import { Button } from 'react-native';
+import { Button, Dimensions } from 'react-native';
+import PostsScreen from '../Screens/PostScreen/PostsScreen';
 
 
 
@@ -44,7 +45,7 @@ export function LoginFunction(Stack){
 }
 
 
-export function Authenticated(Stack,navigation){
+export function Authenticated(Stack,Tab){
 
     
 
@@ -52,9 +53,9 @@ export function Authenticated(Stack,navigation){
     
        
      <Stack.Navigator style={Containerstyles.container} initialRouteName={'Home'}>
-      <Stack.Screen  name="Home" options={{headerShown: false}} headerShown={false}  component={HomeScreen} />
-        <Stack.Screen name="Notifications" options={{presentation:'modal'}} component={Notifications} />
-        <Stack.Screen name="Profile" component={Profile} />
+        <Stack.Screen  name="Home" options={{headerShown: false}} headerShown={false}  component={HomeScreen} />
+        <Tab.Screen name="Notifications"  component={Notifications} />
+        <Tab.Screen name="Profile" component={Profile} />
         <Stack.Screen  name="Blog" component={BlogScreen} />
         <Stack.Screen name="Account" component={Account} />
         <Stack.Screen name="Comment" options={{presentation:'modal'}} component={Comment} />
@@ -65,6 +66,7 @@ export function Authenticated(Stack,navigation){
         <Stack.Screen name="Media"  options={{presentation:'modal'}} component={MediaScreen} />
         <Stack.Screen name="Signin"  component={Signin} />
         <Stack.Screen name="CreatePost"  options={{presentation:'modal'}} component={ PostScreen} />
+        <Stack.Screen name="Post" component={ PostsScreen} />
         </Stack.Navigator>
        
        
