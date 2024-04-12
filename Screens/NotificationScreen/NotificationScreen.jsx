@@ -72,7 +72,6 @@ estimatedItemSize={100}
 onEndReached={handleLoadMore} 
 onEndReachedThreshold={0.8}
 
-
 />
 
 

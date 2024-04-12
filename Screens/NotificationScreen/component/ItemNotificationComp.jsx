@@ -8,7 +8,7 @@ export default ItemNotificationComp = ({post,index,navigation}) =>{
 
 
         return(
-        <TouchableOpacity  onPress={()=>{
+        <TouchableOpacity key={index}  onPress={()=>{
         
            if(post.Posttype == 4){
                //started following you
