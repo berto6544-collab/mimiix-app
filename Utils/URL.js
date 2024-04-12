@@ -1,4 +1,4 @@
-import { View, Text,TouchableOpacity,Linking,Modal,Platform,Dimensions,Switch} from 'react-native';
+import { View, Text,TouchableOpacity,Linking,Modal,Platform,Dimensions,Switch,StyleSheet} from 'react-native';
 import { LinkPreview } from '@flyerhq/react-native-link-preview'
 
 import * as WebBrowser from 'expo-web-browser';
@@ -745,3 +745,37 @@ export function OpenUrl(url,data,navigation,postimage,postId,status){
       
       }
       }
+
+
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    width: '100%',
+    backgroundColor: 'black',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  content: { 
+    width: '100%',
+    height: '100%',
+    position:'absolute',
+    alignItems:'center',
+    justifyContent:'center'
+
+  },
+  imageContent: {
+    width: '100%',
+    height: '100%',
+    flex: 1,
+  },
+  loading: {
+    backgroundColor: 'black',
+    height: '100%',
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    position:'absolute'
+  },
+
+});

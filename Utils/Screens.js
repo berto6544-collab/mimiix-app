@@ -15,8 +15,8 @@ import WebScreen from '../Screens/WebScreen/WebScreen';
 import MediaScreen from '../Screens/MediaScreen/MediaScreen';
 import { Button, Dimensions } from 'react-native';
 import PostsScreen from '../Screens/PostScreen/PostsScreen';
-
-
+import UserMessageScreen from '../Screens/MessageScreen/UserMessageScreen';
+import MessageScreen from '../Screens/MessageScreen/MessageScreen';
 
 
 
@@ -62,6 +62,8 @@ export function Authenticated(Stack,Tab){
         <Stack.Screen  name="Signup" component={Signup} />
         <Stack.Screen  name="CreatorPortal" component={Creator} />
         <Stack.Screen  name="Support" component={SuportScreen} />
+        <Stack.Screen  name="UserMessage" component={UserMessageScreen} />
+        <Stack.Screen  name="Messages" component={MessageScreen} />
         <Stack.Screen name="Web"  options={{presentation:'modal'}} component={WebScreen} />
         <Stack.Screen name="Media"  options={{presentation:'modal'}} component={MediaScreen} />
         <Stack.Screen name="Signin"  component={Signin} />

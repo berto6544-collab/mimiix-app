@@ -97,9 +97,9 @@ console.log(info)
   <View style={{display:'flex',flexDirection:'row',gap:5,alignItems:'center'}}>
 
     {/*Button navigates you to the message screen or if your not signed-in then the signin screen */}
-  <Icon name={'send'} size={25} onPress={()=>{
+  <Icon  name={'send'} size={25} onPress={()=>{
 if(Auth.Authuser.length > 0 ){
-  navigation.navigate('Message')
+  navigation.navigate('UserMessage')
   }else{
     navigation.navigate('Signin')
   }
@@ -159,7 +159,7 @@ setShowDrawer(true)
       ListHeaderComponent={
       <View style={{width:'100%',display:'flex',paddingHorizontal:0,flexDirection:'column',gap:20,alignItems:'flex-start'}}>
       
-      {<Storie query={''} Auth={Auth} />}
+      {<Storie query={''} navigation={navigation} Auth={Auth} />}
       <QuoteComp Auth={Auth} navigation={navigation} />
 
       </View>

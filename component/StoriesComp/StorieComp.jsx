@@ -4,26 +4,21 @@ import { View,Text,TouchableOpacity, Dimensions } from "react-native";
 import { StorieDataAPI } from "../../API/API";
 import { Avatar } from "@rneui/themed";
 import { Icon } from "@rneui/base";
+//import Stories from "../../storiesNow/screens/Stories";
+import DrawerProfileDialog from "../../Dialog/DrawerProfileDialog";
 
 
-
-export default Story = ({query,Auth}) =>{
+export default Story = ({query,Auth,navigation}) =>{
 
 
 const [dataSource,setDataSource] = React.useState([]);
 const [start,setStart] = React.useState(0);
-
+const [showDrawer,setShowDrawer] = React.useState(false)
 
 
 
 
 React.useEffect(()=>{
-StorieDataAPI(start,query)
-.then(response=>{
-setDataSource(response)
-
-
-})
 
 
 
@@ -33,17 +28,42 @@ setDataSource(response)
 
 
 return(
-<View style={StorieStyle.StoryBase}>
+<View style={[StorieStyle.StoryBase]}>
 
 
-<TouchableOpacity style={{alignItems:'center'}}>
+<TouchableOpacity onPress={()=>setShowDrawer(true)} style={{alignItems:'center'}}>
     <View style={{position:'relative'}}>
         <Icon name={'add-circle'} size={20} type={'material-icons'} containerStyle={{position:'absolute',zIndex:10,right:-2,bottom:0}} />
         <Avatar size={50}  rounded={true} source={{uri:Auth.Authuser.length > 0 ? Auth.Authuser[0]?.ProfileImage:'https://mymiix.com/public/assets/img/no-avatar.jpg'}} />
     </View>
 
-    <Text>Your story</Text>
+   
 </TouchableOpacity>
+
+
+
+
+<DrawerProfileDialog 
+onshow={showDrawer} 
+navigation={navigation}
+title={'Create'}
+Auth={Auth}
+username={''}
+profileImage={''}
+userStats={''}
+setClose={()=>{setShowDrawer(false)}}
+
+> 
+<View style={{display:'flex',width:'100%',flexDirection:'column',gap:10}}>
+<TouchableOpacity onPress={()=>navigation.navigate('CreatePost')} style={{padding:10,borderRadius:4,backgroundColor:'lightgrey'}}><Text>Create Post</Text></TouchableOpacity>
+<TouchableOpacity onPress={()=>navigation.navigate('CreateStory')} style={{padding:10,borderRadius:4,backgroundColor:'lightgrey'}}><Text>Create Story</Text></TouchableOpacity>
+<TouchableOpacity onPress={()=>navigation.navigate('UniteLive')} style={{padding:10,borderRadius:4,backgroundColor:'lightgrey'}}><Text>Unite</Text></TouchableOpacity>
+
+
+
+</View>
+
+</DrawerProfileDialog>
 
 
 

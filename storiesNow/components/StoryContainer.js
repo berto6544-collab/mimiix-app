@@ -95,7 +95,7 @@ const StoryContainer = (props) => {
  
      AsyncStorage.mergeItem('stories-seenItems',JSON.stringify(storedObject));
  console.log(stories[stories.length-1].time);
-     RetrieveData();
+     //RetrieveData();
  
      }
     

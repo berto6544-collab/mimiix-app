@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unused-prop-types */
 import React,{useState,useRef} from 'react';
 import { Dimensions, Image, StyleSheet,TouchableOpacity, View,Text } from 'react-native';
-import Video from 'react-native-video';
+import Video from 'expo-av';
 import FastImage from 'react-native-fast-image';
 import PropTypes from 'prop-types';
 import UrlUti from '../../Utils/URL';
@@ -32,59 +32,7 @@ if(type=="video"){
 
   
   
-  if(dataItemm.type === "banner"){
-    return (
-      <View style={styles.container}>
-        
-        
-        {type === 'image' ? (
-       
-        
-
-       <Image  onPress={()=>{setLoad(false)}} PostImage={'https://mymiix.com/public/'+url} onProgress={()=>setLoad(true)} Videostyle={styles.content} pause={props.pause} Idd={dataItemm.Idd} userId={Utils.getUserId()} onImageLoaded={props.onImageLoaded} onVideoLoaded={props.onVideoLoaded} Poster={Poster} isNewStory={props.isNewStory} />
-
-       
-        
-         
-        ): type === 'video' ?  (
-          
-            
-<Video  onPress={()=>{setLoad(false)}} PostImage={'https://mymiix.com/public/'+url} onProgress={()=>setLoad(true)} Videostyle={styles.content} pause={props.pause} Idd={dataItemm.Idd} userId={Utils.getUserId()} onVideoLoaded={props.onVideoLoaded} Poster={Poster} isNewStory={props.isNewStory} />
-            
-           
-          ) 
-          
-          : type === 'post' ?  (
-            
-              <WebView source={{uri:url }} onLoad={()=>setLoad(false)} onLoadProgress={()=>setLoad(true)} onLoadEnd={()=>setLoad(true)}  style={{width:'100%',height:400,justifyContent:'center'}} />
-            )
-
-
-        :(
-         
-          
-        
-
-            
-        
-          
-          
-          
-          
-          <View style={{justifyContent:'center',width:'100%'}}>{UrlUti.OpenStorieUrl(link,url,onReadMore,props.onImageLoaded,props.onOpenn,dataItemm.Idd,dataItemm.PostId )}</View>
-           
-            
-         
-          
-          
-      
-        )
-        }
-    
-          
-      </View>
-    )
-  }else{
+ 
   return (
     <View style={styles.container}>
       {/* !props.isLoaded && (
@@ -98,13 +46,13 @@ if(type=="video"){
      
      <View style={styles.content}>
        
-     <FastImage
+     <Image
 
-     source={{uri: 'https://mymiix.com/public/'+url,priority: FastImage.priority.high,
+     source={{uri: 'https://mymiix.com/public/'+url,
      }}
      
      style={[styles.content]}
-     resizeMode={FastImage.resizeMode.contain}
+     resizeMode={'contain'}
 
      onLoad={()=>props.onImageLoaded(15)}
      
@@ -167,7 +115,7 @@ if(type=="video"){
         : (
         
           
-          <View style={style.content}>{UrlUti.OpenStorieUrl(link,url,onReadMore,props.onImageLoaded,props.onOpenn,null,null)}</View>
+          <View style={styles.content}>{/*UrlUti.OpenStorieUrl(link,url,onReadMore,props.onImageLoaded,props.onOpenn,null,null)*/}</View>
           
          
         )}
@@ -175,7 +123,7 @@ if(type=="video"){
         
     </View>
   );
-        }  
+        
 };
 
 Story.propTypes = {

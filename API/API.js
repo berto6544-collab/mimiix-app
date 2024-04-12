@@ -1,4 +1,4 @@
-//UserData when logged grabs users Data API
+//UserData when logged in grabs users Data API
 export async function userData(){
     
    const data = fetch('https://mymiix.com/public/api/userData')
@@ -8,6 +8,8 @@ export async function userData(){
 
 }
 
+
+//Sign-in using the sign-in API
 export async function SigninAPI(userEmail,userPassword){
 
    const data = await fetch('https://mymiix.com/public/api/autth',{
@@ -30,7 +32,7 @@ export async function SigninAPI(userEmail,userPassword){
 
 }
 
-//Grabbing Feed items data API 
+//Grabbing Posts data API 
 export async function FeedsData(start){
     
     const data = fetch('https://mymiix.com/public/api/postsNative?start='+start)
@@ -41,7 +43,7 @@ export async function FeedsData(start){
  }
 
 
- //Grabbing Feed items data API 
+ //Grabbing Posts items data based on user API 
 export async function ProfileDataAPI(username){
     
   const data = fetch('https://mymiix.com/public/api/userDatta?id='+username)
@@ -51,6 +53,8 @@ export async function ProfileDataAPI(username){
 
 }
 
+
+//Grab notification data from the notification API
 export async function GetNotificationAPI(start){
 
 const data  = await fetch('https://mymiix.com/public/api/notificationn?start='+start)
@@ -60,6 +64,7 @@ const data  = await fetch('https://mymiix.com/public/api/notificationn?start='+s
 }
 
 
+//Post comments based on Post
 
 export async function PostcommentsAPi(postid,Message){
 
@@ -73,6 +78,8 @@ export async function PostcommentsAPi(postid,Message){
   return data;
 }
 
+
+//Grab comments based on Post
 export async function GetcommentsAPi(postid,start){
 
   const data = fetch('https://mymiix.com/public/api/commentsRN?postid='+postid+'&start='+start)
@@ -81,6 +88,8 @@ export async function GetcommentsAPi(postid,start){
   return data;
 }
 
+
+//Hide comments based on Post
 export async function CommentsHideAPi(postid,commentid){
 
   const data = fetch('https://mymiix.com/public/api/commentsHide?postid='+postid+'&commentid='+commentid)
@@ -89,7 +98,7 @@ export async function CommentsHideAPi(postid,commentid){
   return data;
 }
 
-
+//Delete Post based on Post
 export async function PostDeleteAPi(postid){
 
   const data = fetch('https://mymiix.com/public/api/Deletepost?posttid='+postid)
@@ -97,6 +106,10 @@ export async function PostDeleteAPi(postid){
 
   return data;
 }
+
+
+
+//Delete comments based on Post
 export async function CommentsDeleteAPi(postid,commentid){
 
   const data = fetch('https://mymiix.com/public/api/commentsDelete?postid='+postid+'&commentid='+commentid)
@@ -105,6 +118,9 @@ export async function CommentsDeleteAPi(postid,commentid){
   return data;
 }
 
+
+
+//Grab pinned comment based on Post
 export async function GetPinnedcommentsAPi(postid){
 
   const data = fetch('https://mymiix.com/public/api/commentsPinned?postid='+postid+'start=0')
@@ -113,15 +129,20 @@ export async function GetPinnedcommentsAPi(postid){
   return data;
 }
 
+
+
+//Grab Story data based on user or grabbing a list of user stories using API
 export async function StorieDataAPI(start,q){
     
-  const data = fetch('https://mymiix.com/public/api/storieNative?start='+start+'&q='+q)
+  const data = fetch('https://mymiix.com/public/api/storiess?start='+start+'&q='+q)
   .then(res=>res.json());
 
   return data;
 
 }
 
+
+//Grabing users post data
 export async function ProfilePostAPI(start,q){
     
   const data = fetch('https://mymiix.com/public/api/profilepostsNative?id='+q+'&start='+start)
@@ -130,7 +151,7 @@ export async function ProfilePostAPI(start,q){
   return data;
 
 }
-
+// Grab users blog list
 export async function ProfileBlogAPI(start,q){
     
   const data = fetch('https://mymiix.com/public/api/ProfileBlogList?username='+q+'&start='+start)
@@ -140,7 +161,7 @@ export async function ProfileBlogAPI(start,q){
 
 }
 
-
+//Like or unlike a post using this API
 export const PostLikeApi = async(Postid,likeCount,likeData,status) =>{
 
   const data = await fetch('https://mymiix.com/public/api/ReactNativelikes?idd='+Postid+status+"&func=Like",{
@@ -158,9 +179,31 @@ export const PostLikeApi = async(Postid,likeCount,likeData,status) =>{
 }
 
 
+//Grabbing a specific blog based on this API
 export async function BlogAPI(start,q){
     
   const data = fetch('https://mymiix.com/public/api/Blog?uniqId='+q)
+  .then(res=>res.json());
+
+  return data;
+
+}
+
+
+// Grab Users that are following you
+export async function MessageUsersAPI(start){
+    
+  const data = fetch('https://mymiix.com/public/api/followersReactNative?start='+start)
+  .then(res=>res.json());
+
+  return data;
+
+}
+
+// Grab Users that are following you
+export async function MessageFromUserAPI(start,userid){
+    
+  const data = fetch('https://mymiix.com/public/api/messagesReactNative?sender='+userid+'')
   .then(res=>res.json());
 
   return data;
