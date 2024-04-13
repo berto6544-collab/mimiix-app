@@ -33,4 +33,4 @@ Your followers can help pin your content on top of the feed page and help you ga
 
 ### `FutureTask`
 
-Add mob-ad users who pay for our $4.99 usd subscription can add their publisher id and they will take 100% ads revenue.
+Add "AdMob" users who pay for our $4.99 usd subscription can add their publisher id and they will take 100% ads revenue.
