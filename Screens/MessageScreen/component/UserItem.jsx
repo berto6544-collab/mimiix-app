@@ -1,23 +1,24 @@
 import React from "react";
-import { View,TouchableOpacity,Text,StyleSheet } from "react-native";
+import { View,TouchableOpacity,Text,StyleSheet, Dimensions } from "react-native";
 import { Avatar } from "@rneui/themed";
-
 
 export default UserItem = ({item,index,navigation}) =>{
 
     return(
         <TouchableOpacity onPress={()=>{
             
-            navigation.navigate('Messages',{userName:item?.UserName,MyUsername:item?.MyUserName,userid:item?.PostId,Profile:item?.ProfileImg,isOnline:item?.isOnline,name:item?.PostedBy})
+            navigation.navigate('Messages',{userName:item?.UserName,MyUserId:item?.MyUserId,MyUsername:item?.MyUserName,userid:item?.PostId,Profile:item?.ProfileImg,isOnline:item?.isOnline,name:item?.PostedBy})
 
         }} style={styles?.userContainer}>
         <Avatar  size={60} rounded={true} source={{uri:item?.ProfileImg}} />
         <View style={styles?.TextContainer}>
         <Text style={styles?.TextH1}>{item?.PostedBy}</Text>
-        <Text>{item?.Body}</Text>
-    
+        <Text style={{color:'grey'}}>{item?.Body}</Text>
+
+      
         </View>
     
+        
     
     
         </TouchableOpacity>)
@@ -27,7 +28,7 @@ export default UserItem = ({item,index,navigation}) =>{
 const styles = StyleSheet.create({
 
     userContainer:{
-        width:'100%',
+        width:Dimensions.get('screen').width / 1.2,
         padding:10,
         marginBottom:5,
         display:'flex',

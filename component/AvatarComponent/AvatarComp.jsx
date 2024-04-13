@@ -14,7 +14,7 @@ if(username != ""){return(
     <Avatar size={50}rounded={true} source={{uri:profileImage}} />
     <View style={{display:'flex',flexDirection:'column',alignItems:'flex-start'}}>
     <Text style={{fontSize:20,fontWeight:'600'}}>{username}</Text>
-    <Text>{userStats}</Text>
+    {userStats != ""?<Text>{userStats}</Text>:null}
     
     </View>
 </View>

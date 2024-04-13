@@ -8,7 +8,7 @@ import { AuthContext } from "../../AuthContext/context";
 
 const {width: screenWidth} = Dimensions.get('window');
  
-export const MultiMedias = ({data,navigation}) =>{
+export const MediaMulti = ({data,navigation}) =>{
 const [dataSource,setDataSource] = React.useState([]);
 const [dataSourceMusic,setDataSourceMusic] = React.useState([]);
 const [musicPlayer,setMusicPlayer] = React.useState([])
@@ -28,8 +28,8 @@ React.useEffect(()=>{
 
 const GetData = () =>{
     
-    let con = data?.PostImage.split(",");
-    let conn = data?.PostImage.split(",");
+    let con =  data?.postimg.split(",");
+    let conn = data?.postimg.split(",");
     
     var tmp = [];
   
@@ -111,7 +111,7 @@ if(item.match(/\.jpg|\.png|\.jpeg|\.gif/gi)){
     <TouchableOpacity key={index} onPress={()=>{
      
 
-    }} activeOpacity={1} style={{height: Dimensions.get('window').height -470,position:'relative',zIndex:2, width: Dimensions.get('window').width}}>
+    }} activeOpacity={1} style={{height: Dimensions.get('window').height -570,position:'relative',zIndex:2, width: Dimensions.get('window').width}}>
 
 
     
@@ -119,75 +119,13 @@ if(item.match(/\.jpg|\.png|\.jpeg|\.gif/gi)){
         width: "100%",
         zIndex:2,
         marginHorizontal: 0,
-        height: Dimensions.get('window').height -370, 
+        height: Dimensions.get('window').height -570, 
         resizeMode: 'cover',
-        }} source={{uri:item}} />
+        }} source={{uri:'https://mymiix.com/public/'+item}} />
     </TouchableOpacity>)
 
 
-}else if(item.match(/\.mp4|\.mov|\.avi|\.mkv/gi)){
-
-
-    return(
-    <TouchableOpacity key={index} onPress={()=>{
-
-      const videoData = [{
-        trackNumber:1,
-        url:item,
-        uniqueId:data.UniqeId,
-        cover: ''+data.Poster,
-        artist:{
-          name:data?.UserName,
-          song:data?.PostTitle,
-          duration:'unknown',
-          tag:'',
-          genre:'',
-        }
-
-      }]
-      Auth.setMediaType('video')
-      Auth.setMediaDataSource(videoData)
-      navigation.navigate('Media',{title:data?.PostTitle == undefined ? data?.UserName : data.PostTitle, url:item,type:'video'})
-
-    }} activeOpacity={1} style={{height: Dimensions.get('window').height -470,position:'relative',zIndex:2, width: Dimensions.get('window').width,}}>
-
-    <Icon name={'play'} containerStyle={{position:'absolute',top:'45%',zIndex:3,left:'45%'}} size={70} color={'#0086ff'}  type={'font-awesome'} /> 
-
-    <Image style={{
-        width: "100%",
-        zIndex:2,
-        marginHorizontal: 0,
-        height: Dimensions.get('window').height -370, 
-        resizeMode: 'cover',
-        }} source={{uri:data.Poster}} />
-    </TouchableOpacity>)
-
-
-}else if(item.match(/\.mp3|\.ogg|\.wav/gi)){
-        
-
-        return(
-        <TouchableOpacity key={index} activeOpacity={1} onPress={()=>{
-
-        
-          Auth.setMediaType('audio')
-          Auth.setMediaDataSource(musicPlayer)
-          navigation.navigate('Media',{title:data.UserName, url:item,type:'video'})
-
-        }}  style={{height: Dimensions.get('window').height -470,position:'relative',zIndex:2, width: Dimensions.get('window').width,}}>
-        <Icon name={'play'} containerStyle={{position:'absolute',top:'45%',zIndex:3,left:'45%'}} size={70} color={'#0086ff'}  type={'font-awesome-5'} /> 
-
-        <Image style={{
-        width: "100%",
-        zIndex:2,
-        marginHorizontal: 0,
-        height: Dimensions.get('window').height -370, 
-        resizeMode: 'cover',
-        }} source={{uri:''+data.Poster}} />
-        </TouchableOpacity>
-        
-            )
-          }
+}
            
 
 }
@@ -217,7 +155,7 @@ return(
  sliderHeight={screenWidth}
  itemWidth={screenWidth}
  style={{width:'100%', height: Dimensions.get('screen').height -470,zIndex:2}}
- data={dataSource || dataSourceMusic}
+ data={dataSource}
  ParallaxImage={true}
  renderItem={content} />
  </View>

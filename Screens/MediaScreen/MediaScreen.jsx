@@ -6,6 +6,8 @@ import { Icon, Image,Slider } from "@rneui/themed";
 import Cover from "./component/Cover";
 import DrawerProfileDialog from "../../Dialog/DrawerProfileDialog";
 import { MultiMedias } from "../../component/Media/Media";
+import { FlashList } from "@shopify/flash-list";
+import ItemList from "./component/ItemList";
 export default MediaScreen  = ({route,navigation}) =>{
 
     const {title,type,url} = route.params;
@@ -284,7 +286,7 @@ VideoRef.current.playAsync();
 
 <TouchableOpacity onPress={()=>{
 
-
+setShow(true)
 
 }}>
 <Icon  name={'bars'} type={'ant-design'} color={'white'} />
@@ -333,8 +335,14 @@ VideoRef.current.playAsync();
 </View>
 
 
-<DrawerProfileDialog onshow={show}  >
+<DrawerProfileDialog onshow={show} setClose={()=>{setShow(false)}} username={Auth.mediaDataSource.length>0?Auth.mediaDataSource[Auth.index].artist.song:''} title={''} profileImage={Auth.mediaDataSource.length>0?Auth.mediaDataSource[0].cover:''} userStats={durationTime}  >
 
+
+<FlashList 
+data={Auth.mediaDataSource}
+estimatedItemSize={100}
+renderItem={({item,index})=><ItemList item={item} ind={index} indexx={Auth.index} setProgress={setProgress} VideoRef={VideoRef} Auth={Auth} />}
+/>
 
   
 </DrawerProfileDialog>

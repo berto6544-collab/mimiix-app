@@ -1,5 +1,5 @@
 import React from "react";
-import { Text,Card,Image,Avatar, Icon,Tab } from "@rneui/themed";
+import { Text,Card,Image,Avatar, Icon,Tab,Button } from "@rneui/themed";
 import { ProfilePostAPI, ProfileBlogAPI } from "../../../API/API";
 import { Dimensions, TouchableOpacity, View } from "react-native";
 import FeedItem from "../../../component/feedItems/feedItem";
@@ -9,11 +9,12 @@ import AvatarItems from "../components/AvatarItems";
 import Status from "../components/Status";
 import { AuthContext } from "../../../AuthContext/context";
 import BlogItem from "../../../component/blogItems/blogItems";
+import { FlashList } from "@shopify/flash-list";
 
 
 
 
-export default function PostComp({navigation,item,username,index}){
+export default function PostComp({navigation,item,username,index,setData,data}){
 
     const [dataSource,setDataSource] = React.useState([]);
     const [start,setStart] = React.useState(0)
@@ -194,7 +195,7 @@ const onViewableItemsChanged = ({ viewableItems, changed }) => {
 
     
 
- <OptimizedFlatList 
+ <OptimizedFlatList
       
       ListHeaderComponent={
         <View style={{width:'100%',display:'flex',paddingHorizontal:0,flexDirection:'column',gap:20,alignItems:'flex-start',marginBottom:10}}>
@@ -204,7 +205,86 @@ const onViewableItemsChanged = ({ viewableItems, changed }) => {
   
 
 
-        
+        <View style={{paddingHorizontal:10,display:'flex',flexDirection:'row',alignItems:'center',flexWrap:'wrap',gap:10,width:'100%'}}>
+          {item?.Followed == "0"?
+          <Button 
+          onPress={()=>{
+            item.Followed = 1
+            setData([...data])
+          }}
+          title="Follow" 
+          radius={5}
+          containerStyle={{width:'48%'}}
+          type='solid' 
+          titleStyle={{color:'white',fontWeight:'600'}}
+          color={'rgb(0, 123, 255)'} 
+          
+          />
+          :
+          <Button 
+          onPress={()=>{
+            item.Followed = 0
+            setData([...data])
+          }}
+          title="UnFollow" 
+          radius={5}
+          containerStyle={{width:'48%'}}
+          titleStyle={{color:'rgb(0, 123, 255)',fontWeight:'600'}}
+          color={'white'} 
+          type='solid' 
+          
+          />}
+           <Button 
+          onPress={()=>{
+            navigation.navigate('Messages',{userName:item?.UserName,MyUserId:item?.MyuserId,MyUsername:item?.MyUserName,userid:item?.OtheruserId,Profile:item?.ProfileImage,isOnline:"0",name:item?.Name})
+          }}
+          title="Message" 
+          radius={5}
+          containerStyle={{width:'48%'}}
+          titleStyle={{color:'white',fontWeight:'600'}}
+          color={'rgb(0, 123, 255)'} 
+          type='solid' 
+          
+          />
+
+          {item?.Payment.match(/acct\_([a-zA-Z0-9_]+)/)?<View style={{width:'48%',position:'relative'}}>{item?.SubsData == "0"?
+          <Button 
+          title="Subscribe" 
+          radius={5}
+          onPress={()=>{
+            navigation.navigate('Web',{url:'https://mymiix.com/@'+item.UserName+'/subscription'})
+          }}
+          containerStyle={{width:'100%'}}
+          type='solid' 
+          titleStyle={{color:'rgb(0, 123, 255)',fontWeight:'600'}}
+          color={'white'}  
+          />
+          :
+          <Button 
+          title={"SUBSCRIBED UNTIL "+item?.SubsDate} 
+          radius={5}
+          containerStyle={{width:'100%'}}
+          titleStyle={{color:'rgb(0, 123, 255)',fontWeight:'600'}}
+          color={'rgb(0, 123, 255)'} 
+          type='outline'
+          />} 
+          </View>:null}
+
+          
+          
+          {item?.Payment.match(/acct\_([a-zA-Z0-9_]+)/)?<Button 
+          title="Tip" 
+          radius={5}
+          onPress={()=>{
+            navigation.navigate('Web',{url:'https://mymiix.com/@'+item.UserName+'/tip'})
+          }}
+          containerStyle={{width:'48%'}}
+          titleStyle={{color:'rgb(0, 123, 255)',fontWeight:'600'}}
+          color={'white'} 
+          type='solid'
+          
+          />:null}
+          </View>
             
         <View style={{display:'flex',width:'100%',flexDirection:'row',alignItems:'center',justifyContent:'space-between',paddingHorizontal:30}}>
         <TouchableOpacity onPress={()=>{
@@ -274,7 +354,10 @@ const onViewableItemsChanged = ({ viewableItems, changed }) => {
       data={dataSource}
       renderItem={({item,index}) => Tabindex != 1?<FeedItem isProfile={true} dataSource={dataSource} setDataSource={setDataSource} navigation={navigation} Auth={Auth} key={index} index={index} data={item} />:<BlogItem navigation={navigation} Auth={Auth} key={index} index={index} data={item} />}
       onEndReached={handleLoadMore} 
+      estimatedItemSize={100}
       onEndReachedThreshold={0.9}
+      keyExtractor={item=>item.PostId}
+      estimatedFirstItemOffset={10}
       //windowSize={5}
       onViewableItemsChanged={onViewableItemsChanged}
       

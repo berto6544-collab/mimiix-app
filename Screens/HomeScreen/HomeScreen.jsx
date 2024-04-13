@@ -177,7 +177,7 @@ setShowDrawer(true)
      
     onViewableItemsChanged={onViewableItemsChanged}
     
-    keyExtractor={item=>item.PostId}
+    keyExtractor={(item)=>item.PostId}
    
       /* viewabilityConfig={{
         waitForInteraction:true,

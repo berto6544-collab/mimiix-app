@@ -78,6 +78,20 @@ export async function PostcommentsAPi(postid,Message){
   return data;
 }
 
+//Post comments based on Post
+
+export async function PostMessageAPi(sender,body){
+
+  const data = await fetch('https://www.mymiix.com/public/api/messagesReactNativve?sender='+sender,{
+    method:'POST',
+    body:body
+  })
+  .then(response=>response.json())
+
+
+  return data;
+}
+
 
 //Grab comments based on Post
 export async function GetcommentsAPi(postid,start){
@@ -203,7 +217,7 @@ export async function MessageUsersAPI(start){
 // Grab Users that are following you
 export async function MessageFromUserAPI(start,userid){
     
-  const data = fetch('https://mymiix.com/public/api/messagesReactNative?sender='+userid+'')
+  const data = fetch('https://mymiix.com/public/api/messagesReactNative?sender='+userid+'&start='+start)
   .then(res=>res.json());
 
   return data;

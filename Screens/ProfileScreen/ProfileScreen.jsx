@@ -86,7 +86,7 @@ const content = dataSource.map((item,index)=>{
 
     return(
         <View style={Profilestyles.container} key={index} >
-        <PostComp username={username} navigation={navigation} index={index} item={item} />
+        <PostComp username={username} data={dataSource} setData={setDataSource} navigation={navigation} index={index} item={item} />
       
 
 

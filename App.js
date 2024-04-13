@@ -28,7 +28,6 @@ React.useEffect(()=>{
   userData().then(response=>{
 if(response.length == 0 || response.length > 0 && response[0].UserName == "")
 return;
-console.log(response)
 setAuthUser(response);
   
 

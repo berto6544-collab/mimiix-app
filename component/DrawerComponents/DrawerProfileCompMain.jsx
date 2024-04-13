@@ -49,9 +49,16 @@ export default DrawerProfileCompMain = ({navigation,data,setClose,Auth,setStart}
     <View style={{flex:1,display:'flex',flexDirection:'column',gap:30,marginTop:20,position:'relative'}}>
 
 
+{item?.Blocked == "0"?
 <Buttons onPressed={()=>{
    
 }} icon1={{name:'block',type:'materialicons'}} title={'Block'} />
+:
+<Buttons onPressed={()=>{
+   
+}} icon1={{name:'block',type:'materialicons'}} title={'UnBlock'} />}
+
+
 
 <Buttons onPressed={()=>{
   //navigator.clipboard.writeText('https://mymiix.com/profile/'+data.UserName);

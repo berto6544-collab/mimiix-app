@@ -1,7 +1,7 @@
 import React from "react";
 import { View,TouchableOpacity,Text,StyleSheet } from "react-native";
 import { Avatar } from "@rneui/themed";
-
+import { MediaMulti } from "../../../component/Media/MediaMulti";
 
 export default UserMessageItem = ({item,index,navigation,isUser}) =>{
 
@@ -10,12 +10,12 @@ export default UserMessageItem = ({item,index,navigation,isUser}) =>{
     return(
         <View  style={[styles?.userContainer,{justifyContent:isUser?'flex-end':'flex-start'}]}>
         {isUser?null:<Avatar size={40} rounded={true} source={{uri:item?.profileimg}} />}
-        <View style={[styles?.userBaseContainer,{backgroundColor:isUser?'cornflowerblue':'lightgrey'}]}>
+        <View style={[styles?.userBaseContainer,{backgroundColor:isUser?'#007bff':'lightgrey'}]}>
         
         <View style={styles?.TextContainer}>
         {isUser?null:<Text style={styles?.TextH1}>{item?.Sender}</Text>}
-        <Text>{item?.body}</Text>
-    
+        <Text style={{color:isUser?'white':'black'}}>{item?.body}</Text>
+    <MediaMulti data={item} navigation={navigation} />
         </View>
         </View>
     
@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
     userBaseContainer:{
         padding:10,
         marginBottom:5,
-        maxWidth:'80%',
+        maxWidth:'70%',
         display:'flex',
         flexDirection:'row',
         alignItems:'flex-start',
@@ -52,7 +52,11 @@ const styles = StyleSheet.create({
         
         display:'flex',
         flexDirection:'column',
-        alignItems:'flex-start'
+        alignItems:'flex-start',
+        flexWrap:'wrap',
+        overflow:'hidden',
+        position:'relative',
+        flex:1
     },
 
     TextH1:{

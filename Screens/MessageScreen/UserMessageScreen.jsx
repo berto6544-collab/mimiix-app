@@ -18,6 +18,8 @@ const GrabUserList = () =>{
         if(res.length == 0)return;
         setDataSource(res)
         setStart(start+1)
+      
+     
     })
 }
 
@@ -39,7 +41,7 @@ const ScrollGrabUserList = () =>{
     MessageUsersAPI(start)
     .then(res=>{
 
-        if(res.length == 0)return;
+        if(res.length == 0)
         setDataSource(dataSource.concat(res))
         setStart(start+1)
     })
@@ -49,9 +51,11 @@ return(<View style={styles.baseContainer}>
 <FlashList
 data={dataSource}
 estimatedItemSize={100}
+//style={styles.baseContainer}
 renderItem={({item,index})=><UserItem item={item}  navigation={navigation} index={index} />}
+keyExtractor={(item)=>item?.PostId}
 onEndReached={ScrollGrabUserList} 
-onEndReachedThreshold={0.9}
+onEndReachedThreshold={0.8}
 
 />
 
