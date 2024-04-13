@@ -27,3 +27,10 @@ Drop-in audio, Bringing everyone together in conversation. Create your own unite
 
 ### `PayToPin`
 Your followers can help pin your content on top of the feed page and help you gain traction.
+
+
+
+
+### `FutureTask`
+
+Add mob-ad users who pay for our $4.99 usd subscription can add their publisher id and they will take all ads.
