@@ -10,8 +10,7 @@ import Status from "../components/Status";
 import { AuthContext } from "../../../AuthContext/context";
 import BlogItem from "../../../component/blogItems/blogItems";
 import { FlashList } from "@shopify/flash-list";
-
-
+import NativeAdView from "react-native-admob-native-ads";
 
 
 export default function PostComp({navigation,item,username,index,setData,data}){
@@ -19,7 +18,7 @@ export default function PostComp({navigation,item,username,index,setData,data}){
     const [dataSource,setDataSource] = React.useState([]);
     const [start,setStart] = React.useState(0)
     const [Tabindex, setTabIndex] = React.useState(0);
-
+    const nativeAdViewRef = React.useRef();
  
 
   const Auth = React.useContext(AuthContext);
@@ -28,6 +27,7 @@ export default function PostComp({navigation,item,username,index,setData,data}){
 React.useEffect(()=>{
 
     fetchData();
+    nativeAdViewRef.current?.loadAd();
 
 
 
@@ -200,9 +200,21 @@ const onViewableItemsChanged = ({ viewableItems, changed }) => {
       ListHeaderComponent={
         <View style={{width:'100%',display:'flex',paddingHorizontal:0,flexDirection:'column',gap:20,alignItems:'flex-start',marginBottom:10}}>
         
+
+
         <AvatarItems data={item} index={index}  username={item.UserName} profileImage={item.ProfileImage} userStats={item.UsersStat} />
+        
+        {/*<NativeAdView
+      ref={nativeAdViewRef}
+      enableTestMode={true}
+      adUnitID="ca-app-pub-3940256099942544/2247696110"
+    >
+     
+      </NativeAdView>*/}
+
+      
         <Status data={item} index={index}  /> 
-  
+        
 
 
         <View style={{paddingHorizontal:10,display:'flex',flexDirection:'row',alignItems:'center',flexWrap:'wrap',gap:10,width:'100%'}}>
