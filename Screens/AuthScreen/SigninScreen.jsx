@@ -1,7 +1,7 @@
 import React from "react";
 import { Text,View,TouchableOpacity,TextInput,AsyncStorage } from "react-native";
 import { Image } from "@rneui/themed";
-import { SigninAPI } from "../../API/API";
+import { FeedsData, SigninAPI } from "../../API/API";
 import { AuthContext } from "../../AuthContext/context";
 
 
@@ -47,19 +47,27 @@ export default function SigninScreen({navigation}){
 else{
     SigninAPI(userEmail,userPassword)
     .then(responseJson=>{
-     if(responseJson['resp'] == "ok"){
+     if(responseJson?.resp == "ok"){
        // redirect to profile page
        
 
 
-       Auth.setToken(responseJson['Token'])
-       Auth.setUserData(responseJson['userAuth'])
-    
-       
-          AsyncStorage.setItem('SCOM', responseJson['Token']);
-          AsyncStorage.setItem('AuthUser', JSON.stringify(responseJson['userAuth']));
-          AsyncStorage.setItem('AutthUser', JSON.stringify(responseJson['userAutth']));
-          AsyncStorage.setItem('ProfileImage',responseJson['userAuth'].ProfileImage);
+       Auth.setToken(responseJson.Token)
+       Auth.setAuthUser([...responseJson.userAutth])
+       Auth.setPostDataSource([])
+       FeedsData(0).then(res=>{
+        if(res.length == 0)
+        return;
+        Auth.setPostDataSource(res)
+        Auth.setStart(Auth.start+1)
+        navigation.goBack()
+        
+       })
+
+          //AsyncStorage.setItem('SCOM', responseJson.Token);
+          //AsyncStorage.setItem('AuthUser', JSON.stringify(responseJson.userAuth));
+          //AsyncStorage.setItem('AutthUser', JSON.stringify(responseJson.userAutth));
+          //AsyncStorage.setItem('ProfileImage',responseJson.userAuth.ProfileImage);
          
        
     

@@ -1,6 +1,7 @@
 import React, { Children } from "react";
 import {  Avatar,Icon} from "@rneui/themed";
 import { Dimensions, Text, TouchableOpacity, View } from "react-native";
+import { FeedsData } from "../../API/API";
 
 
 
@@ -22,11 +23,25 @@ export default DrawerCompMain = ({navigation,setClose,Auth,setStart}) =>{
        .then(js =>js.text())
        .then(response=>{
         
-        setStart(0)
+        Auth.setStart(0)
         Auth.setAuthUser([])
         Auth.setPostDataSource([])
-        setClose();
+
+        
+        
+       FeedsData(0).then(res=>{
+        if(res.length == 0)
+        return;
+        Auth.setPostDataSource(res)
+        Auth.setStart(Auth.start+1)
+ 
+        
+        
+       })
        
+       setClose();
+
+
        })
        
        

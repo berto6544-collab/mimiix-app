@@ -44,11 +44,11 @@ React.useEffect(()=>{
 
 const fetchData = () => {
 
-FeedsData(start).then(response=>{
+FeedsData(Auth.start).then(response=>{
 if(response.length == 0)
 return;
 Auth.setPostDataSource(response)
-setStart(start+1)
+Auth.setStart(Auth.start+1)
 
 
 })
@@ -60,12 +60,11 @@ setStart(start+1)
 const handleLoadMore = ()=>{
 
 
-    FeedsData(start).then(response=>{
+    FeedsData(Auth.start).then(response=>{
         if(response.length == 0)
         return;
         Auth.setPostDataSource(Auth.PostDataSource.concat(response))
-        setStart(start+1)
-        
+        Auth.setStart(Auth.start+1)
         
         })
 
@@ -76,15 +75,71 @@ const handleCloseDrawer = () =>{
   setShowDrawer(false);
 }
 
-const onViewableItemsChanged = info => {
-console.log(info)    
+const onViewableItemsChanged = ({ viewableItems, changed }) => {
     
+    
+  // console.log("Changed in this iteration", changed);
+  console.log("Visible items are", viewableItems);
+  
+viewableItems.forEach(ele => {
+     //  console.log(ele.key);
+
+
+ 
+
+
+if(ele.isViewable === true){
+ 
+ if(ele.item['type'] == "banner"){
+
    
+     
+
+
+ }else{
+
+   
+   ele.item['Count'] += 1;
+   
+     if(ele.item['Vieweddd'] == 0){
+       ele.item['Vieweddd'] = 1;
+     
+     fetch('https://mymiix.com/public/api/videoViewersReactNative?idd='+ele.item['PostId']+"",{
+         method:'GET',
+         header:{
+           'Accept': 'application/json',
+           'Content-Type': 'application/json'
+         }
+         
+       })
+       .then((response) => response.json())
+        .then((responseJson)=>{
+           
+         
+         //this.ViewItem(ele.key,responseJson['Likes'])
+        
+         
        
-      
- 
- 
-   }
+         
+       
+        });
+       }
+
+       
+       console.log(ele.item['Vieweddd'])
+       
+       }
+       }
+
+     
+       
+
+     });
+     
+    
+
+
+ }
 
 
 
@@ -150,10 +205,10 @@ setShowDrawer(true)
     
  </SafeAreaView>
 
+<View style={{flex:1}}>
 
 
-
- <OptimizedFlatList
+ {Auth.PostDataSource && Auth.PostDataSource.length >0 ?<FlashList
       
       ref={flashListRef}
       ListHeaderComponent={
@@ -170,13 +225,13 @@ setShowDrawer(true)
       data={Auth.PostDataSource}
       renderItem={({item,index}) => {return(<FeedItem dataSource={Auth.PostDataSource} setDataSource={Auth.setPostDataSource} isProfile={false} navigation={navigation} Auth={Auth}  index={index} data={item} />)}}
       onEndReached={handleLoadMore} 
-      onEndReachedThreshold={0.9}
-     // estimatedItemSize={100}
+      onEndReachedThreshold={0}
+     estimatedItemSize={100}
      
     
      
     onViewableItemsChanged={onViewableItemsChanged}
-    
+    numColumns={1}
     keyExtractor={(item)=>item.PostId}
    
       /* viewabilityConfig={{
@@ -185,9 +240,9 @@ setShowDrawer(true)
         minimumViewTime:1000
        }}*/
        
-       />
+       />:null}
 
-
+</View>
 
 <SafeAreaView edges={['bottom']} style={FeedItemstyles.BottomNav} >
 

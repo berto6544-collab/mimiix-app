@@ -21,7 +21,7 @@ export default function App({navigation}) {
   const [mediaType,setMediaType] = React.useState(null);
   const [mediaDataSource,setMediaDataSource] = React.useState([])
   const [index,setIndex] = React.useState(0);
-
+  const [start,setStart] = React.useState(0);
 
 React.useEffect(()=>{
 
@@ -43,7 +43,7 @@ setAuthUser(response);
 
 return(
 
-<AuthContext.Provider style={Containerstyles.container} value={{Authuser,setAuthUser,PostDataSource,setPostDataSource,theme,setTheme,token,setToken,mediaType,setMediaType,mediaDataSource,setMediaDataSource,index,setIndex}}>
+<AuthContext.Provider style={Containerstyles.container} value={{Authuser,setAuthUser,start,setStart,PostDataSource,setPostDataSource,theme,setTheme,token,setToken,mediaType,setMediaType,mediaDataSource,setMediaDataSource,index,setIndex}}>
  <NavigationContainer>
 
 {Authuser.length > 0 && Authuser[0].UserName == "" || Authuser.length == 0 ? LoginFunction(Stack,Tab) : Authenticated(Stack,Tab)}

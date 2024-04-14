@@ -191,27 +191,20 @@ const onViewableItemsChanged = ({ viewableItems, changed }) => {
 
 
     return(
-    <View >
+    <View  style={{flex:1}}>
 
-    
+       
 
- <OptimizedFlatList
+ {<OptimizedFlatList
       
       ListHeaderComponent={
-        <View style={{width:'100%',display:'flex',paddingHorizontal:0,flexDirection:'column',gap:20,alignItems:'flex-start',marginBottom:10}}>
+        <View style={{width:'100%',display:'flex',paddingHorizontal:0,flex:1,flexDirection:'column',gap:20,alignItems:'flex-start',marginBottom:10}}>
         
 
 
         <AvatarItems data={item} index={index}  username={item.UserName} profileImage={item.ProfileImage} userStats={item.UsersStat} />
         
-        {/*<NativeAdView
-      ref={nativeAdViewRef}
-      enableTestMode={true}
-      adUnitID="ca-app-pub-3940256099942544/2247696110"
-    >
-     
-      </NativeAdView>*/}
-
+       
       
         <Status data={item} index={index}  /> 
         
@@ -358,24 +351,24 @@ const onViewableItemsChanged = ({ viewableItems, changed }) => {
         style={{padding:'10',borderBottomWidth:Tabindex == 2?2:0}}><Text style={{color:'black',fontSize:20}}>Events</Text></TouchableOpacity>
         
         </View>
+
+       
         
         </View>
         }
     
+        
       removeClippedSubviews={true}
       data={dataSource}
       renderItem={({item,index}) => Tabindex != 1?<FeedItem isProfile={true} dataSource={dataSource} setDataSource={setDataSource} navigation={navigation} Auth={Auth} key={index} index={index} data={item} />:<BlogItem navigation={navigation} Auth={Auth} key={index} index={index} data={item} />}
       onEndReached={handleLoadMore} 
       estimatedItemSize={100}
-      onEndReachedThreshold={0.9}
+      onEndReachedThreshold={0}
       keyExtractor={item=>item.PostId}
-      estimatedFirstItemOffset={10}
-      //windowSize={5}
       onViewableItemsChanged={onViewableItemsChanged}
       
        
-       
-       />
+       />}
 
 
 

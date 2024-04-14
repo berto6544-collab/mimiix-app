@@ -1,5 +1,5 @@
 import React from "react";
-import {View,StyleSheet,Text, TouchableOpacity} from 'react-native'
+import {View,StyleSheet,Text, TouchableOpacity, Dimensions} from 'react-native'
 import { SafeAreaView } from "react-native-safe-area-context";
 import { FlashList } from "@shopify/flash-list";
 import UserMessageItem from "./component/UserMessageItem";
@@ -71,17 +71,20 @@ React.useEffect(()=>{
 
 return(
     <View style={{flex:1}}>
-
-<FlashList
+<View style={{flex:1}}>
+{dataSource && dataSource.length > 0?<FlashList
 data={dataSource}
 estimatedItemSize={100}
 inverted={true}
 renderItem={({item,index})=><UserMessageItem item={item} isUser={item.Sender == MyUsername?true:false} navigation={navigation} index={index} />}
 keyExtractor={(item)=>item?.id}
 onEndReached={ScrollGrabUserList} 
-onEndReachedThreshold={0.9}
+onEndReachedThreshold={0}
+drawDistance={Dimensions.get('screen').height / 2}
 
-/>
+/>:null}
+</View>
+
 
 <TextArea Profile={Profile} dataSource={dataSource} Sender={MyUserId} Receiver={userid} setDataSource={setDataSource} />
 

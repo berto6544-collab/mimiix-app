@@ -15,7 +15,7 @@ export default UserMessageItem = ({item,index,navigation,isUser}) =>{
         <View style={styles?.TextContainer}>
         {isUser?null:<Text style={styles?.TextH1}>{item?.Sender}</Text>}
         <Text style={{color:isUser?'white':'black'}}>{item?.body}</Text>
-    <MediaMulti data={item} navigation={navigation} />
+        <MediaMulti data={item} navigation={navigation} />
         </View>
         </View>
     
@@ -28,6 +28,7 @@ const styles = StyleSheet.create({
 
     userContainer:{
         width:'100%',
+        
         padding:10,
         marginBottom:5,
         display:'flex',
@@ -39,9 +40,10 @@ const styles = StyleSheet.create({
     userBaseContainer:{
         padding:10,
         marginBottom:5,
-        maxWidth:'70%',
+        maxWidth:250,
         display:'flex',
         flexDirection:'row',
+        position:'relative',
         alignItems:'flex-start',
         borderRadius:10,
         flexWrap:'wrap',
