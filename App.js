@@ -1,5 +1,6 @@
 import React from 'react';
 import {userData} from './API/API'
+import 'expo-dev-client';
 import { StatusBar } from 'expo-status-bar';
 import { Text, View } from 'react-native';
 import { Containerstyles } from './StyleComponent/Style';

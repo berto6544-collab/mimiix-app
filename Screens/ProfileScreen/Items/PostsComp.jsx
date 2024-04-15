@@ -10,7 +10,7 @@ import Status from "../components/Status";
 import { AuthContext } from "../../../AuthContext/context";
 import BlogItem from "../../../component/blogItems/blogItems";
 import { FlashList } from "@shopify/flash-list";
-import NativeAdView from "react-native-admob-native-ads";
+
 
 
 export default function PostComp({navigation,item,username,index,setData,data}){

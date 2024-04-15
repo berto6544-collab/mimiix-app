@@ -62,14 +62,8 @@ export default SignupScreen = ({navigation}) => {
       
      })
 
-        //AsyncStorage.setItem('SCOM', responseJson.Token);
-        //AsyncStorage.setItem('AuthUser', JSON.stringify(responseJson.userAuth));
-        //AsyncStorage.setItem('AutthUser', JSON.stringify(responseJson.userAutth));
-        //AsyncStorage.setItem('ProfileImage',responseJson.userAuth.ProfileImage);
-       
+    
      
-  
-        //navigation.replace('Home');
    }
         
  })
