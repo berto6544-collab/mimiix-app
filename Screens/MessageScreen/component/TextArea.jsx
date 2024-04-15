@@ -1,5 +1,5 @@
 import React from "react";
-import { Dimensions, TouchableOpacity, View,TextInput,Button  } from "react-native";
+import { Dimensions, TouchableOpacity, View,TextInput,Button,KeyboardAvoidingView, Platform, ScrollView  } from "react-native";
 import { ListStyle } from "../style/style";
 import { Avatar} from "@rneui/themed";
 import { AuthContext } from "../../../AuthContext/context";
@@ -49,12 +49,13 @@ Formdata.append('receiver',Receiver)
         <SafeAreaView edges={['bottom']} style={ListStyle.TextAreaBase}>
 
 
+
         <View style={{width:Dimensions.get('screen').width,paddingVertical:10}}>
         
         
         </View>       
 
-<View style={ListStyle.TextArea}>
+<View  style={ListStyle.TextArea}>
 
         <View
         style={{borderWidth:1,padding:8,display:'flex',backgroundColor:'lightgrey',borderColor:'lightgrey',flexDirection:'row',alignItems:'center',overflow:'hidden',gap:5,position:'relative',borderRadius:10,width:Dimensions.get('screen').width /1.05}}
@@ -78,6 +79,8 @@ Formdata.append('receiver',Receiver)
     </View>
 
 </View>
+
+
         </SafeAreaView>
     )
 
