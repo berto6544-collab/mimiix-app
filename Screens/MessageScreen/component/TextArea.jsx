@@ -1,5 +1,5 @@
 import React from "react";
-import { Dimensions, TouchableOpacity, View,TextInput,Button,KeyboardAvoidingView, Platform, ScrollView  } from "react-native";
+import { Dimensions, TouchableOpacity, View,TextInput,Button,Keyboard,KeyboardAvoidingView, Platform, ScrollView  } from "react-native";
 import { ListStyle } from "../style/style";
 import { Avatar} from "@rneui/themed";
 import { AuthContext } from "../../../AuthContext/context";
@@ -10,9 +10,9 @@ export default TextArea = ({dataSource,setDataSource,Receiver,Sender,Profile}) =
 
     const [comment,setComment] = React.useState('')
     const [errorMessage,setErrorMessage] = React.useState('')
-
+    const [keyBoard,setkeyboard] = React.useState(0)
     const Auth = React.useContext(AuthContext)
-
+    const refKeyboard = React.useRef(null)
 
 
     const Sendmessage = () =>{
@@ -33,6 +33,8 @@ Formdata.append('receiver',Receiver)
             setDataSource([...dataSource]);
 
             setComment("")
+            setkeyboard(0)
+            Keyboard.dismiss();
         })
         
     }
@@ -46,9 +48,8 @@ Formdata.append('receiver',Receiver)
 
     return(
 
-        <SafeAreaView edges={['bottom']} style={ListStyle.TextAreaBase}>
-
-
+        <SafeAreaView edges={['bottom']} style={[ListStyle.TextAreaBase,{flex:keyBoard}]}>
+       
 
         <View style={{width:Dimensions.get('screen').width,paddingVertical:10}}>
         
@@ -64,8 +65,18 @@ Formdata.append('receiver',Receiver)
             
             <TextInput
       placeholder='Send Message'
+      ref={refKeyboard}
       errorStyle={{ color: 'red' }}
       editable={true}
+      onFocus={()=>{
+        setkeyboard(1.2)
+      }}
+      onBlur={()=>{
+        setkeyboard(0)
+       
+        Keyboard.dismiss();
+       
+      }}
       onSubmitEditing={Sendmessage}
       style={{width:Dimensions.get('screen').width /1.55}}
       errorMessage={errorMessage}
@@ -79,6 +90,8 @@ Formdata.append('receiver',Receiver)
     </View>
 
 </View>
+
+
 
 
         </SafeAreaView>

@@ -55,9 +55,14 @@ setClose={()=>{setShowDrawer(false)}}
 
 > 
 <View style={{display:'flex',width:'100%',flexDirection:'column',gap:10}}>
-<TouchableOpacity onPress={()=>navigation.navigate('CreatePost')} style={{padding:10,borderRadius:4,backgroundColor:'lightgrey'}}><Text>Create Post</Text></TouchableOpacity>
-<TouchableOpacity onPress={()=>navigation.navigate('CreateStory')} style={{padding:10,borderRadius:4,backgroundColor:'lightgrey'}}><Text>Create Story</Text></TouchableOpacity>
-<TouchableOpacity onPress={()=>navigation.navigate('UniteLive')} style={{padding:10,borderRadius:4,backgroundColor:'lightgrey'}}><Text>Unite</Text></TouchableOpacity>
+<TouchableOpacity onPress={()=>navigation.navigate('Web',{url:'https://mymiix.com/create/story',title:'create story'})} style={{padding:10,borderRadius:4,backgroundColor:'lightgrey'}}><Text>Create Story</Text></TouchableOpacity>
+<TouchableOpacity onPress={()=>navigation.navigate('Web',{url:'https://mymiix.com/quoteform',title:'Add an inspirational quote!'})} style={{padding:10,borderRadius:4,backgroundColor:'lightgrey'}}><Text>Add Quote</Text></TouchableOpacity>
+<TouchableOpacity onPress={()=>navigation.navigate('Web',{url:'https://mymiix.com/create/blog'})} style={{padding:10,borderRadius:4,backgroundColor:'lightgrey'}}><Text>Create Blog</Text></TouchableOpacity>
+<TouchableOpacity onPress={()=>{
+    navigation.navigate('UniteLive',{url:'https://mymiix.com/create/unite',title:'Unite'})
+    setShowDrawer(false)
+
+}} style={{padding:10,borderRadius:4,backgroundColor:'lightgrey'}}><Text>Unite</Text></TouchableOpacity>
 
 
 

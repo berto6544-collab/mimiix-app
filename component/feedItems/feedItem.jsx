@@ -16,7 +16,7 @@ export default function FeedItem({data,navigation,dataSource,setDataSource,index
 
  const Delete = () =>{
 
-    PostDeleteAPi(data?.PostId)
+    PostDeleteAPi(data.PostId)
     .then(res=>{
 
         if(res.length == 0)return;
@@ -46,7 +46,7 @@ export default function FeedItem({data,navigation,dataSource,setDataSource,index
         }
     }} style={{fontSize:18,fontWeight:'500'}}>{data.PostedBy}</Text>
     </View>
-    {data?.UserName == data?.MyUserName?<TouchableOpacity onPress={Delete} style={{position:'absolute',right:5}}><Icon color={'black'} name={'close'} type={'font-awesome'} /></TouchableOpacity>:null}
+    {data.UserName == data.MyUserName?<TouchableOpacity onPress={()=>{Delete()}} style={{position:'absolute',right:5}}><Icon color={'black'} name={'close'} type={'font-awesome'} /></TouchableOpacity>:null}
     
         
        

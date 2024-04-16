@@ -9,6 +9,7 @@ import { AuthContext } from "../../AuthContext/context";
 import TextArea from "./component/TextArea";
 import DrawerProfileDialog from "../../Dialog/DrawerProfileDialog";
 import * as Sharing from 'expo-sharing';
+import {OptimizedFlatList} from 'react-native-optimized-flatlist';
 export default MessageScreen = ({route,navigation}) => {
 
 const {userid,userName,MyUsername,isOnline,name,Profile,MyUserId} = route.params;
@@ -72,7 +73,7 @@ React.useEffect(()=>{
 return(
     <View style={{flex:1}}>
 <View style={{flex:1}}>
-{dataSource && dataSource.length > 0?<FlashList
+{<OptimizedFlatList
 data={dataSource}
 estimatedItemSize={100}
 inverted={true}
@@ -82,7 +83,7 @@ onEndReached={ScrollGrabUserList}
 onEndReachedThreshold={0}
 drawDistance={Dimensions.get('screen').height / 2}
 
-/>:null}
+/>}
 </View>
 
 

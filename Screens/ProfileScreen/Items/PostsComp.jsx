@@ -1,8 +1,9 @@
 import React from "react";
 import { Text,Card,Image,Avatar, Icon,Tab,Button } from "@rneui/themed";
-import { ProfilePostAPI, ProfileBlogAPI } from "../../../API/API";
+import { ProfilePostAPI, ProfileBlogAPI,ProfileFuturePostAPI,ProfileLiveEventAPI } from "../../../API/API";
 import { Dimensions, TouchableOpacity, View } from "react-native";
 import FeedItem from "../../../component/feedItems/feedItem";
+import FeedItemEvent from "../../../component/feedItems/feedItemEvent";
 import {} from '../styles/styles';
 import {OptimizedFlatList} from 'react-native-optimized-flatlist';
 import AvatarItems from "../components/AvatarItems";
@@ -62,7 +63,7 @@ if(Tabindex == 1) {
 
 if(Tabindex == 2) {
   
-    ProfilePostAPI(start,item.UserName).then(response=>{
+  ProfileLiveEventAPI(start,item.UserName).then(response=>{
         if(response.length == 0)
         return;
         setDataSource(response)
@@ -72,6 +73,20 @@ if(Tabindex == 2) {
         })
 
 }
+
+if(Tabindex == 3) {
+  
+  ProfileFuturePostAPI(start,item.UserName).then(response=>{
+      if(response.length == 0)
+      return;
+      setDataSource(response)
+      setStart(start+1)
+      
+      
+      })
+
+}
+
 
 }
 
@@ -103,7 +118,7 @@ const handleLoadMore = ()=>{
          }
 
          if(Tabindex == 2 ){
-            ProfilePostAPI(start,item.UserName).then(response=>{
+          ProfileLiveEventAPI(start,item.UserName).then(response=>{
                  if(response.length == 0)
                  return;
                  setDataSource(dataSource.concat(response))
@@ -113,7 +128,16 @@ const handleLoadMore = ()=>{
                  })
              }
 
-
+             if(Tabindex == 3 ){
+              ProfileFuturePostAPI(start,item.UserName).then(response=>{
+                   if(response.length == 0)
+                   return;
+                   setDataSource(dataSource.concat(response))
+                   setStart(start+1)
+                   
+                   
+                   })
+               }
 
 }
 
@@ -291,64 +315,88 @@ const onViewableItemsChanged = ({ viewableItems, changed }) => {
           />:null}
           </View>
             
-        <View style={{display:'flex',width:'100%',flexDirection:'row',alignItems:'center',justifyContent:'space-between',paddingHorizontal:30}}>
+        <View style={{display:'flex',width:'100%',flexDirection:'row',borderBottomColor:'lightgrey',paddingBottom:10,borderBottomWidth:1,alignItems:'center',justifyContent:'space-between',paddingHorizontal:10,paddingRight:15}}>
         <TouchableOpacity onPress={()=>{
           
-            setDataSource([])
+          setDataSource([])
             setStart(0)
             setTabIndex(0)
         
             ProfilePostAPI(0,item.UserName).then(response=>{
-                if(response.length == 0)
-                return;
-                setDataSource(response)
+              //setDataSource([])
+                if(response.length == 0)return;
+                setDataSource([...response])
                 setStart(start+1)
                 
                 
                 })
         
-        }} style={{padding:'10',borderBottomWidth: Tabindex == 0?2:0}}><Text style={{color:'black',textAlign:'center',fontSize:20}}>Posts</Text></TouchableOpacity>
-        <TouchableOpacity
-        onPress={()=>{
+        }} style={{padding:10,width:'25%',backgroundColor:Tabindex == 0?'rgb(0, 123, 255)':'transparent',borderRadius:5}}><Text style={{color:Tabindex == 0?'white':'black',textAlign:'center',fontSize:15}}>Posts</Text></TouchableOpacity>
+       
+       {<TouchableOpacity onPress={()=>{
           
           setDataSource([])
           setStart(0)
-          setTabIndex(1)
+          setTabIndex(3)
       
-          ProfileBlogAPI(0,item.UserName).then(response=>{
-              if(response.length == 0)
-              return;
+          ProfileFuturePostAPI(0,item.UserName).then(response=>{
+            //setDataSource([])
+           
+              if(response.length == 0)return;
+              
+            
               setDataSource(response)
               setStart(start+1)
               
               
               })
       
+      }} style={{padding:10,width:'25%',backgroundColor:Tabindex == 3?'rgb(0, 123, 255)':'transparent',borderRadius:5}}><Text style={{color:Tabindex == 3?'white':'black',textAlign:'center',fontSize:15}}>Future Posts</Text></TouchableOpacity>}
+     
+       
+        <TouchableOpacity
+        onPress={()=>{
+          setDataSource([])
+         
+          setStart(0)
+          setTabIndex(1)
+      
+          ProfileBlogAPI(0,item.UserName).then(response=>{
+            //setDataSource([])
+            if(response.length == 0)return;
+            setDataSource([...response])
+            setStart(start+1)
+            
+              
+              
+              })
+      
       }}
         
-        style={{padding:'10',borderBottomWidth:Tabindex == 1?2:0}}><Text style={{color:'black',textAlign:'center',fontSize:20}}>Blogs</Text></TouchableOpacity>
+        style={{padding:10,width:'25%',backgroundColor:Tabindex == 1?'rgb(0, 123, 255)':'transparent',borderRadius:5}}><Text style={{color:Tabindex == 1?'white':'black',textAlign:'center',fontSize:15}}>Blogs</Text></TouchableOpacity>
 
 
 
         <TouchableOpacity 
         onPress={()=>{
-          
           setDataSource([])
+          
           setStart(0)
           setTabIndex(2)
       
-          ProfilePostAPI(0,item.UserName).then(response=>{
-              if(response.length == 0)
-              return;
-              setDataSource(response)
-              setStart(start+1)
+          ProfileLiveEventAPI(0,item.UserName).then(response=>{
+            //setDataSource([])
+            if(response.length == 0)return;
+            setDataSource(response)
+            setStart(start+1)
+            
               
               
               })
       
       }}
         
-        style={{padding:'10',borderBottomWidth:Tabindex == 2?2:0}}><Text style={{color:'black',fontSize:20}}>Events</Text></TouchableOpacity>
+        style={{padding:10,width:'25%',alignItems:'center',backgroundColor:Tabindex == 2?'rgb(0, 123, 255)':'transparent',borderRadius:5}}><Text style={{color:Tabindex == 2?'white':'black',fontSize:15}}>Events</Text></TouchableOpacity>
         
         </View>
 
@@ -357,14 +405,14 @@ const onViewableItemsChanged = ({ viewableItems, changed }) => {
         </View>
         }
     
-        
+       
       removeClippedSubviews={true}
       data={dataSource}
-      renderItem={({item,index}) => Tabindex != 1?<FeedItem isProfile={true} dataSource={dataSource} setDataSource={setDataSource} navigation={navigation} Auth={Auth} key={index} index={index} data={item} />:<BlogItem navigation={navigation} Auth={Auth} key={index} index={index} data={item} />}
+      renderItem={({item,index}) => Tabindex == 1?<BlogItem navigation={navigation} Auth={Auth} key={index} index={index} data={item} /> : Tabindex == 2 ?<FeedItemEvent isProfile={true} dataSource={dataSource} setDataSource={setDataSource} navigation={navigation} Auth={Auth} key={index} index={index} data={item} />:<FeedItem isProfile={true} dataSource={dataSource} setDataSource={setDataSource} navigation={navigation} Auth={Auth} key={index} index={index} data={item} />}
       onEndReached={handleLoadMore} 
-      estimatedItemSize={100}
-      onEndReachedThreshold={0}
-      keyExtractor={item=>item.PostId}
+      //estimatedItemSize={100}
+      onEndReachedThreshold={0.9}
+      //keyExtractor={item=>item.PostId}
       onViewableItemsChanged={onViewableItemsChanged}
       
        

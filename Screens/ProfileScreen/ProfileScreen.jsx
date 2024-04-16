@@ -95,7 +95,7 @@ const content = dataSource.map((item,index)=>{
 
 
 
-{item.MyuserId == item.OtheruserId?<DrawerDialog
+{item?.MyuserId == item?.OtheruserId?<DrawerDialog
 setClose={()=>{
     setIsVisible(false)
 }}

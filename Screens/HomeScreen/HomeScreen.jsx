@@ -8,6 +8,7 @@ import {OptimizedFlatList} from 'react-native-optimized-flatlist';
 import QuoteComp from '../../component/Quote/QuoteComponent';
 import Storie  from '../../component/StoriesComp/StorieComp'
 import DrawerDialog from "../../Dialog/DrawerDialog";
+import DrawerProfileDialog from "../../Dialog/DrawerProfileDialog";
 import {FlashList, useBenchmark} from "@shopify/flash-list"
 
 import { AuthContext } from "../../AuthContext/context";
@@ -26,6 +27,7 @@ export default function Feed({navigation}){
     const [start,setStart] = React.useState(0)
     const [tabIndex,setTabIndex] = React.useState(0)
     const [showDrawer,setShowDrawer] = React.useState(false)
+    const [showMessageDrawer,setShowMessageDrawer] = React.useState(false)
     const flashListRef = useRef(null);
 
   const Auth = React.useContext(AuthContext);
@@ -56,7 +58,9 @@ Auth.setStart(Auth.start+1)
 }
 
 
-
+const handleCloseMessageDrawer = () =>{
+  setShowMessageDrawer(false)
+}
 const handleLoadMore = ()=>{
 
 
@@ -153,11 +157,7 @@ if(ele.isViewable === true){
 
     {/*Button navigates you to the message screen or if your not signed-in then the signin screen */}
   <Icon  name={'send'} size={25} onPress={()=>{
-if(Auth.Authuser.length > 0 ){
-  navigation.navigate('UserMessage')
-  }else{
-    navigation.navigate('Signin')
-  }
+  setShowMessageDrawer(true)
 
   }} type={'feather'} />
 
@@ -321,5 +321,63 @@ userStats={Auth.Authuser.length > 0 ?Auth.Authuser[0].UsersStat:''}
 
 
 
+<DrawerProfileDialog
+setClose={handleCloseMessageDrawer}
+Auth={Auth}
+overlayStyle={{flex:1,width:'100%',position:'relative',alignSelf:'flex-end'}}
+navigation={navigation} 
+onshow={showMessageDrawer} 
+title={'Messages'} 
+username={''} 
+profileImage={''}  
+userStats={''} 
+
+
+>
+<View style={{flex:1,display:'flex',overflow:'scroll',flexDirection:'column',gap:10,marginTop:20,position:'relative'}}>
+
+<Buttons onPressed={()=>{
+if(Auth.Authuser.length > 0 ){
+  navigation.navigate('UserMessage')
+  }else{
+    navigation.navigate('Signin')
+  }
+  setShowMessageDrawer(false)
+
+}} title={'Direct Message'} icon1={{name:'send', type:'feather'}} />
+
+<Buttons onPressed={()=>{
+navigation.navigate('ChatRoom')
+setShowMessageDrawer(false)
+
+}} title={'ChatRoom'} icon1={{name:'send', type:'feather'}} />
+
+</View>
+</DrawerProfileDialog>
+
+
+
+
     </View>)
+}
+
+
+
+export const Buttons = ({onPressed,title,icon1}) =>{
+
+
+
+
+  return(
+<TouchableOpacity  onPress={()=>{
+onPressed();
+}} style={{display:'flex',justifyContent:'space-between',marginBottom:10,flexDirection:'row',width:'100%'}}>
+<View style={{display:'flex',flexDirection:'row',gap:5,alignItems:'center'}}>
+
+<Text style={{fontWeight:'600',fontSize:20}}>{title}</Text>
+</View>
+<Icon  name={'right'} type={'antdesign'} />
+
+</TouchableOpacity>
+  )
 }

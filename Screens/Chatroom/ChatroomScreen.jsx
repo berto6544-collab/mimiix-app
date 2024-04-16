@@ -2,26 +2,24 @@ import React from "react";
 import { StyleSheet, Text, View,Dimensions } from 'react-native';
 import { WebView } from 'react-native-webview';
 import { Button } from "react-native";
+import { Icon } from "@rneui/themed";
 import { AuthContext } from "../../AuthContext/context";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-
-const UniteScreen = ({route,navigation}) => {
-  const {url,title} = route.params;
+const ChatroomScreen = ({route,navigation}) => {
 const Auth = React.useContext(AuthContext)
 
 
     React.useEffect(()=>{
 
         navigation.setOptions({
-            headerLeft: ()=>(<View></View>),
-            title:title,
-            headerTitleStyle:{color:'white'},
-            headerStyle:{backgroundColor:'rgb(30, 144, 255)',color:'white',shadowOpacity:0,borderBottomWidth:0},
-            headerShadowVisible: false,
-            headerRight: () => (
-              <Button color={'white'} onPress={() => {navigation.goBack();}} title="Done" />
-            ),
+          headerLeft: ()=>(<Icon color={'#007bff'} name={'left'} onPress={() => {navigation.goBack();}} type={'antdesign'} />),
+           /* headerRight: () => (
+              <Button onPress={() => {}} title="Create Room" />
+            ),*/
+            headerStyle:{backgroundColor:'rgb(240, 244, 248)'},
+
+            headerShadowVisible: false
           });
         
 
@@ -29,9 +27,20 @@ const Auth = React.useContext(AuthContext)
     
     
     return (
-    <SafeAreaView edges={['bottom','left','right']} style={{width:Dimensions.get('screen').width,backgroundColor:'rgb(30, 144, 255)',flex:1}}>
-    <View  style={{width:Dimensions.get('screen').width,backgroundColor:'rgb(30, 144, 255)',flex:1}}  >
-    <WebView 
+    <SafeAreaView 
+    style={{width:Dimensions.get('screen').width,
+    backgroundColor:'rgb(240, 244, 248)',
+    flex:1}} 
+    edges={['bottom','left','right']}
+    >
+    
+    <View 
+    style={{width:Dimensions.get('screen').width,
+    backgroundColor:'rgb(240, 244, 248)',
+    flex:1}}  
+    > 
+      
+      <WebView 
       javaScriptEnabled={true} 
       allowFileAccess={true} 
       sharedCookiesEnabled={true} 
@@ -40,7 +49,7 @@ const Auth = React.useContext(AuthContext)
       scalesPageToFit={true} 
       allowingReadAccessToURL={'file://'}
       showsVerticalScrollIndicator={false} 
-      source={{uri: url}} 
+      source={{uri: 'https://mymiix.com/chatroom'}} 
       
       
       />
@@ -50,4 +59,4 @@ const Auth = React.useContext(AuthContext)
   }
 
 
-  export default UniteScreen;
+  export default ChatroomScreen;

@@ -1,5 +1,5 @@
 import React from "react";
-import { Dimensions, TouchableOpacity, View,Text,TextInput,Button  } from "react-native";
+import { Dimensions, TouchableOpacity, View,Text,TextInput,Keyboard,Button  } from "react-native";
 import {OptimizedFlatList} from 'react-native-optimized-flatlist';
 import { ListStyle } from "../Style/style";
 import { Avatar} from "@rneui/themed";
@@ -12,6 +12,7 @@ export default TextArea = ({dataSouce,setDataSource,postId}) =>{
     const [comment,setComment] = React.useState('')
     const [errorMessage,setErrorMessage] = React.useState('')
     const [isdisabled,setIsdisabled] = React.useState(false)
+    const [keyBoard,setkeyboard] = React.useState(0)
     const Auth = React.useContext(AuthContext)
 
 
@@ -25,6 +26,8 @@ export default TextArea = ({dataSouce,setDataSource,postId}) =>{
 
             setDataSource(dataSouce.concat(res));
             setComment("")
+            setkeyboard(0)
+            Keyboard.dismiss()
         })
         
     }
@@ -34,7 +37,7 @@ export default TextArea = ({dataSouce,setDataSource,postId}) =>{
 
     return(
 
-        <SafeAreaView edges={['bottom']} style={ListStyle.TextAreaBase}>
+        <SafeAreaView edges={['bottom']} style={[ListStyle.TextAreaBase,{flex:keyBoard}]}>
 
 
         <View style={{width:Dimensions.get('screen').width,paddingVertical:10}}>
@@ -58,7 +61,13 @@ source={{uri:Auth.Authuser.length >0?Auth.Authuser[0].ProfileImage:Profile}}
       onSubmitEditing={SendComment}
       style={{width:Dimensions.get('screen').width /1.55}}
       errorMessage={errorMessage}
-      
+      onFocus={()=>{
+        setkeyboard(1.2)
+      }}
+      onBlur={()=>{
+        setkeyboard(0)
+        Keyboard.dismiss()
+      }}
       enterKeyHint={'done'}
       onChangeText={(e)=>{
        

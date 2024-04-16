@@ -104,6 +104,7 @@ paddingVertical:0
       paddingTop:10,
       backgroundColor:'white',
       paddingHorizontal:15,
+      paddingBottom:10,
       zIndex:80,
       display:'flex',
       flexDirection:'row',

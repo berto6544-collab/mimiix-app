@@ -51,7 +51,6 @@ TextAreaBase:{
     display:'flex',
     flexDirection:'column',
     paddingHorizontal:10,
- 
     backgroundColor:'white',
     paddingBottom:10
 }

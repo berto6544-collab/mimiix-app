@@ -3,7 +3,8 @@ import {View,StyleSheet,Text} from 'react-native'
 import { SafeAreaFrameContext } from "react-native-safe-area-context";
 import { FlashList } from "@shopify/flash-list";
 import UserItem from "./component/UserItem";
-import { Avatar } from "@rneui/themed";
+
+import { Avatar,Icon } from "@rneui/themed";
 import { MessageUsersAPI } from "../../API/API";
 
 export default UserMessageScreen = ({route,navigation}) => {
@@ -29,7 +30,7 @@ React.useEffect(()=>{
 
     navigation.setOptions({
         
-            
+        headerLeft: ()=>(<Icon color={'#007bff'} name={'left'} onPress={() => {navigation.goBack();}} type={'antdesign'} />),
         title:'Messages',
        
       });

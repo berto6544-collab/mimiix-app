@@ -17,8 +17,8 @@ import { Button, Dimensions } from 'react-native';
 import PostsScreen from '../Screens/PostScreen/PostsScreen';
 import UserMessageScreen from '../Screens/MessageScreen/UserMessageScreen';
 import MessageScreen from '../Screens/MessageScreen/MessageScreen';
-//import UniteScreen from '../Screens/UniteScreen/UniteScreen';
-
+import UniteScreen from '../Screens/UniteScreen/UniteScreen';
+import ChatroomScreen from '../Screens/Chatroom/ChatroomScreen';
 
 export function LoginFunction(Stack){
 
@@ -36,6 +36,7 @@ export function LoginFunction(Stack){
         <Stack.Screen name="Comment" options={{presentation:'modal'}} component={Comment} />
         <Stack.Screen name="Web"  options={{presentation:'modal'}} component={WebScreen} />
         <Stack.Screen name="Media"  options={{presentation:'modal'}} component={MediaScreen} />
+        <Stack.Screen  name="ChatRoom" component={ChatroomScreen} />
         <Stack.Screen  name="Blog" component={BlogScreen} />
         <Stack.Screen name="Signin"   component={Signin} />
         </Stack.Navigator>
@@ -64,7 +65,9 @@ export function Authenticated(Stack,Tab){
         <Stack.Screen  name="Support" component={SuportScreen} />
         <Stack.Screen  name="UserMessage" component={UserMessageScreen} />
         <Stack.Screen  name="Messages" component={MessageScreen} />
-        {/*<Stack.Screen  name="UniteLive" component={UniteScreen} />*/}
+        
+        <Stack.Screen  name="ChatRoom" component={ChatroomScreen} />
+       {<Stack.Screen name="UniteLive" component={UniteScreen} />}
         <Stack.Screen name="Web"  options={{presentation:'modal'}} component={WebScreen} />
         <Stack.Screen name="Media"  options={{presentation:'modal'}} component={MediaScreen} />
         <Stack.Screen name="Signin"  component={Signin} />

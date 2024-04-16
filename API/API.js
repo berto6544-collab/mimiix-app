@@ -154,6 +154,8 @@ export async function StorieDataAPI(start,q){
   return data;
 
 }
+//https://mymiix.com/public/api/profilepostsNativeEventPost?id=robertsproduction&start=0
+
 
 
 //Grabing users post data
@@ -165,6 +167,29 @@ export async function ProfilePostAPI(start,q){
   return data;
 
 }
+
+
+//Grabing users Live Event data
+export async function ProfileLiveEventAPI(start,q){
+    
+  const data = fetch('https://mymiix.com/public/api/UsersLiveEvent?q='+q+'&start='+start)
+  .then(res=>res.json());
+
+  return data;
+
+}
+
+
+//Grabing users Future post data
+export async function ProfileFuturePostAPI(start,q){
+    
+  const data = fetch('https://mymiix.com/public/api/profilepostsNativeEventPost?id='+q+'&start='+start)
+  .then(res=>res.json());
+
+  return data;
+
+}
+
 // Grab users blog list
 export async function ProfileBlogAPI(start,q){
     
