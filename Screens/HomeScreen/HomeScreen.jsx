@@ -156,46 +156,24 @@ if(ele.isViewable === true){
   <View style={{display:'flex',flexDirection:'row',gap:5,alignItems:'center'}}>
 
     {/*Button navigates you to the message screen or if your not signed-in then the signin screen */}
-  <Icon  name={'send'} size={25} onPress={()=>{
-  setShowMessageDrawer(true)
-
-  }} type={'feather'} />
+  <Icon  name={'send'} size={25} onPress={()=>{ setShowMessageDrawer(true);}} type={'feather'} />
 
 
  {/*Button navigates you to the explore screen */}
-<TouchableOpacity onPress={()=>{
-
-navigation.navigate('Explore')
-  
-}}
-
->
-  <Icon name={'compass-outline'} size={30} type={'ionicon'} />
-</TouchableOpacity>
+<TouchableOpacity onPress={()=>{ navigation.navigate('Explore'); }}><Icon name={'compass-outline'} size={30} type={'ionicon'} /></TouchableOpacity>
 
   </View>
-  <Image style={{width:100,height:40}} source={require('../../assets/img/logo(3).png')} />
+<Image style={{width:100,height:40}} source={require('../../assets/img/logo(3).png')} />
  
-  <View style={{display:'flex',flexDirection:'row',gap:10,alignItems:'center'}}>
+<View style={{display:'flex',flexDirection:'row',gap:10,alignItems:'center'}}>
 
   {/*Button navigates you to create post screen or if your not signed-in then the signin screen */}
-  <TouchableOpacity onPress={()=>{
+<TouchableOpacity onPress={()=>{ if(Auth.Authuser.length > 0 ){ navigation.navigate('CreatePost'); }else{ navigation.navigate('Signin') } }}>
+<Icon  name={'plus-square'} solid={true} size={27} type={'feather'} />
+</TouchableOpacity>
 
-if(Auth.Authuser.length > 0 ){
-  navigation.navigate('CreatePost')
-  }else{
-    navigation.navigate('Signin')
-  }
-}}
-
-><Icon  name={'plus-square'} solid={true} size={27} type={'feather'} /></TouchableOpacity>
-
-<TouchableOpacity onPress={()=>{
-
-setShowDrawer(true)
-}}
-
-><Icon  name={'menu'} solid={true} size={27} type={'feather'} />
+<TouchableOpacity onPress={()=>{ setShowDrawer(true); }} >
+<Icon  name={'menu'} solid={true} size={27} type={'feather'} />
 </TouchableOpacity>
 
 
@@ -248,33 +226,13 @@ setShowDrawer(true)
 
 
 <View  style={{display:'flex',width:'100%',flexDirection:'row',alignItems:'center',justifyContent:'space-between'}}>
-
- 
-    {/*Button navigates you to the message screen or if your not signed-in then the signin screen */}
-  <Icon name={'home'} size={33} color={'blue'} type={'fontisto'} onPress={()=>{
-if(Auth.Authuser.length > 0 ){
-  navigation.navigate('Home')
-  }else{
-    navigation.navigate('Signin')
-  }
-
-  }} />
+{/*Button navigates you to the message screen or if your not signed-in then the signin screen */}
+  <Icon name={'home'} size={33} color={'blue'} type={'fontisto'} onPress={()=>{ if(Auth.Authuser.length > 0 ){ navigation.navigate('Home'); }else{ navigation.navigate('Signin'); } }} />
 
 
  {/*Button navigates you to the explore screen */}
-<TouchableOpacity onPress={()=>{
-if(Auth.Authuser.length > 0 ){
-navigation.navigate('Notifications')
-}else{
-
-navigation.navigate('Signin')
-
-}
-  
-}}
-
->
-  <Icon name={'notifications'} size={35} type={'ionicon'} />
+<TouchableOpacity onPress={()=>{if(Auth.Authuser.length > 0 ){ navigation.navigate('Notifications'); }else{ navigation.navigate('Signin'); } }}>
+<Icon name={'notifications'} size={35} type={'ionicon'} />
 </TouchableOpacity>
 
 
@@ -282,17 +240,8 @@ navigation.navigate('Signin')
   
   {/*Button navigates you to create post screen or if your not signed-in then the signin screen */}
   
-<TouchableOpacity onPress={()=>{
-if(Auth.Authuser.length > 0 ){
-  navigation.navigate('Profile',{username:Auth.Authuser[0].UserName,title:'@'+Auth.Authuser[0].UserName})
-  }else{
-    navigation.navigate('Signin')
-  }
-
-
-}}
-
->{<Avatar size={40} rounded={true} source={{uri:Auth.Authuser.length > 0 ? Auth.Authuser[0].ProfileImage:''}} />}
+<TouchableOpacity onPress={()=>{if(Auth.Authuser.length > 0 ){ navigation.navigate('Profile',{username:Auth.Authuser[0].UserName,title:'@'+Auth.Authuser[0].UserName}); }else{ navigation.navigate('Signin') }; }}>
+{<Avatar size={40} rounded={true} source={{uri:Auth.Authuser.length > 0 ? Auth.Authuser[0].ProfileImage:''}} />}
 </TouchableOpacity>
 
 
@@ -336,21 +285,9 @@ userStats={''}
 >
 <View style={{flex:1,display:'flex',overflow:'scroll',flexDirection:'column',gap:10,marginTop:20,position:'relative'}}>
 
-<Buttons onPressed={()=>{
-if(Auth.Authuser.length > 0 ){
-  navigation.navigate('UserMessage')
-  }else{
-    navigation.navigate('Signin')
-  }
-  setShowMessageDrawer(false)
+<Buttons onPressed={()=>{ if(Auth.Authuser.length > 0 ){ navigation.navigate('UserMessage'); }else{ navigation.navigate('Signin'); } setShowMessageDrawer(false); }} title={'Direct Message'} icon1={{name:'send', type:'feather'}} />
 
-}} title={'Direct Message'} icon1={{name:'send', type:'feather'}} />
-
-<Buttons onPressed={()=>{
-navigation.navigate('ChatRoom')
-setShowMessageDrawer(false)
-
-}} title={'ChatRoom'} icon1={{name:'send', type:'feather'}} />
+<Buttons onPressed={()=>{ navigation.navigate('ChatRoom'); setShowMessageDrawer(false); }} title={'ChatRoom'} icon1={{name:'send', type:'feather'}} />
 
 </View>
 </DrawerProfileDialog>

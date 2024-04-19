@@ -79,44 +79,20 @@ export default DrawerCompMain = ({navigation,setClose,Auth,setStart}) =>{
     <View style={{flex:1,display:'flex',flexDirection:'column',gap:30,marginTop:20,position:'relative'}}>
 
 
-<Buttons onPressed={()=>{
-    navigation.navigate('Account')
-    setClose();
-}} icon1={{name:'cog',type:'font-awesome'}} title={'Account'} />
-<Buttons onPressed={()=>{
-    navigation.navigate('CreatorPortal')
-    setClose();
-}} icon1={{name:'address-book',type:'font-awesome'}} title={'Creator Portal'} />
+<Buttons onPressed={()=>{navigation.navigate('Account'); setClose(); }} icon1={{name:'cog',type:'font-awesome'}} title={'Account'} />
+<Buttons onPressed={()=>{navigation.navigate('CreatorPortal'); setClose(); }} icon1={{name:'address-book',type:'font-awesome'}} title={'Creator Portal'} />
 
-{Auth.Authuser.length > 0 && Auth.Authuser[0].UserLevel == "1"?<Buttons onPressed={()=>{
+{Auth.Authuser.length > 0 && Auth.Authuser[0].UserLevel == "1"?<Buttons onPressed={()=>{ }} icon1={{name:'cog',type:'font-awesome'}} title={'ReviewBoard'} />:null}
+<Buttons onPressed={()=>{ }} icon1={{name:'sharealt',type:'antdesign'}} title={'Invite Friend'} />
 
-}} icon1={{name:'cog',type:'font-awesome'}} title={'ReviewBoard'} />:null}
-<Buttons
- onPressed={()=>{
-    
- }}
-icon1={{name:'sharealt',type:'antdesign'}} title={'Invite Friend'} />
-<Buttons 
- onPressed={support} 
-icon1={{name:'globe',type:'feather'}} title={'Support'} />
+<Buttons onPressed={support} icon1={{name:'globe',type:'feather'}} title={'Support'} />
 
-<Buttons 
-onPressed={()=>{
-    
-}}
-icon1={{name:'person',type:'ionicons'}} title={'Deactivate Account'} />
+<Buttons onPressed={()=>{ }} icon1={{name:'person',type:'ionicons'}} title={'Deactivate Account'} />
 
 
-<Buttons
- onPressed={()=>{
-    
- }}
+<Buttons onPressed={()=>{ }} icon1={{name:'person-remove',type:'ionicons'}} title={'Delete Account'} />
 
-icon1={{name:'person-remove',type:'ionicons'}} title={'Delete Account'} />
-<Buttons
-
-
-onPressed={logout} icon1={{name:'power-off',type:'font-awesome'}} title={'Sign Out'} />
+<Buttons onPressed={logout} icon1={{name:'power-off',type:'font-awesome'}} title={'Sign Out'} />
 
     </View>)
 

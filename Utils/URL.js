@@ -43,18 +43,18 @@ export function OpenUrl(url,data,navigation,postimage,postId,status){
     
       // Split the content on space characters
       var words = url.toString().split(/\s/);
-      
+      var rgx_link = url.toString().split(/(https?:\/\/)/gi);
+     var dataUrl = data.DataURL;
      
-     
-      var contents = words.map(function(word, i) {
+      var contents = dataUrl.map(function(word, i) {
         var separator = i < (words.length - 1) ? ' ' : '';
-        if (word.match(/^https?\:\//)) {
+       
 
         if(postimage == ""){
           return <TouchableOpacity activeOpacity={1} style={{justifyContent:'center',height:Dimensions.get('window').height -470,width:'100%',marginBottom:10}} onPress={()=>{
         
           
-            handlePress(word)
+            handlePress(word.url)
           
           }} >
             
@@ -62,7 +62,7 @@ export function OpenUrl(url,data,navigation,postimage,postId,status){
         </TouchableOpacity>
         }
 
-        }
+        
 
       })
       
@@ -94,9 +94,9 @@ export function OpenUrl(url,data,navigation,postimage,postId,status){
                 var U =word.replace(word.match(/http(?:s)?:\/\/(?:www\.)?(?:m\.)?mymiix\.com\/(?:@+)/),'');
                
                 fetch('https://mymiix.com/public/api/PostInteraction?postid='+postId+status+"&func=Profile",{
-  method:'GET'
-})
-.then(response =>response.json())
+                method:'GET' 
+                })
+                .then(response =>response.json())
                navigation.navigate('Profile',{username:u});
 
               }else{

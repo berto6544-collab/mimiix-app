@@ -26,7 +26,7 @@ React.useEffect(()=>{
         headerRight: () => (
 
             <TouchableOpacity onPress={()=>{
-                setIsVisible(true)
+                setIsVisible(true);
             }}><Icon name={'bars'} type={'ant-design'} /></TouchableOpacity>
           
         ),

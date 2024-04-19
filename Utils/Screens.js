@@ -19,6 +19,8 @@ import UserMessageScreen from '../Screens/MessageScreen/UserMessageScreen';
 import MessageScreen from '../Screens/MessageScreen/MessageScreen';
 import UniteScreen from '../Screens/UniteScreen/UniteScreen';
 import ChatroomScreen from '../Screens/Chatroom/ChatroomScreen';
+import ExploreScreen from '../Screens/ExploreScreen/ExploreScreen';
+
 
 export function LoginFunction(Stack){
 
@@ -65,7 +67,7 @@ export function Authenticated(Stack,Tab){
         <Stack.Screen  name="Support" component={SuportScreen} />
         <Stack.Screen  name="UserMessage" component={UserMessageScreen} />
         <Stack.Screen  name="Messages" component={MessageScreen} />
-        
+        <Stack.Screen  name="Explore" component={ExploreScreen} />
         <Stack.Screen  name="ChatRoom" component={ChatroomScreen} />
        {<Stack.Screen name="UniteLive" component={UniteScreen} />}
         <Stack.Screen name="Web"  options={{presentation:'modal'}} component={WebScreen} />

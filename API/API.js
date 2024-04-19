@@ -96,7 +96,7 @@ export async function PostMessageAPi(sender,body){
 //Grab comments based on Post
 export async function GetcommentsAPi(postid,start){
 
-  const data = fetch('https://mymiix.com/public/api/commentsRN?postid='+postid+'&start='+start)
+  const data = await fetch('https://mymiix.com/public/api/commentsRN?postid='+postid+'&start='+start)
   .then(response=>response.json())
 
   return data;
@@ -106,7 +106,7 @@ export async function GetcommentsAPi(postid,start){
 //Hide comments based on Post
 export async function CommentsHideAPi(postid,commentid){
 
-  const data = fetch('https://mymiix.com/public/api/commentsHide?postid='+postid+'&commentid='+commentid)
+  const data = await fetch('https://mymiix.com/public/api/commentsHide?postid='+postid+'&commentid='+commentid)
   .then(response=>response.json())
 
   return data;
@@ -115,7 +115,7 @@ export async function CommentsHideAPi(postid,commentid){
 //Delete Post based on Post
 export async function PostDeleteAPi(postid){
 
-  const data = fetch('https://mymiix.com/public/api/Deletepost?posttid='+postid)
+  const data = await fetch('https://mymiix.com/public/api/Deletepost?posttid='+postid)
   .then(response=>response.json())
 
   return data;
@@ -126,7 +126,7 @@ export async function PostDeleteAPi(postid){
 //Delete comments based on Post
 export async function CommentsDeleteAPi(postid,commentid){
 
-  const data = fetch('https://mymiix.com/public/api/commentsDelete?postid='+postid+'&commentid='+commentid)
+  const data = await fetch('https://mymiix.com/public/api/commentsDelete?postid='+postid+'&commentid='+commentid)
   .then(response=>response.json())
 
   return data;
@@ -137,7 +137,7 @@ export async function CommentsDeleteAPi(postid,commentid){
 //Grab pinned comment based on Post
 export async function GetPinnedcommentsAPi(postid){
 
-  const data = fetch('https://mymiix.com/public/api/commentsPinned?postid='+postid+'start=0')
+  const data = await fetch('https://mymiix.com/public/api/commentsPinned?postid='+postid+'start=0')
   .then(response=>response.json())
 
   return data;
@@ -148,7 +148,7 @@ export async function GetPinnedcommentsAPi(postid){
 //Grab Story data based on user or grabbing a list of user stories using API
 export async function StorieDataAPI(start,q){
     
-  const data = fetch('https://mymiix.com/public/api/storiess?start='+start+'&q='+q)
+  const data = await fetch('https://mymiix.com/public/api/storiess?start='+start+'&q='+q)
   .then(res=>res.json());
 
   return data;
@@ -161,7 +161,7 @@ export async function StorieDataAPI(start,q){
 //Grabing users post data
 export async function ProfilePostAPI(start,q){
     
-  const data = fetch('https://mymiix.com/public/api/profilepostsNative?id='+q+'&start='+start)
+  const data = await fetch('https://mymiix.com/public/api/profilepostsNative?id='+q+'&start='+start)
   .then(res=>res.json());
 
   return data;
@@ -172,18 +172,37 @@ export async function ProfilePostAPI(start,q){
 //Grabing users Live Event data
 export async function ProfileLiveEventAPI(start,q){
     
-  const data = fetch('https://mymiix.com/public/api/UsersLiveEvent?q='+q+'&start='+start)
+  const data = await fetch('https://mymiix.com/public/api/UsersLiveEvent?q='+q+'&start='+start)
   .then(res=>res.json());
 
   return data;
 
 }
 
+//Grabing Trending Posts data
+export async function GetTrendingPostsAPI(start,q){
+    
+  const data = await fetch('https://mymiix.com/public/api/TrendsReactNative?Topic='+q+'&start='+start)
+  .then(res=>res.json());
+
+  return data;
+
+}
+
+//Grabing Users
+export async function GetUsersAPI(start,q){
+    
+  const data = await fetch('https://mymiix.com/public/api/queryy?q='+q+'&start='+start)
+  .then(res=>res.json());
+
+  return data;
+
+}
 
 //Grabing users Future post data
 export async function ProfileFuturePostAPI(start,q){
     
-  const data = fetch('https://mymiix.com/public/api/profilepostsNativeEventPost?id='+q+'&start='+start)
+  const data = await fetch('https://mymiix.com/public/api/profilepostsNativeEventPost?id='+q+'&start='+start)
   .then(res=>res.json());
 
   return data;
