@@ -61,6 +61,8 @@ Auth.setStart(Auth.start+1)
 const handleCloseMessageDrawer = () =>{
   setShowMessageDrawer(false)
 }
+
+
 const handleLoadMore = ()=>{
 
 
@@ -150,8 +152,8 @@ if(ele.isViewable === true){
     return(
     <View style={{flex:1}}>
 
-<SafeAreaView edges={['top']}>
- <View style={FeedItemstyles.TopNav}>
+<SafeAreaView style={{backgroundColor:'white'}} edges={['top']}>
+ <View style={[FeedItemstyles.TopNav,{backgroundColor:'white'}]}>
 
   <View style={{display:'flex',flexDirection:'row',gap:5,alignItems:'center'}}>
 

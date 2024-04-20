@@ -78,7 +78,7 @@ return(
 <TouchableOpacity   onPress={()=>{
 fetchData();
 Keyboard.dismiss();
-}} style={{position:'absolute',right:10}}><Text style={{fontSize:18,color:search == ""?"gray":"blue"}} >Search</Text></TouchableOpacity>
+}} style={{position:'absolute',right:10}}><Text style={{fontSize:18,fontWeight:'500',color:search == ""?"gray":"#007bff"}} >Search</Text></TouchableOpacity>
 </View>
 </View>
 

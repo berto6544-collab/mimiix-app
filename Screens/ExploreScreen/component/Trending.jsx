@@ -42,32 +42,32 @@ const fetchData = (q) =>{
     setIndex(0);
     fetchData("");
 
-}}><Text style={{color: index == 0?'blue':'black',fontSize:18}}>All</Text></TouchableOpacity>
+}}><Text style={{color: index == 0?'#007bff':'black',fontSize:15}}>All</Text></TouchableOpacity>
 <TouchableOpacity onPress={()=>{
     setIndex(1);
     fetchData("gaming");
-    }}><Text style={{color: index == 1?'blue':'black',fontSize:18}}>Gaming</Text></TouchableOpacity>
+    }}><Text style={{color: index == 1?'#007bff':'black',fontSize:15}}>Gaming</Text></TouchableOpacity>
 
 <TouchableOpacity onPress={()=>{
     setIndex(2);
     fetchData("music");
-    }}><Text style={{color: index == 2?'blue':'black',fontSize:18}}>Music</Text></TouchableOpacity>
+    }}><Text style={{color: index == 2?'#007bff':'black',fontSize:15}}>Music</Text></TouchableOpacity>
 
 <TouchableOpacity onPress={()=>{
     setIndex(3);
     fetchData("art");
-    }}><Text style={{color: index == 3?'blue':'black',fontSize:18}}>Art</Text></TouchableOpacity>
+    }}><Text style={{color: index == 3?'#007bff':'black',fontSize:15}}>Art</Text></TouchableOpacity>
 
 <TouchableOpacity onPress={()=>{
     setIndex(4);
     fetchData("entertainment");
-    }}><Text style={{color: index == 4?'blue':'black',fontSize:18}}>Entertainment</Text>
+    }}><Text style={{color: index == 4?'#007bff':'black',fontSize:15}}>Entertainment</Text>
     </TouchableOpacity>
 
     <TouchableOpacity onPress={()=>{
     setIndex(5);
     fetchData("tutorial");
-    }}><Text style={{color: index == 5?'blue':'black',fontSize:18}}>Tutorial</Text>
+    }}><Text style={{color: index == 5?'#007bff':'black',fontSize:15}}>Tutorial</Text>
     </TouchableOpacity>
 
 </View>

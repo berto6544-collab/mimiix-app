@@ -15,8 +15,8 @@ return(
 <SafeAreaView edges={['bottom']} style={{flex:1}}>
 
 <View style={{display:'flex',flexDirection:'row',alignItems:'center',gap:5,paddingHorizontal:10,backgroundColor:'white',width:Dimensions.get('screen').width,height:60}}>
-<TouchableOpacity onPress={()=>setIndex(0)}><Text style={{color: index == 0?'blue':'black',fontSize:18}}>Trending</Text></TouchableOpacity>
-<TouchableOpacity onPress={()=>setIndex(1)}><Text style={{color: index == 1?'blue':'black',fontSize:18}}>Users</Text></TouchableOpacity>
+<TouchableOpacity onPress={()=>setIndex(0)}><Text style={{color: index == 0?'#007bff':'black',fontSize:15}}>Trending</Text></TouchableOpacity>
+<TouchableOpacity onPress={()=>setIndex(1)}><Text style={{color: index == 1?'#007bff':'black',fontSize:15}}>Users</Text></TouchableOpacity>
 </View>
 
 {index == 0?<Trending navigation={navigation} />:<UsersComp navigation={navigation} />}

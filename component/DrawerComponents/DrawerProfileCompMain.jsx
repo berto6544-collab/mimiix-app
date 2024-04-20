@@ -49,7 +49,7 @@ export default DrawerProfileCompMain = ({navigation,data,setClose,Auth,setStart}
     <View style={{flex:1,display:'flex',flexDirection:'column',gap:30,marginTop:20,position:'relative'}}>
 
 
-{item?.Blocked == "0"?
+{data?.Blocked == "0"?
 <Buttons onPressed={()=>{
    
 }} icon1={{name:'block',type:'materialicons'}} title={'Block'} />

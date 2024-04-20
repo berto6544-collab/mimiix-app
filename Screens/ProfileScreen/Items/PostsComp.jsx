@@ -333,7 +333,7 @@ const onViewableItemsChanged = ({ viewableItems, changed }) => {
         
         }} style={{padding:10,width:'25%',backgroundColor:Tabindex == 0?'rgb(0, 123, 255)':'transparent',borderRadius:5}}><Text style={{color:Tabindex == 0?'white':'black',textAlign:'center',fontSize:15}}>Posts</Text></TouchableOpacity>
        
-       {<TouchableOpacity onPress={()=>{
+       {item.MyUserName == item.UserName?<TouchableOpacity onPress={()=>{
           
           setDataSource([])
           setStart(0)
@@ -351,10 +351,10 @@ const onViewableItemsChanged = ({ viewableItems, changed }) => {
               
               })
       
-      }} style={{padding:10,width:'25%',backgroundColor:Tabindex == 3?'rgb(0, 123, 255)':'transparent',borderRadius:5}}><Text style={{color:Tabindex == 3?'white':'black',textAlign:'center',fontSize:15}}>Future Posts</Text></TouchableOpacity>}
+      }} style={{padding:10,width:'25%',backgroundColor:Tabindex == 3?'rgb(0, 123, 255)':'transparent',borderRadius:5}}><Text style={{color:Tabindex == 3?'white':'black',textAlign:'center',fontSize:15}}>Future Posts</Text></TouchableOpacity>:null}
      
        
-        <TouchableOpacity
+        <TouchableOpacity 
         onPress={()=>{
           setDataSource([])
          

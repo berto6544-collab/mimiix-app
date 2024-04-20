@@ -76,7 +76,7 @@ export default function FeedItem({data,navigation,dataSource,setDataSource,index
     onPress={()=>{
         navigation.navigate('Web',{url:'https://mymiix.com/promoanalytics/p/'+data.PostId,title:'Post Insight'})
     }}
-    style={{marginBottom:10,paddingLeft:10,alignSelf:'flex-start'}}><Text style={{fontSize:15,color:'blue',fontWeight:'600'}}>Insight</Text></TouchableOpacity>:null}
+    style={{marginBottom:10,paddingLeft:10,alignSelf:'flex-start'}}><Text style={{fontSize:15,color:'#007bff',fontWeight:'600'}}>Insight</Text></TouchableOpacity>:null}
 
     <View style={FeedItemstyles.FeedItemBottom}>
     {data?.LikesData == "0"?<TouchableOpacity onPress={()=>{
