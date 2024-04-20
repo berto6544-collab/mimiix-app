@@ -28,6 +28,7 @@ const {uniqid} = route.params;
       sharedCookiesEnabled={true} 
       style={{width:Dimensions.get('screen').width,backgroundColor:'transparent',flex:1}}  
       thirdPartyCookiesEnabled={true} 
+      allowsInlineMediaPlayback={true}
       scalesPageToFit={true} 
       allowingReadAccessToURL={'file://'}
       showsVerticalScrollIndicator={false} 

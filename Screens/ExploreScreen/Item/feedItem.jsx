@@ -2,12 +2,12 @@ import React from "react";
 import { Card,Image,Avatar, Icon, Button } from "@rneui/themed";
 import { Dimensions, Text,TouchableOpacity, View } from "react-native";
 
-import { FeedItemstyles } from "../../StyleComponent/Style";
-import { OpenUrl } from "../../Utils/URL";
-import {MultiMedias} from '../Media/Media';
-import PaymentComponet from "./component/PaymentComponet";
+import { FeedItemstyles } from "../../../StyleComponent/Style";
+import { OpenUrl } from "../../../Utils/URL";
+import {MultiMedias} from '../../../component/Media/Media';
+import PaymentComponet from "../../../component/feedItems/component/PaymentComponet";
 import * as Sharing from 'expo-sharing';
-import { PostDeleteAPi, PostLikeApi } from "../../API/API";
+import { PostDeleteAPi, PostLikeApi } from "../../../API/API";
 
 
 
@@ -34,7 +34,7 @@ export default function FeedItem({data,navigation,dataSource,setDataSource,index
     }} style={[FeedItemstyles.FeedItem,{position:'relative'}]}>
     <View style={[FeedItemstyles.AvatarBase,{position:'relative'}]}>
     <View style={{width:'100%',paddingHorizontal:5,display:'flex',flexDirection:'row',alignItems:'center',gap:5}}>
-    <Avatar rounded={true} source={{uri:data?.ProfileImg}} />
+    <Text style={{fontWeight:'500',fontSize:18}}>{data?.CountTrend}. </Text>
     <Text onPress={()=>{
         if(data?.UserName == data?.MyUserName){
 
@@ -44,7 +44,7 @@ export default function FeedItem({data,navigation,dataSource,setDataSource,index
             navigation.navigate('Profile',{username:data.UserName, isMine:false})
 
         }
-    }} style={{fontSize:18,fontWeight:'500'}}>{data.PostedBy?data.PostedBy:data.postName}</Text>
+    }} style={{fontSize:18,fontWeight:'500'}}>{data.postName}</Text>
     </View>
     {data.UserName == data.MyUserName?<TouchableOpacity onPress={()=>{Delete()}} style={{position:'absolute',right:5}}><Icon color={'black'} name={'close'} type={'font-awesome'} /></TouchableOpacity>:null}
     
@@ -79,23 +79,8 @@ export default function FeedItem({data,navigation,dataSource,setDataSource,index
     style={{marginBottom:10,paddingLeft:10,alignSelf:'flex-start'}}><Text style={{fontSize:15,color:'#007bff',fontWeight:'600'}}>Insight</Text></TouchableOpacity>:null}
 
     <View style={FeedItemstyles.FeedItemBottom}>
-    {data?.LikesData == "0"?<TouchableOpacity onPress={()=>{
-    if(Auth.Authuser.length  == 0){navigation.navigate('Signin');}else{
-
-        data.LikesData = 1;
-        data.LikesCount = Number(data.LikesCount)+1
-
-        Auth.setPostDataSource([...Auth.PostDataSource])
-
-        PostLikeApi(data.PostId,"","","")
-        
-
-
-    }}} style={{display:'flex',alignItems:'center',flexDirection:'row',gap:5}}>
-        <Icon  name={'heart-o'}  type={'font-awesome'} />
-        <Text>{data?.LikesCount}</Text>
-        </TouchableOpacity>
-        :
+    
+     
         <TouchableOpacity onPress={()=>{
         if(Auth.Authuser.length  == 0)
         {navigation.navigate('Signin');}
@@ -110,8 +95,8 @@ export default function FeedItem({data,navigation,dataSource,setDataSource,index
     
         }}} style={{display:'flex',alignItems:'center',flexDirection:'row',gap:5}}>
             <Icon  color={'#0086ff'} name={'heart'} type={'font-awesome'} />
-            <Text>{data?.LikesCount}</Text>
-            </TouchableOpacity>}
+            <Text>{data?.postLikes}</Text>
+            </TouchableOpacity>
     
     
     {<TouchableOpacity onPress={()=>{
