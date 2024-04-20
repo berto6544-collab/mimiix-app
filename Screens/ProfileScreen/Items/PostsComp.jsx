@@ -11,12 +11,15 @@ import Status from "../components/Status";
 import { AuthContext } from "../../../AuthContext/context";
 import BlogItem from "../../../component/blogItems/blogItems";
 import { FlashList } from "@shopify/flash-list";
+import {OpenUrls} from '../../../Utils/URL';
 
 
 
 export default function PostComp({navigation,item,username,index,setData,data}){
 
     const [dataSource,setDataSource] = React.useState([]);
+    const [dataSourceLink,setDataSourceLink] = React.useState([]);
+    const [isTrue,setIsTrue] = React.useState(false);
     const [start,setStart] = React.useState(0)
     const [Tabindex, setTabIndex] = React.useState(0);
     const nativeAdViewRef = React.useRef();
@@ -29,7 +32,7 @@ React.useEffect(()=>{
 
     fetchData();
     nativeAdViewRef.current?.loadAd();
-
+    setDataSourceLink(item.LinksArray);
 
 
 },[])
@@ -226,7 +229,7 @@ const onViewableItemsChanged = ({ viewableItems, changed }) => {
         
 
 
-        <AvatarItems data={item} index={index}  username={item.UserName} profileImage={item.ProfileImage} userStats={item.UsersStat} />
+        <AvatarItems data={item} index={index} navigation={navigation} username={item.UserName} profileImage={item.ProfileImage} userStats={item.UsersStat} />
         
        
       
@@ -234,7 +237,7 @@ const onViewableItemsChanged = ({ viewableItems, changed }) => {
         
 
 
-        <View style={{paddingHorizontal:10,display:'flex',flexDirection:'row',alignItems:'center',flexWrap:'wrap',gap:10,width:'100%'}}>
+        {item.UserName != item.MyUserName?<View style={{paddingHorizontal:10,display:'flex',flexDirection:'row',alignItems:'center',flexWrap:'wrap',gap:10,width:'100%'}}>
           {item?.Followed == "0"?
           <Button 
           onPress={()=>{
@@ -276,7 +279,8 @@ const onViewableItemsChanged = ({ viewableItems, changed }) => {
           
           />
 
-          {item?.Payment.match(/acct\_([a-zA-Z0-9_]+)/)?<View style={{width:'48%',position:'relative'}}>{item?.SubsData == "0"?
+          {item?.Payment.match(/acct\_([a-zA-Z0-9_]+)/) && item.UserName != item.MyUserName?<View style={{width:'48%',position:'relative'}}>{
+          item?.SubsData == "0"?
           <Button 
           title="Subscribe" 
           radius={5}
@@ -297,11 +301,15 @@ const onViewableItemsChanged = ({ viewableItems, changed }) => {
           color={'rgb(0, 123, 255)'} 
           type='outline'
           />} 
-          </View>:null}
+          </View>
+          :
+          null}
+
+          
 
           
           
-          {item?.Payment.match(/acct\_([a-zA-Z0-9_]+)/)?<Button 
+          {item?.Payment.match(/acct\_([a-zA-Z0-9_]+)/) && item.UserName != item.MyUserName?<Button 
           title="Tip" 
           radius={5}
           onPress={()=>{
@@ -313,7 +321,26 @@ const onViewableItemsChanged = ({ viewableItems, changed }) => {
           type='solid'
           
           />:null}
-          </View>
+          </View>:
+          <View style={{paddingHorizontal:10,display:'flex',flexDirection:'row',alignItems:'center',flexWrap:'wrap',gap:10,width:'100%'}}>
+            
+
+
+            </View>}
+
+            <View style={{paddingHorizontal:10,display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',width:'100%'}}>
+            <Text style={{fontSize:16,fontWeight:'600'}}>About Me</Text>
+            <Text >{item.AboutMe}</Text>
+
+
+            </View>
+
+
+            <View style={{paddingHorizontal:10,display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',width:'100%'}}>
+            
+            {item.LinksArray.length > 0 ?OpenUrls(dataSourceLink,isTrue,setIsTrue,setDataSourceLink,item.MyUserName,item.UserName,navigation):null}
+
+            </View>
             
         <View style={{display:'flex',width:'100%',flexDirection:'row',borderBottomColor:'lightgrey',paddingBottom:10,borderBottomWidth:1,alignItems:'center',justifyContent:'space-between',paddingHorizontal:10,paddingRight:15}}>
         <TouchableOpacity onPress={()=>{

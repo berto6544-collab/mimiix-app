@@ -103,7 +103,9 @@ Auth={Auth}
 username={item.UserName}
 profileImage={item.ProfileImage}
 userStats={item.UsersStat}
-navigation={navigation} onshow={isVisible} title={''}   >
+navigation={navigation} 
+onshow={isVisible} 
+title={''}   >
 <DrawerCompMain  setClose={()=>{setIsVisible(false)}}navigation={navigation} Auth={Auth} />
 
 </DrawerDialog>
@@ -117,7 +119,9 @@ Auth={Auth}
 username={item.UserName}
 profileImage={item.ProfileImage}
 userStats={item.UsersStat}
-navigation={navigation} onshow={isVisible} title={''}   >
+navigation={navigation} 
+onshow={isVisible} 
+title={''}   >
 
 <DrawerProfileCompMain setStart={0} data={item}  setClose={()=>{setIsVisible(false)}} navigation={navigation} Auth={Auth} />
 
@@ -135,7 +139,7 @@ navigation={navigation} onshow={isVisible} title={''}   >
     return(
     <View style={Profilestyles.container} >
     
-{content}
+    {content}
 
     </View>)
 }
