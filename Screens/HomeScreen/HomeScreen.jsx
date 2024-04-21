@@ -210,7 +210,7 @@ if(ele.isViewable === true){
      
     
      
-    //onViewableItemsChanged={onViewableItemsChanged}
+    onViewableItemsChanged={onViewableItemsChanged}
     numColumns={1}
     keyExtractor={(item)=>item.PostId}
    
