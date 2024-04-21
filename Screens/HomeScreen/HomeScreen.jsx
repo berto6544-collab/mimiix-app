@@ -188,7 +188,7 @@ if(ele.isViewable === true){
 <View style={{flex:1}}>
 
 
- {Auth.PostDataSource && Auth.PostDataSource.length >0 ?<FlashList
+ <OptimizedFlatList
       
       ref={flashListRef}
       ListHeaderComponent={
@@ -205,22 +205,22 @@ if(ele.isViewable === true){
       data={Auth.PostDataSource}
       renderItem={({item,index}) => {return(<FeedItem dataSource={Auth.PostDataSource} setDataSource={Auth.setPostDataSource} isProfile={false} navigation={navigation} Auth={Auth}  index={index} data={item} />)}}
       onEndReached={handleLoadMore} 
-      onEndReachedThreshold={0}
+      onEndReachedThreshold={0.9}
      estimatedItemSize={100}
      
     
      
-    onViewableItemsChanged={onViewableItemsChanged}
+    //onViewableItemsChanged={onViewableItemsChanged}
     numColumns={1}
     keyExtractor={(item)=>item.PostId}
    
       /* viewabilityConfig={{
-        waitForInteraction:true,
-        itemVisiblePercentThreshold:50,
-        minimumViewTime:1000
+        //waitForInteraction:true,
+        itemVisiblePercentThreshold:90,
+        //minimumViewTime:1000
        }}*/
        
-       />:null}
+       />
 
 </View>
 

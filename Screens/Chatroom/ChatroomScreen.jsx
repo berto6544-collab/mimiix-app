@@ -47,6 +47,7 @@ const Auth = React.useContext(AuthContext)
       style={{width:Dimensions.get('screen').width,backgroundColor:'transparent',flex:1}}  
       thirdPartyCookiesEnabled={true} 
       scalesPageToFit={true} 
+      allowsInlineMediaPlayback={true}
       allowingReadAccessToURL={'file://'}
       showsVerticalScrollIndicator={false} 
       source={{uri: 'https://mymiix.com/chatroom'}} 
