@@ -18,7 +18,7 @@ const WebViewRefs = React.useRef(null)
 
 const runFirst = `
 document.querySelector('.fa-times').style.display = 'none';
-document.querySelector('.beginLiveStreamButton').style.display = 'none';
+
 document.querySelector('img').style.display = 'none';
 `;
 
@@ -46,36 +46,7 @@ document.querySelector('.buttonColor').style.display = 'none';
             headerStyle:{backgroundColor:'rgb(30, 144, 255)',color:'white',shadowOpacity:0,borderBottomWidth:0},
             headerShadowVisible: false,
             headerRight: () => (
-              !viewer?<TouchableOpacity  onPress={() => {
-
-                if(viewer){
-
-               
-                }else{
-
-                  if(isStarting == true){
-                    setIsStarting(false)
-                    const runFirstClicks = `document.querySelector('.finishLiveStreamButton').click();`;
-                    WebViewRefs.current.injectJavaScript(runFirstClicks);
-
-
-
-                  
-                  }else{
-                  
-                    setIsStarting(true)
-                    const runFirstClicks = `document.querySelector('.beginLiveStreamButton').click();
-                    document.querySelector('.finishLiveStreamButton').style.display = "none";
-                    `;
-                  WebViewRefs.current.injectJavaScript(runFirstClicks);
-
-
-                  
-                  
-                  }
-
-                }
-              }} ><Text style={{color:'white',fontSize:18}}>{isStarting == false?"Begin":"End"}</Text></TouchableOpacity>:
+              !viewer?<View></View>:
               <Button color={'white'} onPress={() => {
                 if(viewer){
                 const runFirstClick = `document.querySelector('.buttonColor').click();`;
@@ -96,7 +67,7 @@ document.querySelector('.buttonColor').style.display = 'none';
     
    
     return (
-    <SafeAreaView edges={['bottom','left','right']} style={{width:Dimensions.get('screen').width,backgroundColor:'rgb(30, 144, 255)',flex:1}}>
+    <SafeAreaView edges={['bottom','left','right']} style={{backgroundColor:'rgb(30, 144, 255)',flex:1}}>
     <View style={{flex:1}}>
     <WebView 
       ref={WebViewRefs}
