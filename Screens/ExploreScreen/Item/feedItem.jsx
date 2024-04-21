@@ -32,29 +32,36 @@ export default function FeedItem({data,navigation,dataSource,setDataSource,index
     <TouchableOpacity activeOpacity={1} key={data.PostId}  onPress={()=>{
         navigation.navigate('Post',{uniqid:data?.UniqeId})
     }} style={[FeedItemstyles.FeedItem,{position:'relative'}]}>
-    <View style={[FeedItemstyles.AvatarBase,{position:'relative'}]}>
-    <View style={{width:'100%',paddingHorizontal:5,display:'flex',flexDirection:'row',alignItems:'center',gap:5}}>
-    <Text style={{fontWeight:'500',fontSize:18}}>{data?.CountTrend}. </Text>
+    <View style={[FeedItemstyles.AvatarBase,{position:'relative',marginBottom:3}]}>
+    <View style={{width:'100%',paddingHorizontal:5,display:'flex',flexDirection:'row',alignItems:'center',gap:2}}>
+    <Text style={{fontWeight:'500',fontSize:18}}>#{data?.Count}</Text>
+    
     <Text onPress={()=>{
-        if(data?.UserName == data?.MyUserName){
-
-            navigation.navigate('Profile',{username:data.UserName, isMine:true})
-
-        }else{
+       
             navigation.navigate('Profile',{username:data.UserName, isMine:false})
 
-        }
-    }} style={{fontSize:18,fontWeight:'500'}}>{data.postName}</Text>
-    </View>
-    {data.UserName == data.MyUserName?<TouchableOpacity onPress={()=>{Delete()}} style={{position:'absolute',right:5}}><Icon color={'black'} name={'close'} type={'font-awesome'} /></TouchableOpacity>:null}
-    
+           }} style={{fontSize:18,fontWeight:'500'}}>{data.PostTitle}</Text>
+
         
+    </View>
+    
        
     </View>
+
+    <View style={{display:'flex',width:'100%',paddingLeft:10,marginBottom:10,flexDirection:'row',alignItems:'flex-start',gap:5}}>
+    <Text onPress={()=>{
+       
+            navigation.navigate('Profile',{username:data.UserName, isMine:false})
+
+           }} style={{color:'grey',fontSize:15}} >{data.UserName}</Text>
+
+        <Text style={{color:'grey',fontSize:15}}>. {data.Views} Views</Text>
+        </View>
+
     {OpenUrl(data.PostBody,data,navigation,data.PostImage,data.PostId,'')}
     {data.PostImage != ""?<View style={{position:'relative',width:Dimensions.get('screen').width}}>
 
-    {data.Stat != "" && data.StatData != "0" && data.ShareData != "0" || !data.Payment.match(/acct\_([a-zA-Z0-9_]+)/) || data.PostsSecurity == "copyright" ||data.SubsData != "0" || data.ShareData != "0" || data.Stat == "" || data.MyUserName == data.UserName || data.usersID == 1 || data.thisID == 1  ?<MultiMedias navigation={navigation} data={data} /> :
+    {data.Stat != "" && data.StatData != "0" || !data.Payment.match(/acct\_([a-zA-Z0-9_]+)/) || data.PostsSecurity == "copyright" || data.SubsData != "0" || data.Stat == "" || data.MyUserName == data.UserName || data.usersID == 1 || data.thisID == 1  ?<MultiMedias navigation={navigation} data={data} /> :
     
         <View style={{position:'relative',width:Dimensions.get('screen').width,height: Dimensions.get('window').height -470}}>
         

@@ -8,14 +8,17 @@ import {OptimizedFlatList} from 'react-native-optimized-flatlist';
 import FeedItem from "../Item/feedItem"
 import { AuthContext } from "../../../AuthContext/context";
 
+
+
+
+
 export default TrendingComp = ({navigation}) =>{
 
 
     const [dataSource,setDataSource] = React.useState([]);
     const [index,setIndex] = React.useState(0);
     const Auth = React.useContext(AuthContext);
-
-
+    
     React.useEffect(()=>{
 
         fetchData("")
@@ -35,7 +38,7 @@ const fetchData = (q) =>{
 
 
     return(
-        <View style={{flex:1}}>
+<View style={{flex:1}}>
 <View style={{display:'flex',flexDirection:'row',justifyContent:'space-between',alignItems:'center',gap:5,paddingHorizontal:10,backgroundColor:'white',width:Dimensions.get('screen').width,paddingBottom:10}}>
 <TouchableOpacity onPress={()=>{
     setDataSource([])
@@ -46,13 +49,13 @@ const fetchData = (q) =>{
 <TouchableOpacity onPress={()=>{
     setDataSource([])
     setIndex(1);
-    fetchData("gaming");
+    fetchData("Gaming");
     }}><Text style={{color: index == 1?'#007bff':'black',fontSize:15}}>Gaming</Text></TouchableOpacity>
 
 <TouchableOpacity onPress={()=>{
     setDataSource([])
     setIndex(2);
-    fetchData("music");
+    fetchData("Music");
     }}><Text style={{color: index == 2?'#007bff':'black',fontSize:15}}>Music</Text></TouchableOpacity>
 
 <TouchableOpacity onPress={()=>{
@@ -64,18 +67,19 @@ const fetchData = (q) =>{
 <TouchableOpacity onPress={()=>{
     setDataSource([])
     setIndex(4);
-    fetchData("entertainment");
+    fetchData("Entertainment");
     }}><Text style={{color: index == 4?'#007bff':'black',fontSize:15}}>Entertainment</Text>
     </TouchableOpacity>
 
     <TouchableOpacity onPress={()=>{
         setDataSource([])
     setIndex(5);
-    fetchData("tutorial");
+    fetchData("Educational");
     }}><Text style={{color: index == 5?'#007bff':'black',fontSize:15}}>Tutorial</Text>
     </TouchableOpacity>
 
 </View>
+
 
 
 <OptimizedFlatList 

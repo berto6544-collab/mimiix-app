@@ -1,34 +1,90 @@
 import React from "react";
-import { StyleSheet, Text, View,Dimensions } from 'react-native';
+import { StyleSheet, Text, View,Dimensions,TouchableOpacity } from 'react-native';
 import { WebView } from 'react-native-webview';
 import { Button } from "react-native";
 import { AuthContext } from "../../AuthContext/context";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 
+
 const UniteScreen = ({route,navigation}) => {
-  const {url,title} = route.params;
+  const {url,title,viewer} = route.params;
 const Auth = React.useContext(AuthContext)
 const [loaded, setLoaded] = React.useState(false);
+const [isStarting, setIsStarting] = React.useState(false);
 const WebViewRefs = React.useRef(null)
 
 
 
 const runFirst = `
 document.querySelector('.fa-times').style.display = 'none';
+document.querySelector('.beginLiveStreamButton').style.display = 'none';
+document.querySelector('img').style.display = 'none';
+`;
+
+const runFirstView = `
+
 document.querySelector('.buttonColor').style.display = 'none';
+
 `;
 
     React.useEffect(()=>{
 
         navigation.setOptions({
-            headerLeft: ()=>(<View></View>),
+            headerLeft: ()=>(!viewer && !isStarting?<Button color={'white'} onPress={() => {
+              if(viewer){
+              const runFirstClick = `document.querySelector('.buttonColor').click();`;
+              WebViewRefs.current.injectJavaScript(runFirstClick);
+              }
+            
+              navigation.goBack();
+            
+            }} title="Done" />:<View></View>
+          ),
             title:title,
             headerTitleStyle:{color:'white'},
             headerStyle:{backgroundColor:'rgb(30, 144, 255)',color:'white',shadowOpacity:0,borderBottomWidth:0},
             headerShadowVisible: false,
             headerRight: () => (
-              <Button color={'white'} onPress={() => {navigation.goBack();}} title="Done" />
+              !viewer?<TouchableOpacity  onPress={() => {
+
+                if(viewer){
+
+               
+                }else{
+
+                  if(isStarting == true){
+                    setIsStarting(false)
+                    const runFirstClicks = `document.querySelector('.finishLiveStreamButton').click();`;
+                    WebViewRefs.current.injectJavaScript(runFirstClicks);
+
+
+
+                  
+                  }else{
+                  
+                    setIsStarting(true)
+                    const runFirstClicks = `document.querySelector('.beginLiveStreamButton').click();
+                    document.querySelector('.finishLiveStreamButton').style.display = "none";
+                    `;
+                  WebViewRefs.current.injectJavaScript(runFirstClicks);
+
+
+                  
+                  
+                  }
+
+                }
+              }} ><Text style={{color:'white',fontSize:18}}>{isStarting == false?"Begin":"End"}</Text></TouchableOpacity>:
+              <Button color={'white'} onPress={() => {
+                if(viewer){
+                const runFirstClick = `document.querySelector('.buttonColor').click();`;
+                WebViewRefs.current.injectJavaScript(runFirstClick);
+                }
+              
+                navigation.goBack();
+              
+              }} title="Leave" />
             ),
           });
 
@@ -36,24 +92,29 @@ document.querySelector('.buttonColor').style.display = 'none';
 
         
 
-    },[])
+    },[isStarting])
     
    
     return (
     <SafeAreaView edges={['bottom','left','right']} style={{width:Dimensions.get('screen').width,backgroundColor:'rgb(30, 144, 255)',flex:1}}>
-    <View  style={{width:Dimensions.get('screen').width,backgroundColor:'rgb(30, 144, 255)',flex:1}}  >
+    <View style={{flex:1}}>
     <WebView 
       ref={WebViewRefs}
       javaScriptEnabled={true} 
       allowFileAccess={true} 
       sharedCookiesEnabled={true}
       allowsInlineMediaPlayback={true}
-      style={{width:Dimensions.get('screen').width,display:loaded?'flex':'none',backgroundColor:'rgb(30, 144, 255)',flex:1}}  
+      style={{width:Dimensions.get('screen').width,height:Dimensions.get('screen').height,display:loaded?'flex':'none',backgroundColor:'rgb(30, 144, 255)',flex:1}}  
       thirdPartyCookiesEnabled={true} 
-      scalesPageToFit={true} 
+      
       onLoadEnd={()=>{
         setTimeout(()=>{
+        if(viewer){
+        WebViewRefs.current.injectJavaScript(runFirstView);
+
+        }else{
         WebViewRefs.current.injectJavaScript(runFirst);
+        }
         setLoaded(true)
       },3000)
       }}
@@ -63,7 +124,7 @@ document.querySelector('.buttonColor').style.display = 'none';
     
       
       />
-      </View>
+    </View>
       </SafeAreaView>
       );
   }

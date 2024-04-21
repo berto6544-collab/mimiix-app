@@ -121,7 +121,6 @@ paddingVertical:0
       flexDirection:'row',
       position:'relative',
       paddingHorizontal:5,
-      paddingBottom:10,
       gap:5,
 
     },

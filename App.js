@@ -16,9 +16,11 @@ const Tab =  createBottomTabNavigator();
 
 export default function App({navigation}) {
   const [Authuser,setAuthUser] = React.useState([]);
+
   const [PostDataSource,setPostDataSource] = React.useState([]);
+  const [bannerText,setBannerText] = React.useState("ca-app-pub-3940256099942544/2521693316");
   const [theme,setTheme] = React.useState('light');
-  const [token,setToken] = React.useState('light');
+  const [token,setToken] = React.useState('');
   const [mediaType,setMediaType] = React.useState(null);
   const [mediaDataSource,setMediaDataSource] = React.useState([])
   const [index,setIndex] = React.useState(0);
@@ -30,9 +32,12 @@ React.useEffect(()=>{
 if(response.length == 0 || response.length > 0 && response[0].UserName == "")
 return;
 setAuthUser(response);
+
+
   
 
-})
+});
+
 
 },[]); 
 

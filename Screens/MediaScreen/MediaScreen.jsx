@@ -8,6 +8,12 @@ import DrawerProfileDialog from "../../Dialog/DrawerProfileDialog";
 import { MultiMedias } from "../../component/Media/Media";
 import { FlashList } from "@shopify/flash-list";
 import ItemList from "./component/ItemList";
+import { GAMBannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
+import { SafeAreaView } from "react-native-safe-area-context";
+
+
+const adUnitId = 'ca-app-pub-6989684433220866/6848090089';
+
 export default MediaScreen  = ({route,navigation}) =>{
 
     const {title,type,url} = route.params;
@@ -161,7 +167,7 @@ if(Auth.mediaDataSource.length > 0){
 if(Auth.mediaType == "video"){
 
 return(
-    
+    <SafeAreaView edges={['bottom']} style={{flex:1,width:'100%',display:'flex',flexDirection:'column',alignItems:'center',backgroundColor:'black'}}>
     <Video   
    
 source={{uri:Auth.mediaDataSource[Auth.index].url}}
@@ -175,7 +181,20 @@ style={{width:Dimensions.get('screen').width,height:Dimensions.get('screen').hei
     
     
     
-      />)
+      />
+
+<GAMBannerAd
+      unitId={adUnitId}
+      sizes={[BannerAdSize.BANNER]}
+      requestOptions={{
+        networkExtras: {
+          collapsible: 'bottom',
+        },
+      }}
+    />
+      </SafeAreaView>
+      
+      )
 
 
 }
@@ -332,6 +351,15 @@ setShow(true)
 </View>
 
 
+<GAMBannerAd
+      unitId={adUnitId}
+      sizes={[BannerAdSize.BANNER]}
+      requestOptions={{
+        networkExtras: {
+          collapsible: 'bottom',
+        },
+      }}
+    />
 </View>
 
 
@@ -342,7 +370,11 @@ setShow(true)
 data={Auth.mediaDataSource}
 estimatedItemSize={100}
 renderItem={({item,index})=><ItemList item={item} ind={index} indexx={Auth.index} setProgress={setProgress} VideoRef={VideoRef} Auth={Auth} />}
+
+
 />
+
+
 
   
 </DrawerProfileDialog>

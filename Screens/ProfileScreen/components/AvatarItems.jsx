@@ -16,7 +16,7 @@ return(
 
     {data.isLive == "0"?<Image style={{width:80,height:80,borderWidth:2,borderColor:'white',borderRadius:100,objectFit:'cover',position:'absolute',left:Dimensions.get('screen').width / 2 -40,bottom:-35}} size={80}rounded={true}  source={{uri:profileImage}} />
     :<TouchableOpacity style={{position:'relative'}} onPress={()=>{
-        navigation.navigate('UniteLive',{url:'https://mymiix.com/@'+data.UserName+'/dropin'})
+        navigation.navigate('UniteLive',{url:'https://mymiix.com/@'+data.UserName+'/dropin',viewer:data.UserName != data.MyUserName?true:false})
     }}><Image style={{width:80,height:80,borderWidth:4,borderColor:'rgb(0, 123, 255)',borderRadius:100,objectFit:'cover',position:'absolute',left:Dimensions.get('screen').width / 2 -40,bottom:-35}} size={80}rounded={true}  source={{uri:profileImage}} />
     </TouchableOpacity>}
     </View>
