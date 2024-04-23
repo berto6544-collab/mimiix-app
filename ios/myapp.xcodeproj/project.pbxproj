@@ -139,9 +139,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		13B07F861A680F5B00A75B9A /* myapp */ = {
+		13B07F861A680F5B00A75B9A /* MyMiix */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "myapp" */;
+			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "MyMiix" */;
 			buildPhases = (
 				08A4A3CD28434E44B6B9DE2E /* [CP] Check Pods Manifest.lock */,
 				CFC69B5056918CC4D4647CC1 /* [Expo] Configure project */,
@@ -157,7 +157,7 @@
 			);
 			dependencies = (
 			);
-			name = myapp;
+			name = MyMiix;
 			productName = myapp;
 			productReference = 13B07F961A680F5B00A75B9A /* myapp.app */;
 			productType = "com.apple.product-type.application";
@@ -188,7 +188,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				13B07F861A680F5B00A75B9A /* myapp */,
+				13B07F861A680F5B00A75B9A /* MyMiix */,
 			);
 		};
 /* End PBXProject section */
@@ -603,7 +603,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "myapp" */ = {
+		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "MyMiix" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				13B07F941A680F5B00A75B9A /* Debug */,

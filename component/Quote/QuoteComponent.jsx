@@ -10,8 +10,8 @@ export default Quote = ({Auth,navigation}) =>{
     return(
     <TouchableOpacity onPress={()=>{
         navigation.navigate('Profile',{username:Auth.Authuser[0].UsersQuote[0].username});
-    }} activeOpacity={1} style={[Quotestyles.QuoteBase,{alignSelf:'center'}]}>
-    <Text style={{fontWeight:'700',fontSize:16}}>{Auth.Authuser[0].UsersQuote[0].Quote} - {Auth.Authuser[0].UsersQuote[0].Name} - Posted By <Text onPress={()=>{
+    }} activeOpacity={1} style={[Quotestyles.QuoteBase,{alignSelf:'center',marginTop:-20}]}>
+    <Text style={{fontWeight:'700',fontSize:16,paddingTop:0}}>{Auth.Authuser[0].UsersQuote[0].Quote} - {Auth.Authuser[0].UsersQuote[0].Name} - Posted By <Text onPress={()=>{
 
     navigation.navigate('Profile',{username:Auth.Authuser[0].UsersQuote[0].username});
 

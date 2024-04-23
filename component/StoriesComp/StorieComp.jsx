@@ -28,7 +28,7 @@ React.useEffect(()=>{
 
 
 return(
-<View style={[StorieStyle.StoryBase]}>
+<View style={[StorieStyle.StoryBase,{paddingVertical:20,paddingTop:20}]}>
 
 
 <TouchableOpacity onPress={()=>setShowDrawer(true)} style={{alignItems:'center'}}>

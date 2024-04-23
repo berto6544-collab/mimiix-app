@@ -4,6 +4,7 @@ import { TouchableOpacity,Dimensions, View } from "react-native";
 import Carousel, { ParallaxImage } from 'react-native-snap-carousel';
 import { FeedItemstyles } from "../../StyleComponent/Style";
 import { AuthContext } from "../../AuthContext/context";
+import FastImage from "react-native-fast-image";
 
 
 const {width: screenWidth} = Dimensions.get('window');
@@ -115,13 +116,14 @@ if(item.match(/\.jpg|\.png|\.jpeg|\.gif/gi)){
 
 
     
-      <Image style={{
+      <FastImage style={{
         width: "100%",
         zIndex:2,
         marginHorizontal: 0,
+        backgroundColor:'lightgrey',
         height: Dimensions.get('window').height -370, 
         resizeMode: 'cover',
-        }} source={{uri:item}} />
+        }} source={{uri:item,priority: 'high'}} />
     </TouchableOpacity>)
 
 
@@ -153,13 +155,14 @@ if(item.match(/\.jpg|\.png|\.jpeg|\.gif/gi)){
 
     <Icon name={'play'} containerStyle={{position:'absolute',top:'45%',zIndex:3,left:'45%'}} size={70} color={'#0086ff'}  type={'font-awesome'} /> 
 
-    <Image style={{
+    <FastImage style={{
         width: "100%",
         zIndex:2,
         marginHorizontal: 0,
+        backgroundColor:'lightgrey',
         height: Dimensions.get('window').height -370, 
         resizeMode: 'cover',
-        }} source={{uri:data.Poster}} />
+        }} source={{uri:data.Poster,priority:'high'}} />
     </TouchableOpacity>)
 
 
@@ -177,13 +180,14 @@ if(item.match(/\.jpg|\.png|\.jpeg|\.gif/gi)){
         }}  style={{height: Dimensions.get('window').height -470,position:'relative',zIndex:2, width: Dimensions.get('window').width,}}>
         <Icon name={'play'} containerStyle={{position:'absolute',top:'45%',zIndex:3,left:'45%'}} size={70} color={'#0086ff'}  type={'font-awesome-5'} /> 
 
-        <Image style={{
+        <FastImage style={{
         width: "100%",
         zIndex:2,
         marginHorizontal: 0,
+        backgroundColor:'lightgrey',
         height: Dimensions.get('window').height -370, 
         resizeMode: 'cover',
-        }} source={{uri:''+data.Poster}} />
+        }} source={{uri:''+data.Poster,priority:'high'}} />
         </TouchableOpacity>
         
             )

@@ -1,7 +1,7 @@
 import React,{useRef} from "react";
 import { Text,Card,Image,Avatar, Icon, } from "@rneui/themed";
 import { FeedsData } from "../../API/API";
-import { Dimensions, TouchableOpacity, View } from "react-native";
+import { Dimensions, TouchableOpacity, View,FlatList } from "react-native";
 import FeedItem from "../../component/feedItems/feedItem";
 import { FeedItemstyles } from "../../StyleComponent/Style";
 import {OptimizedFlatList} from 'react-native-optimized-flatlist';
@@ -14,6 +14,7 @@ import {FlashList, useBenchmark} from "@shopify/flash-list"
 import { AuthContext } from "../../AuthContext/context";
 import DrawerCompMain from "../../component/DrawerComponents/DrawerCompMain";
 import { SafeAreaView } from "react-native-safe-area-context";
+import BoardComp from "./component/BoardComp";
 
 
 
@@ -188,13 +189,13 @@ if(ele.isViewable === true){
 <View style={{flex:1}}>
 
 
- <OptimizedFlatList
+ <FlatList
       
-      ref={flashListRef}
+     ref={flashListRef}
       ListHeaderComponent={
       <View style={{width:'100%',display:'flex',paddingHorizontal:0,flexDirection:'column',gap:20,alignItems:'flex-start'}}>
       
-      {<Storie query={''} navigation={navigation} Auth={Auth} />}
+      {Auth.Authuser.length == 0?<BoardComp navigation={navigation} /> : <Storie query={''} navigation={navigation} Auth={Auth} />}
       <QuoteComp Auth={Auth} navigation={navigation} />
 
       </View>
@@ -206,19 +207,18 @@ if(ele.isViewable === true){
       renderItem={({item,index}) => {return(<FeedItem dataSource={Auth.PostDataSource} setDataSource={Auth.setPostDataSource} isProfile={false} navigation={navigation} Auth={Auth}  index={index} data={item} />)}}
       onEndReached={handleLoadMore} 
       onEndReachedThreshold={0.9}
-     estimatedItemSize={100}
-     
+      //maxToRenderPerBatch={50}
+      //windowSize={5}
+     //estimatedItemSize={100}
+     removeClippedSubviews={false} 
     
      
+    //onViewableItemsChanged={onViewableItemsChanged}
+    //numColumns={1}
+    
+    keyExtractor={(item,index)=>index}
     onViewableItemsChanged={onViewableItemsChanged}
-    numColumns={1}
-    keyExtractor={(item)=>item.PostId}
    
-      /* viewabilityConfig={{
-        //waitForInteraction:true,
-        itemVisiblePercentThreshold:90,
-        //minimumViewTime:1000
-       }}*/
        
        />
 
@@ -228,11 +228,11 @@ if(ele.isViewable === true){
 
 
 <View  style={{display:'flex',width:'100%',flexDirection:'row',alignItems:'center',justifyContent:'space-between'}}>
-{/*Button navigates you to the message screen or if your not signed-in then the signin screen */}
+{/*Button navigates you to the home screen */}
   <Icon name={'home'} size={33} color={'blue'} type={'fontisto'} onPress={()=>{ if(Auth.Authuser.length > 0 ){ navigation.navigate('Home'); }else{ navigation.navigate('Signin'); } }} />
 
 
- {/*Button navigates you to the explore screen */}
+ {/*Button navigates you to the notification screen or signin screen */}
 <TouchableOpacity onPress={()=>{if(Auth.Authuser.length > 0 ){ navigation.navigate('Notifications'); }else{ navigation.navigate('Signin'); } }}>
 <Icon name={'notifications'} size={35} type={'ionicon'} />
 </TouchableOpacity>
@@ -240,10 +240,10 @@ if(ele.isViewable === true){
 
 
   
-  {/*Button navigates you to create post screen or if your not signed-in then the signin screen */}
+  {/*Button navigates you to users profile or if your not signed-in then the signin screen */}
   
 <TouchableOpacity onPress={()=>{if(Auth.Authuser.length > 0 ){ navigation.navigate('Profile',{username:Auth.Authuser[0].UserName,title:'@'+Auth.Authuser[0].UserName}); }else{ navigation.navigate('Signin') }; }}>
-{<Avatar size={40} rounded={true} source={{uri:Auth.Authuser.length > 0 ? Auth.Authuser[0].ProfileImage:''}} />}
+{<Avatar size={40} rounded={true} source={{uri:Auth.Authuser.length > 0 ? Auth.Authuser[0].ProfileImage:'https://mymiix.com/public/assets/img/no-avatar.jpg'}} />}
 </TouchableOpacity>
 
 

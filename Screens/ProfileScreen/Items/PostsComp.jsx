@@ -1,7 +1,7 @@
 import React from "react";
 import { Text,Card,Image,Avatar, Icon,Tab,Button } from "@rneui/themed";
 import { ProfilePostAPI, ProfileBlogAPI,ProfileFuturePostAPI,ProfileLiveEventAPI } from "../../../API/API";
-import { Dimensions, TouchableOpacity, View } from "react-native";
+import { Dimensions, TouchableOpacity, View,FlatList } from "react-native";
 import FeedItem from "../../../component/feedItems/feedItem";
 import FeedItemEvent from "../../../component/feedItems/feedItemEvent";
 import {} from '../styles/styles';
@@ -222,7 +222,7 @@ const onViewableItemsChanged = ({ viewableItems, changed }) => {
 
        
 
- {<OptimizedFlatList
+ {<FlatList
       
       ListHeaderComponent={
         <View style={{width:'100%',display:'flex',paddingHorizontal:0,flex:1,flexDirection:'column',gap:20,alignItems:'flex-start',marginBottom:10}}>
@@ -439,7 +439,7 @@ const onViewableItemsChanged = ({ viewableItems, changed }) => {
       onEndReached={handleLoadMore} 
       //estimatedItemSize={100}
       onEndReachedThreshold={0.9}
-      //keyExtractor={item=>item.PostId}
+      keyExtractor={(item,index)=>index}
       onViewableItemsChanged={onViewableItemsChanged}
       
        

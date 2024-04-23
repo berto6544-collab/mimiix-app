@@ -8,6 +8,7 @@ import {MultiMedias} from '../Media/Media';
 import PaymentComponet from "./component/PaymentComponet";
 import * as Sharing from 'expo-sharing';
 import { PostDeleteAPi, PostLikeApi } from "../../API/API";
+import FastImage from "react-native-fast-image";
 
 
 
@@ -34,7 +35,9 @@ export default function FeedItem({data,navigation,dataSource,setDataSource,index
     }} style={[FeedItemstyles.FeedItem,{position:'relative'}]}>
     <View style={[FeedItemstyles.AvatarBase,{position:'relative'}]}>
     <View style={{width:'100%',paddingHorizontal:5,display:'flex',flexDirection:'row',alignItems:'center',gap:5}}>
-    <Avatar rounded={true} source={{uri:data?.ProfileImg}} />
+    <FastImage style={{width:40,height:40,borderRadius:40}} 
+    resizeMode={'cover'}
+    source={{uri:data?.ProfileImg,priority:'high'}} />
     <Text onPress={()=>{
         if(data?.UserName == data?.MyUserName){
 

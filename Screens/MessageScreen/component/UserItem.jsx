@@ -1,6 +1,7 @@
 import React from "react";
 import { View,TouchableOpacity,Text,StyleSheet, Dimensions } from "react-native";
 import { Avatar } from "@rneui/themed";
+import FastImage from "react-native-fast-image";
 
 export default UserItem = ({item,index,navigation}) =>{
 
@@ -10,7 +11,7 @@ export default UserItem = ({item,index,navigation}) =>{
             navigation.navigate('Messages',{userName:item?.UserName,MyUserId:item?.MyUserId,MyUsername:item?.MyUserName,userid:item?.PostId,Profile:item?.ProfileImg,isOnline:item?.isOnline,name:item?.PostedBy})
 
         }} style={styles?.userContainer}>
-        <Avatar  size={60} rounded={true} source={{uri:item?.ProfileImg}} />
+        <FastImage  size={60} style={{width:60,height:60,borderRadius:60}} rounded={true} source={{uri:item?.ProfileImg,priority:'high'}} />
         <View style={styles?.TextContainer}>
         <Text style={styles?.TextH1}>{item?.PostedBy}</Text>
         <Text style={{color:'grey'}}>{item?.Body}</Text>
