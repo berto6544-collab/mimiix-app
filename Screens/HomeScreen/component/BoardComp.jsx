@@ -38,7 +38,7 @@ const listRef = React.useRef(null);
 React.useEffect(()=>{
 
 
-  const intervalId =  setInterval(function() {
+  /*const intervalId =  setInterval(function() {
   
     let nextIndex = 0
 
@@ -53,7 +53,7 @@ React.useEffect(()=>{
   }, 20000)
 
 
-  return () => clearInterval(intervalId);
+  return () => clearInterval(intervalId);*/
 
 },[])
 
@@ -76,7 +76,7 @@ legacyImplementation={false}
 showsHorizontalScrollIndicator={false}
 horizontal={true}
 extraData={this.state}
-style={{width:Dimensions.get('window').width }}
+style={{width:Dimensions.get('window').width,marginBottom:20,marginTop:20 }}
 keyExtractor={(item,index) => index}
 data={OpenData}
 onMomentumScrollEnd={(event) => {

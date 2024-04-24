@@ -222,7 +222,7 @@ const onViewableItemsChanged = ({ viewableItems, changed }) => {
 
        
 
- {<FlatList
+ {<FlashList
       
       ListHeaderComponent={
         <View style={{width:'100%',display:'flex',paddingHorizontal:0,flex:1,flexDirection:'column',gap:20,alignItems:'flex-start',marginBottom:10}}>
@@ -438,6 +438,7 @@ const onViewableItemsChanged = ({ viewableItems, changed }) => {
       renderItem={({item,index}) => Tabindex == 1?<BlogItem navigation={navigation} Auth={Auth} key={index} index={index} data={item} /> : Tabindex == 2 ?<FeedItemEvent isProfile={true} dataSource={dataSource} setDataSource={setDataSource} navigation={navigation} Auth={Auth} key={index} index={index} data={item} />:<FeedItem isProfile={true} dataSource={dataSource} setDataSource={setDataSource} navigation={navigation} Auth={Auth} key={index} index={index} data={item} />}
       onEndReached={handleLoadMore} 
       //estimatedItemSize={100}
+      getItemType={({item,index})=>index}
       onEndReachedThreshold={0.9}
       keyExtractor={(item,index)=>index}
       onViewableItemsChanged={onViewableItemsChanged}

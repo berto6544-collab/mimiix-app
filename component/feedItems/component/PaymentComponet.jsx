@@ -3,7 +3,7 @@ import { Card,Image,Avatar, Icon, Button } from "@rneui/themed";
 import { Dimensions, Text,TouchableOpacity, View } from "react-native";
 import * as WebBrowser from 'expo-web-browser';
 import { FeedItemstyles } from "../../../StyleComponent/Style";
-
+import * as Sharing from 'expo-sharing';
 
 
 export default PaymentComponet = ({navigation,data}) =>{

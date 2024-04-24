@@ -199,6 +199,15 @@ export async function GetUsersAPI(start,q){
 
 }
 
+
+export async function GetQuote(q){
+
+  const data = await fetch('https://mymiix.com/public/api/mentioningQuote?q='+q)
+  .then(res=>res.json());
+
+  return data;
+}
+
 //Grabing users Future post data
 export async function ProfileFuturePostAPI(start,q){
     

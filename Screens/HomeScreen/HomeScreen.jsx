@@ -56,6 +56,9 @@ Auth.setStart(Auth.start+1)
 
 })
 
+
+
+
 }
 
 
@@ -163,7 +166,14 @@ if(ele.isViewable === true){
 
 
  {/*Button navigates you to the explore screen */}
-<TouchableOpacity onPress={()=>{ navigation.navigate('Explore'); }}><Icon name={'compass-outline'} size={30} type={'ionicon'} /></TouchableOpacity>
+<TouchableOpacity onPress={()=>{ 
+  if(Auth.Authuser.length > 0){
+  navigation.navigate('Explore');
+  }else{
+    navigation.navigate('Signin');
+  }
+  
+  }}><Icon name={'compass-outline'} size={30} type={'ionicon'} /></TouchableOpacity>
 
   </View>
 <Image style={{width:100,height:40}} source={require('../../assets/img/logo(3).png')} />
@@ -175,7 +185,10 @@ if(ele.isViewable === true){
 <Icon  name={'plus-square'} solid={true} size={27} type={'feather'} />
 </TouchableOpacity>
 
-<TouchableOpacity onPress={()=>{ setShowDrawer(true); }} >
+<TouchableOpacity onPress={()=>{ 
+  setShowDrawer(true);
+  
+  }} >
 <Icon  name={'menu'} solid={true} size={27} type={'feather'} />
 </TouchableOpacity>
 
@@ -189,7 +202,7 @@ if(ele.isViewable === true){
 <View style={{flex:1}}>
 
 
- <FlatList
+ <FlashList
       
      ref={flashListRef}
       ListHeaderComponent={
@@ -201,13 +214,15 @@ if(ele.isViewable === true){
       </View>
       }
       
-
       
       data={Auth.PostDataSource}
       renderItem={({item,index}) => {return(<FeedItem dataSource={Auth.PostDataSource} setDataSource={Auth.setPostDataSource} isProfile={false} navigation={navigation} Auth={Auth}  index={index} data={item} />)}}
       onEndReached={handleLoadMore} 
       onEndReachedThreshold={0.9}
-      //maxToRenderPerBatch={50}
+      initialNumToRender={4} 
+      updateCellsBatchingPeriod={100} 
+      maxToRenderPerBatch={5}
+      getItemType={({item,index})=>index}
       //windowSize={5}
      //estimatedItemSize={100}
      removeClippedSubviews={false} 

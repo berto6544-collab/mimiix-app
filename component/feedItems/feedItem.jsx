@@ -57,7 +57,7 @@ export default function FeedItem({data,navigation,dataSource,setDataSource,index
     {OpenUrl(data.PostBody,data,navigation,data.PostImage,data.PostId,'')}
     {data.PostImage != ""?<View style={{position:'relative',width:Dimensions.get('screen').width}}>
 
-    {data.Stat != "" && data.StatData != "0" || !data.Payment.match(/acct\_([a-zA-Z0-9_]+)/) || data.PostsSecurity == "copyright" ||data.SubsData != "0" || data.Stat == "" || data.MyUserName == data.UserName || data.usersID == 1 || data.thisID == 1  ?<MultiMedias navigation={navigation} data={data} /> :
+    {data.Stat != "" && data.StatData != "0" || !data.Payment.match(/acct\_([a-zA-Z0-9_]+)/) || data.PostsSecurity == "copyright"  || data.Stat == "" || data.MyUserName == data.UserName || data.usersID == 1 || data.thisID == 1  ?<MultiMedias navigation={navigation} data={data} /> :
     
         <View style={{position:'relative',width:Dimensions.get('screen').width,height: Dimensions.get('window').height -470}}>
         
