@@ -22,7 +22,7 @@ VideoRef.current.playAsync();
 
 {ind == Auth.index ?<Icon name={'pausecircleo'} size={40} type={'ant-design'} />:<Icon name={'playcircleo'} size={40} type={'ant-design'} />}
 <View style={styles.TextContainer}>
-<Text style={styles.TextH1}>{item?.artist?.song}</Text>
+<Text style={[styles.TextH1,{width:'70%'}]}>{item?.artist?.song}</Text>
 
 </View>
 

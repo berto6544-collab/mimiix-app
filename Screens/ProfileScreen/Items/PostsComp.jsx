@@ -439,6 +439,9 @@ const onViewableItemsChanged = ({ viewableItems, changed }) => {
       onEndReached={handleLoadMore} 
       //estimatedItemSize={100}
       getItemType={({item,index})=>index}
+      initialNumToRender={4} 
+      updateCellsBatchingPeriod={100} 
+      maxToRenderPerBatch={5}
       onEndReachedThreshold={0.9}
       keyExtractor={(item,index)=>index}
       onViewableItemsChanged={onViewableItemsChanged}

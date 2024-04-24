@@ -225,6 +225,7 @@ if(ele.isViewable === true){
       getItemType={({item,index})=>index}
       //windowSize={5}
      //estimatedItemSize={100}
+     
      removeClippedSubviews={false} 
     
      

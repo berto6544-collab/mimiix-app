@@ -101,7 +101,7 @@ React.useEffect(()=>{
 
     navigation.setOptions({
         headerLeft:()=>(<View></View>),
-        headerTitle:() => (<Text style={{fontSize:18,width:'100%',color:'white',paddingRight:70,fontWeight:'700'}}>{Auth.mediaDataSource.length == 0?title:Auth.mediaDataSource[Auth.index]?.artist?.song}</Text>),
+        headerTitle:() => (<View></View>),
         headerStyle: {
             backgroundColor: 'black'
           },

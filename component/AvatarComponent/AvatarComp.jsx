@@ -12,8 +12,8 @@ export default AvatarComp = ({username,profileImage,userStats}) =>{
 if(username != ""){return(
 <View style={{display:'flex',flexDirection:'row',gap:5,alignItems:'center'}}>
     <Avatar size={50}rounded={true} source={{uri:profileImage}} />
-    <View style={{display:'flex',flexDirection:'column',alignItems:'flex-start'}}>
-    <Text style={{fontSize:20,fontWeight:'600'}}>{username}</Text>
+    <View style={{display:'flex',width:'70%',flexDirection:'column',alignItems:'flex-start',paddingRight:30}}>
+    <Text style={{fontSize:14,fontWeight:'600'}}>{username}</Text>
     {userStats != ""?<Text>{userStats}</Text>:null}
     
     </View>
