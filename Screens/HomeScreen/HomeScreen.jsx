@@ -219,20 +219,17 @@ if(ele.isViewable === true){
       renderItem={({item,index}) => {return(<FeedItem dataSource={Auth.PostDataSource} setDataSource={Auth.setPostDataSource} isProfile={false} navigation={navigation} Auth={Auth}  index={index} data={item} />)}}
       onEndReached={handleLoadMore} 
       onEndReachedThreshold={0.9}
-      initialNumToRender={4} 
-      updateCellsBatchingPeriod={100} 
-      maxToRenderPerBatch={5}
-      getItemType={({item,index})=>index}
-      //windowSize={5}
-     //estimatedItemSize={100}
+      snapToAlignment={'start'}
+      
+      getItemType={({item,index})=>{return ""+index}}
+      windowSize={10}
+     estimatedItemSize={500}
      
-     removeClippedSubviews={false} 
+     removeClippedSubviews={true} 
     
-     
-    //onViewableItemsChanged={onViewableItemsChanged}
-    //numColumns={1}
+   
     
-    keyExtractor={(item,index)=>index}
+    keyExtractor={(item,index)=>""+index}
     onViewableItemsChanged={onViewableItemsChanged}
    
        

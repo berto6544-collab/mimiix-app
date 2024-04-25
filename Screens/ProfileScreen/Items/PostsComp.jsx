@@ -437,11 +437,10 @@ const onViewableItemsChanged = ({ viewableItems, changed }) => {
       data={dataSource}
       renderItem={({item,index}) => Tabindex == 1?<BlogItem navigation={navigation} Auth={Auth} key={index} index={index} data={item} /> : Tabindex == 2 ?<FeedItemEvent isProfile={true} dataSource={dataSource} setDataSource={setDataSource} navigation={navigation} Auth={Auth} key={index} index={index} data={item} />:<FeedItem isProfile={true} dataSource={dataSource} setDataSource={setDataSource} navigation={navigation} Auth={Auth} key={index} index={index} data={item} />}
       onEndReached={handleLoadMore} 
-      //estimatedItemSize={100}
-      getItemType={({item,index})=>index}
-      initialNumToRender={4} 
-      updateCellsBatchingPeriod={100} 
-      maxToRenderPerBatch={5}
+      estimatedItemSize={500}
+      snapToAlignment={'center'}
+      getItemType={({item,index})=>{return index}}
+      windowSize={10}
       onEndReachedThreshold={0.9}
       keyExtractor={(item,index)=>index}
       onViewableItemsChanged={onViewableItemsChanged}
