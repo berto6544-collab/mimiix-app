@@ -9,8 +9,8 @@ import QuoteComp from '../../component/Quote/QuoteComponent';
 import Storie  from '../../component/StoriesComp/StorieComp'
 import DrawerDialog from "../../Dialog/DrawerDialog";
 import DrawerProfileDialog from "../../Dialog/DrawerProfileDialog";
-import {FlashList, useBenchmark} from "@shopify/flash-list"
-
+import {FlashList} from "@shopify/flash-list"
+import BigList from "react-native-big-list";
 import { AuthContext } from "../../AuthContext/context";
 import DrawerCompMain from "../../component/DrawerComponents/DrawerCompMain";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -206,7 +206,7 @@ if(ele.isViewable === true){
  <FlashList
       
      ref={flashListRef}
-      ListHeaderComponent={
+     ListHeaderComponent={
       <View style={{width:'100%',display:'flex',paddingHorizontal:0,flexDirection:'column',gap:20,alignItems:'flex-start'}}>
       
       {Auth.Authuser.length == 0?<BoardComp navigation={navigation} /> : <Storie query={''} navigation={navigation} Auth={Auth} />}
@@ -222,21 +222,19 @@ if(ele.isViewable === true){
       renderItem={({item,index}) => {return(<FeedItem dataSource={Auth.PostDataSource} setDataSource={Auth.setPostDataSource} isProfile={false} navigation={navigation} Auth={Auth}  index={index} data={item} />)}}
       onEndReached={handleLoadMore} 
       onEndReachedThreshold={0.9}
-      getItemType={({item,index})=>{return ""+index}}
+      getItemLayout={(data, index) => ({
+        length: Dimensions.get('screen').height / 1.5,
+        offset: Dimensions.get('screen').height * index,
+        index,
+      })}
       windowSize={10}
       maxToRenderPerBatch={8}
       estimatedItemSize={530}
-      disableIntervalMomentum={true}
+      estimatedListSize={dataSource.length}
       removeClippedSubviews={true}
       estimatedFirstItemOffset={100}
       drawDistance={0}
-      initialScrollIndex={0}
-      snapToEnd={false}
-      snapToStart={false}
-      snapToAlignment={'end'}
-      
-      overScrollMode={'never'} 
-      nestedScrollEnabled
+      initialScrollIndex={0} 
       showsVerticalScrollIndicator={false}
       keyExtractor={(item,index)=>""+index}
       onViewableItemsChanged={onViewableItemsChanged}

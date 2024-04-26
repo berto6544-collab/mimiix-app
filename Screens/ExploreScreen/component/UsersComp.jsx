@@ -7,6 +7,7 @@ import {GetUsersAPI} from "../../../API/API";
 import {OptimizedFlatList} from 'react-native-optimized-flatlist';
 import { AuthContext } from "../../../AuthContext/context";
 import UserItem from "../Item/UserItem";
+import BigList from "react-native-big-list";
 
 
 export default TrendingComp = ({navigation}) =>{
@@ -83,13 +84,14 @@ Keyboard.dismiss();
 </View>
 
 
-<OptimizedFlatList 
+<BigList 
  data={dataSource}
  style={{flex:1,width:'100%',gap:10,paddingTop:10}}
  renderItem={({item,index}) => <UserItem item={item} index={index} navigation={navigation} />}
  onEndReached={fetchDataScroll} 
  onEndReachedThreshold={0.9}
  numColumns={1}
+ itemHeight={90}
  keyExtractor={(item)=>item.username}
 
 />
