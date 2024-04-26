@@ -9,6 +9,7 @@ import { AuthContext } from './AuthContext/context';
 import { NavigationContainer} from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import FastImage from 'react-native-fast-image';
 
 
 const Stack = createNativeStackNavigator();
@@ -25,13 +26,19 @@ export default function App({navigation}) {
   const [mediaDataSource,setMediaDataSource] = React.useState([])
   const [index,setIndex] = React.useState(0);
   const [start,setStart] = React.useState(0);
+  const [isLoaded,setisLoaded] = React.useState(false);
 
 React.useEffect(()=>{
 
   userData().then(response=>{
-if(response.length == 0 || response.length > 0 && response[0].UserName == "")
-return;
+if(response.length == 0 || response.length > 0 && response[0].UserName == ""){
+  
+  setisLoaded(true);
+}else{
+
 setAuthUser(response);
+setisLoaded(true);
+}
 
 
   
@@ -45,7 +52,14 @@ setAuthUser(response);
 
 
 
+if(!isLoaded){
+return(
+<View style={{flex:1,display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center'}}>
 
+<FastImage style={{width:'100%',flex:1}} resizeMode={'contain'}  source={require('./assets/splash.png')} />
+</View>)
+
+}else{
 
 return(
 
@@ -65,6 +79,7 @@ return(
 
 )
 
+}
 
 }
 

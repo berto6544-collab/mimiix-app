@@ -44,6 +44,7 @@ export default WebScreen = ({route,navigation}) => {
         style={{width:Dimensions.get('screen').width,backgroundColor:'transparent',flex:1}}  
         thirdPartyCookiesEnabled={true} 
         scalesPageToFit={true} 
+        allowsInlineMediaPlayback={true}
         showsVerticalScrollIndicator={false} 
         source={{uri: url}} 
         

@@ -67,7 +67,7 @@ export default function FeedItem({data,navigation,dataSource,setDataSource,index
 
         </View>
         
-        <MultiMedias navigation={navigation} data={data} />
+        <MultiMedias indexx={index} navigation={navigation} data={data} />
         </View>
         
         

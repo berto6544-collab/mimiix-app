@@ -9,7 +9,7 @@ import FastImage from "react-native-fast-image";
 
 const {width: screenWidth} = Dimensions.get('window');
  
-export const MultiMedias = ({data,navigation}) =>{
+export const MultiMedias = ({data,navigation,indexx}) =>{
 const [dataSource,setDataSource] = React.useState([]);
 const [dataSourceMusic,setDataSourceMusic] = React.useState([]);
 const [musicPlayer,setMusicPlayer] = React.useState([])
@@ -109,7 +109,7 @@ if(item.match(/\.jpg|\.png|\.jpeg|\.gif/gi)){
 
 
     return(
-    <TouchableOpacity key={index} onPress={()=>{
+    <TouchableOpacity key={indexx} onPress={()=>{
      
 
     }} activeOpacity={1} style={{height: Dimensions.get('window').height -470,position:'relative',zIndex:2, width: Dimensions.get('window').width}}>
@@ -131,7 +131,7 @@ if(item.match(/\.jpg|\.png|\.jpeg|\.gif/gi)){
 
 
     return(
-    <TouchableOpacity key={index} onPress={()=>{
+    <TouchableOpacity key={indexx} onPress={()=>{
 
       const videoData = [{
         trackNumber:1,
@@ -170,7 +170,7 @@ if(item.match(/\.jpg|\.png|\.jpeg|\.gif/gi)){
         
 
         return(
-        <TouchableOpacity key={index} activeOpacity={1} onPress={()=>{
+        <TouchableOpacity key={indexx} activeOpacity={1} onPress={()=>{
 
         
           Auth.setMediaType('audio')

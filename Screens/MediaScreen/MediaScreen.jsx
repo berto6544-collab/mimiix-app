@@ -102,8 +102,9 @@ React.useEffect(()=>{
     navigation.setOptions({
         headerLeft:()=>(<View></View>),
         headerTitle:() => (<View></View>),
+        headerShadowVisible: false,
         headerStyle: {
-            backgroundColor: 'black'
+            backgroundColor: 'white'
           },
         headerRight: () => (
           <Button onPress={() => {
@@ -167,7 +168,7 @@ if(Auth.mediaDataSource.length > 0){
 if(Auth.mediaType == "video"){
 
 return(
-    <SafeAreaView edges={['bottom']} style={{flex:1,width:'100%',display:'flex',flexDirection:'column',alignItems:'center',backgroundColor:'black'}}>
+    <SafeAreaView edges={['bottom']} style={{flex:1,width:'100%',display:'flex',flexDirection:'column',alignItems:'center',backgroundColor:'white'}}>
     <Video   
    
 source={{uri:Auth.mediaDataSource[Auth.index].url}}
@@ -186,11 +187,7 @@ style={{width:Dimensions.get('screen').width,height:Dimensions.get('screen').hei
 <GAMBannerAd
       unitId={adUnitId}
       sizes={[BannerAdSize.BANNER]}
-      requestOptions={{
-        networkExtras: {
-          collapsible: 'bottom',
-        },
-      }}
+      
     />
       </SafeAreaView>
       
@@ -202,11 +199,11 @@ style={{width:Dimensions.get('screen').width,height:Dimensions.get('screen').hei
 
 else if(Auth.mediaType == "audio"){
 
-    return(<View style={{flex:1,width:'100%',backgroundColor:'black',position:'relative',display:'flex',alignItems:'center'}}>
+    return(<View style={{flex:1,width:'100%',backgroundColor:'white',position:'relative',display:'flex',alignItems:'center'}}>
 
 
 
-<Cover Auth={Auth} />
+<Cover Auth={Auth} navigation={navigation} />
 
 
 
@@ -237,7 +234,7 @@ setIsLooping(!isLooping)
 
 
 }}>
-<Icon  name={'retweet'} type={'ant-design'} color={isLooping?'blue':'white'} />
+<Icon  name={'retweet'} type={'ant-design'} color={isLooping?'blue':'black'} />
 
 </TouchableOpacity>
 
@@ -260,7 +257,7 @@ VideoRef.current.playAsync();
 }
 
 }}>
-<Icon  name={'stepbackward'} type={'ant-design'} color={'white'} />
+<Icon  name={'stepbackward'} type={'ant-design'} color={'black'} />
 </TouchableOpacity>
 
 
@@ -278,7 +275,7 @@ VideoRef.current.isPlaying = false;
 }
 
 }}>
-<Icon  name={isPlaying?'pause':'play'} type={'font-awesome-5'} solid={true} size={45} color={'white'} />
+<Icon  name={isPlaying?'pause':'play'} type={'font-awesome-5'} solid={true} size={45} color={'black'} />
 </TouchableOpacity>
 
 <TouchableOpacity onPress={()=>{
@@ -299,7 +296,7 @@ VideoRef.current.playAsync();
 }
 
 }}>
-<Icon  name={'stepforward'} type={'ant-design'} color={'white'} />
+<Icon  name={'stepforward'} type={'ant-design'} color={'black'} />
 
 </TouchableOpacity>
 
@@ -308,7 +305,7 @@ VideoRef.current.playAsync();
 setShow(true)
 
 }}>
-<Icon  name={'bars'} type={'ant-design'} color={'white'} />
+<Icon  name={'bars'} type={'ant-design'} color={'black'} />
 
 </TouchableOpacity>
 
@@ -317,7 +314,7 @@ setShow(true)
 
 <View style={{display:'flex',width:'100%',flexDirection:'row',alignItems:'center',justifyContent:'space-between',paddingHorizontal:10}}>
 
-<Text style={{color:'white'}}>{durationTime}</Text>
+<Text style={{color:'black'}}>{durationTime}</Text>
 <Slider
   style={{width: Dimensions.get('screen').width /1.5,position:'relative', height: 40}}
   minimumValue={0}
@@ -325,7 +322,7 @@ setShow(true)
   
 
   
-  maximumTrackTintColor="white"
+  maximumTrackTintColor="black"
   minimumTrackTintColor="blue"
   value={progress}
  
@@ -347,18 +344,14 @@ setShow(true)
   }}
   
 />
-<Text style={{color:'white'}}>{Auth.mediaDataSource.length > 0 ?Auth.mediaDataSource[Auth.index].artist.duration:'unkown'}</Text>
+<Text style={{color:'black'}}>{Auth.mediaDataSource.length > 0 ?Auth.mediaDataSource[Auth.index].artist.duration:'unkown'}</Text>
 </View>
 
 
 <GAMBannerAd
       unitId={adUnitId}
       sizes={[BannerAdSize.BANNER]}
-      requestOptions={{
-        networkExtras: {
-          collapsible: 'bottom',
-        },
-      }}
+      
     />
 </View>
 

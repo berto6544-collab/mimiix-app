@@ -437,10 +437,20 @@ const onViewableItemsChanged = ({ viewableItems, changed }) => {
       data={dataSource}
       renderItem={({item,index}) => Tabindex == 1?<BlogItem navigation={navigation} Auth={Auth} key={index} index={index} data={item} /> : Tabindex == 2 ?<FeedItemEvent isProfile={true} dataSource={dataSource} setDataSource={setDataSource} navigation={navigation} Auth={Auth} key={index} index={index} data={item} />:<FeedItem isProfile={true} dataSource={dataSource} setDataSource={setDataSource} navigation={navigation} Auth={Auth} key={index} index={index} data={item} />}
       onEndReached={handleLoadMore} 
-      estimatedItemSize={500}
-      snapToAlignment={'center'}
+      estimatedItemSize={550}
+      drawDistance={Dimensions.get('screen').height * 2}
+      maintainVisibleContentPosition={{
+        minIndexForVisible: 0,
+     }}
       getItemType={({item,index})=>{return index}}
       windowSize={10}
+      scrollToOverflowEnabled={true}
+      snapToEnd={false}
+      snapToStart={false}
+      overScrollMode="never" 
+      nestedScrollEnabled 
+      showsVerticalScrollIndicator={false}
+      maxToRenderPerBatch={8}
       onEndReachedThreshold={0.9}
       keyExtractor={(item,index)=>index}
       onViewableItemsChanged={onViewableItemsChanged}

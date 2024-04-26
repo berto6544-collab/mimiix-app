@@ -21,8 +21,8 @@ VideoRef.current.playAsync();
     }} activeOpacity={1} style={styles.baseContainer} >
 
 {ind == Auth.index ?<Icon name={'pausecircleo'} size={40} type={'ant-design'} />:<Icon name={'playcircleo'} size={40} type={'ant-design'} />}
-<View style={styles.TextContainer}>
-<Text style={[styles.TextH1,{width:'70%'}]}>{item?.artist?.song}</Text>
+<View style={[styles.TextContainer,{width:'70%'}]}>
+<Text style={[styles.TextH1]}>{item?.artist?.song}</Text>
 
 </View>
 

@@ -15,6 +15,7 @@ import { AuthContext } from "../../AuthContext/context";
 import DrawerCompMain from "../../component/DrawerComponents/DrawerCompMain";
 import { SafeAreaView } from "react-native-safe-area-context";
 import BoardComp from "./component/BoardComp";
+import PinnedPosts from "./component/PinnedPosts";
 
 
 
@@ -199,7 +200,7 @@ if(ele.isViewable === true){
     
  </SafeAreaView>
 
-<View style={{flex:1}}>
+<View style={{flex:1,flexGrow: 1}}>
 
 
  <FlashList
@@ -211,6 +212,8 @@ if(ele.isViewable === true){
       {Auth.Authuser.length == 0?<BoardComp navigation={navigation} /> : <Storie query={''} navigation={navigation} Auth={Auth} />}
       <QuoteComp Auth={Auth} navigation={navigation} />
 
+        <PinnedPosts navigation={navigation} Auth={Auth} />
+
       </View>
       }
       
@@ -219,19 +222,25 @@ if(ele.isViewable === true){
       renderItem={({item,index}) => {return(<FeedItem dataSource={Auth.PostDataSource} setDataSource={Auth.setPostDataSource} isProfile={false} navigation={navigation} Auth={Auth}  index={index} data={item} />)}}
       onEndReached={handleLoadMore} 
       onEndReachedThreshold={0.9}
-      snapToAlignment={'start'}
-      
       getItemType={({item,index})=>{return ""+index}}
       windowSize={10}
-     estimatedItemSize={500}
-     
-     removeClippedSubviews={true} 
-    
-   
-    
-    keyExtractor={(item,index)=>""+index}
-    onViewableItemsChanged={onViewableItemsChanged}
-   
+      maxToRenderPerBatch={8}
+      estimatedItemSize={530}
+      disableIntervalMomentum={true}
+      removeClippedSubviews={true}
+      estimatedFirstItemOffset={100}
+      drawDistance={0}
+      initialScrollIndex={0}
+      snapToEnd={false}
+      snapToStart={false}
+      snapToAlignment={'end'}
+      
+      overScrollMode={'never'} 
+      nestedScrollEnabled
+      showsVerticalScrollIndicator={false}
+      keyExtractor={(item,index)=>""+index}
+      onViewableItemsChanged={onViewableItemsChanged}
+      
        
        />
 

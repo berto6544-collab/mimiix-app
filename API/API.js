@@ -199,7 +199,7 @@ export async function GetUsersAPI(start,q){
 
 }
 
-
+//get random quotes and it will be pulled everytime the first loads.
 export async function GetQuote(q){
 
   const data = await fetch('https://mymiix.com/public/api/mentioningQuote?q='+q)
@@ -207,6 +207,28 @@ export async function GetQuote(q){
 
   return data;
 }
+
+
+//Get specific Post by their uniqid 
+export async function GetPostUL(q){
+
+  const data = await fetch('https://mymiix.com/public/api/CopylinkedPost?uniq='+q)
+  .then(res=>res.json());
+
+  return data;
+
+}
+
+//get pinned post every time the app opens
+export async function GetPinnedPost(){
+
+  const data = await fetch('https://mymiix.com/public/api/postsNativePin?start=0')
+  .then(res=>res.json());
+
+  return data;
+
+}
+
 
 //Grabing users Future post data
 export async function ProfileFuturePostAPI(start,q){

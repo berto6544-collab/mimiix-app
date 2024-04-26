@@ -8,6 +8,7 @@ import {MultiMedias} from '../../../component/Media/Media';
 import PaymentComponet from "../../../component/feedItems/component/PaymentComponet";
 import * as Sharing from 'expo-sharing';
 import { PostDeleteAPi, PostLikeApi } from "../../../API/API";
+import FastImage from "react-native-fast-image";
 
 
 
@@ -29,39 +30,32 @@ export default function FeedItem({data,navigation,dataSource,setDataSource,index
 
 
     return(
-    <TouchableOpacity activeOpacity={1} key={index}  onPress={()=>{
-        navigation.navigate('Post',{uniqid:data?.UniqeId})
-    }} style={[FeedItemstyles.FeedItem,{position:'relative'}]}>
-    <View style={[FeedItemstyles.AvatarBase,{position:'relative',marginBottom:3}]}>
-    <View style={{width:'100%',paddingHorizontal:5,display:'flex',flexDirection:'row',alignItems:'center',gap:2}}>
-    <Text style={{fontWeight:'500',fontSize:18}}>#{data?.Count}</Text>
-    
+    <View key={index} style={[FeedItemstyles.FeedItem,{position:'relative'}]}>
+    <View style={[FeedItemstyles.AvatarBase,{position:'relative'}]}>
+    <View style={{width:'100%',paddingHorizontal:5,display:'flex',flexDirection:'row',alignItems:'center',gap:5}}>
+    <FastImage style={{width:40,height:40,borderRadius:40}} 
+    resizeMode={'cover'}
+    source={{uri:data?.ProfileImage,priority:'high'}} />
     <Text onPress={()=>{
-       
+        if(data?.UserName == data?.MyUserName){
+
+            navigation.navigate('Profile',{username:data.UserName, isMine:true})
+
+        }else{
             navigation.navigate('Profile',{username:data.UserName, isMine:false})
 
-           }} style={{fontSize:18,fontWeight:'500'}}>{data.PostTitle}</Text>
-
+        }
+    }} style={{fontSize:18,fontWeight:'500'}}>{data.PostedBy?data.PostedBy:data.postName}</Text>
+    </View>
+    {data.UserName == data.MyUserName?<TouchableOpacity onPress={()=>{Delete()}} style={{position:'absolute',right:5}}><Icon color={'black'} name={'close'} type={'font-awesome'} /></TouchableOpacity>:null}
+    
         
-    </View>
-    
        
     </View>
-
-    <View style={{display:'flex',width:'100%',paddingLeft:10,marginBottom:10,flexDirection:'row',alignItems:'flex-start',gap:5}}>
-    <Text onPress={()=>{
-       
-            navigation.navigate('Profile',{username:data.UserName, isMine:false})
-
-           }} style={{color:'grey',fontSize:15}} >{data.UserName}</Text>
-
-        <Text style={{color:'grey',fontSize:15}}>. {data.Views} Views</Text>
-        </View>
-
     {OpenUrl(data.PostBody,data,navigation,data.PostImage,data.PostId,'')}
     {data.PostImage != ""?<View style={{position:'relative',width:Dimensions.get('screen').width}}>
 
-    {data.Stat != "" && data.StatData != "0" || !data.Payment.match(/acct\_([a-zA-Z0-9_]+)/) || data.PostsSecurity == "copyright" || data.SubsData != "0" || data.Stat == "" || data.MyUserName == data.UserName || data.usersID == 1 || data.thisID == 1  ?<MultiMedias navigation={navigation} data={data} /> :
+    {data.Stat != "" && data.StatData != "0" || !data.Payment.match(/acct\_([a-zA-Z0-9_]+)/) || data.PostsSecurity == "copyright"  || data.Stat == "" || data.MyUserName == data.UserName || data.usersID == 1 || data.thisID == 1  ?<MultiMedias navigation={navigation} data={data} /> :
     
         <View style={{position:'relative',width:Dimensions.get('screen').width,height: Dimensions.get('window').height -470}}>
         
@@ -79,31 +73,18 @@ export default function FeedItem({data,navigation,dataSource,setDataSource,index
     </View>:null}
 
 
-    {data?.UserName == data?.MyUserName?<TouchableOpacity 
+    {data?.usersID == data?.thisID?<TouchableOpacity 
     onPress={()=>{
         navigation.navigate('Web',{url:'https://mymiix.com/promoanalytics/p/'+data.PostId,title:'Post Insight'})
     }}
     style={{marginBottom:10,paddingLeft:10,alignSelf:'flex-start'}}><Text style={{fontSize:15,color:'#007bff',fontWeight:'600'}}>Insight</Text></TouchableOpacity>:null}
 
     <View style={FeedItemstyles.FeedItemBottom}>
-    
-     
-        <TouchableOpacity onPress={()=>{
-        if(Auth.Authuser.length  == 0)
-        {navigation.navigate('Signin');}
-        else{
-    
-            data.LikesData = 0;
-            data.LikesCount = Number(data.LikesCount)-1
-    
-            Auth.setPostDataSource([...Auth.PostDataSource])
-            PostLikeApi(data.PostId,"","","")
-
-    
-        }}} style={{display:'flex',alignItems:'center',flexDirection:'row',gap:5}}>
-            <Icon  color={'#0086ff'} name={'heart'} type={'font-awesome'} />
-            <Text>{data?.postLikes}</Text>
-            </TouchableOpacity>
+   <TouchableOpacity style={{display:'flex',alignItems:'center',flexDirection:'row',gap:5}}>
+        <Icon  name={'heart-o'}  type={'font-awesome'} />
+        <Text>{data?.postLikes}</Text>
+        </TouchableOpacity>
+        
     
     
     {<TouchableOpacity onPress={()=>{
@@ -144,7 +125,11 @@ navigation.navigate('Comment',{postId:data.PostId});
 
   
 
-    </TouchableOpacity>
+
+
+
+
+    </View>
     
     )
 
