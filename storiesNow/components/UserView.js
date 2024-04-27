@@ -5,6 +5,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import FastImage from 'react-native-fast-image';
 import { StackActions } from '@react-navigation/native';
 
+
 let storedObject = {};
 class UserView extends React.PureComponent {
   constructor(props) {
@@ -27,11 +28,12 @@ componentDidMount(){
 
     return (
       <View style={styles.userView}>
-      {props.name?<TouchableOpacity onPress={()=>{
+      {props.isUser?<TouchableOpacity onPress={()=>{
       props.onEditOpen();
 
 
-}} style={{backgroundColor:'rgba(83,0,235,0.5)',padding:5}}><Text  style={{color:'white',fontWeight:'600'}}>Edit</Text></TouchableOpacity>:<></>}
+}} style={{backgroundColor:'rgba(83,0,235,0.5)',padding:5}}>
+  <Text  style={{color:'white',fontWeight:'600'}}>Edit</Text></TouchableOpacity>:<></>}
         <FastImage
           source={{ uri: props.profile,priority:FastImage.priority.high }}
           style={styles.image}

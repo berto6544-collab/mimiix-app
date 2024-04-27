@@ -2,6 +2,7 @@ import React from "react";
 import {  View,Dimensions,Button ,Text } from 'react-native';
 import { WebView } from 'react-native-webview';
 import { AuthContext } from "../../AuthContext/context";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 
 export default WebScreen = ({route,navigation}) => {
@@ -24,7 +25,8 @@ export default WebScreen = ({route,navigation}) => {
     },[])
 
 
-    return(<WebView 
+    return(
+      <WebView 
         javaScriptEnabled={true} 
         
         
@@ -49,6 +51,7 @@ export default WebScreen = ({route,navigation}) => {
         source={{uri: url}} 
         
         
-        />)
+        />
+        )
 
 }

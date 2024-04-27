@@ -4,7 +4,7 @@ import { View,Text,TouchableOpacity, Dimensions } from "react-native";
 import { StorieDataAPI } from "../../API/API";
 import { Avatar } from "@rneui/themed";
 import { Icon } from "@rneui/base";
-//import Stories from "../../storiesNow/screens/Stories";
+import Stories from "../../storiesNow/screens/Stories";
 import DrawerProfileDialog from "../../Dialog/DrawerProfileDialog";
 
 
@@ -31,16 +31,9 @@ return(
 <View style={[StorieStyle.StoryBase,{paddingVertical:20,paddingTop:20}]}>
 
 
-<TouchableOpacity onPress={()=>setShowDrawer(true)} style={{alignItems:'center'}}>
-    <View style={{position:'relative'}}>
-    <Icon name={'add-circle'} size={20} type={'material-icons'} containerStyle={{position:'absolute',zIndex:10,right:-2,bottom:0}} />
-    <Avatar size={50}  rounded={true} source={{uri:Auth.Authuser.length > 0 ? Auth.Authuser[0]?.ProfileImage:'https://mymiix.com/public/assets/img/no-avatar.jpg'}} />
-    </View>
-
-   
-</TouchableOpacity>
 
 
+<Stories navigation={navigation} Auth={Auth} setShowDrawer={setShowDrawer} />
 
 
 <DrawerProfileDialog 
@@ -55,7 +48,7 @@ setClose={()=>{setShowDrawer(false)}}
 
 > 
 <View style={{display:'flex',width:'100%',flexDirection:'column',gap:10}}>
-{/*<TouchableOpacity onPress={()=>navigation.navigate('Web',{url:'https://mymiix.com/create/story',title:'create story'})} style={{padding:10,borderRadius:4,backgroundColor:'lightgrey'}}><Text>Create Story</Text></TouchableOpacity>*/}
+{<TouchableOpacity onPress={()=>navigation.navigate('Web',{url:'https://mymiix.com/create/story',title:'create story'})} style={{padding:10,borderRadius:4,backgroundColor:'lightgrey'}}><Text>Create Story</Text></TouchableOpacity>}
 <TouchableOpacity onPress={()=>navigation.navigate('Web',{url:'https://mymiix.com/create/event'})} style={{padding:10,borderRadius:4,backgroundColor:'lightgrey'}}><Text>Create Event</Text></TouchableOpacity>
 <TouchableOpacity onPress={()=>navigation.navigate('Web',{url:'https://mymiix.com/quoteform',title:'Add an inspirational quote!'})} style={{padding:10,borderRadius:4,backgroundColor:'lightgrey'}}><Text>Add Quote</Text></TouchableOpacity>
 <TouchableOpacity onPress={()=>navigation.navigate('Web',{url:'https://mymiix.com/create/blog'})} style={{padding:10,borderRadius:4,backgroundColor:'lightgrey'}}><Text>Create Blog</Text></TouchableOpacity>

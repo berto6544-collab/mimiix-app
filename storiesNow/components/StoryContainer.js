@@ -15,6 +15,8 @@ import UserView from './UserView';
 import Readmore from './Readmore';
 import ProgressArray from './ProgressArray';
 import { concat } from 'react-native-reanimated';
+import { AuthContext } from '../../AuthContext/context';
+
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
@@ -32,6 +34,7 @@ const StoryContainer = (props) => {
   
   const story = stories.length ? stories[currentIndex] : {};
   const { isReadMore, url } = story || {};
+  const Auth = React.useContext(AuthContext)
   let storedObject = {};
   // const onVideoLoaded = (length) => {
   //   props.onVideoLoaded(length.duration);
@@ -260,9 +263,9 @@ const StoryContainer = (props) => {
 
           {loading()}
 
-          <UserView   name={user.username} dataS={props.dataS} onEditOpen={onEditOpen} onPause={onPause} story={story} time={user.time} profile={user.profile} onClosePress={props.onClose} />
+          <UserView   name={user.username} isUser={Auth.Authuser.length > 0? Auth.Authuser[0].UserName == user.username :false } dataS={props.dataS} onEditOpen={onEditOpen} onPause={onPause} story={story} time={user.time} profile={user.profile} onClosePress={props.onClose} />
 
-          {isReadMore && stories[currentIndex].linkText != "" ? <Readmore linkText={stories[currentIndex].linkText} onReadMore={onReadMoreOpen} />:<></>}
+          {isReadMore && stories[currentIndex].linkText != "" ? <Readmore linkText={stories[currentIndex].linkText} onReadMore={onReadMoreOpen} />:null}
 
           <ProgressArray
             next={nextStory}

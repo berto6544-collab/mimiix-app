@@ -1,39 +1,34 @@
 import React, { useRef, useState } from 'react';
-import { FlatList,Modal,Image,AsyncStorage, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { Avatar } from '@rneui/themed';
-//import { CubeNavigationHorizontal,CubeNavigationVertical } from 'react-native-3dcube-navigation';
+import { FlatList,Modal,Image,AsyncStorage, StyleSheet, Text, TouchableOpacity, View,Platform } from 'react-native';
+import { Avatar,Icon } from '@rneui/themed';
+import { CubeNavigationHorizontal,CubeNavigationVertical } from 'react-native-3dcube-navigation';
 
-//import StoryContainer from '../components/StoryContainer';
+import StoryContainer from '../components/StoryContainer';
 import {OptimizedFlatList} from 'react-native-optimized-flatlist';
 import { FlashList } from '@shopify/flash-list';
+import BigList from 'react-native-big-list';
 
-const Stories = (props) => {
+const Stories = ({dataisActive,navigation,Auth,setShowDrawer}) => {
 
 
   const [isModelOpen, setModel] = useState(false);
   const [currentUserIndex, setCurrentUserIndex] = useState(0);
   const [currentScrollValue, setCurrentScrollValue] = useState(0);
-  
-  const [AllSponsored, setAllSponsored] = useState([]);
   const [AllStoriess, setAllsotries] = useState([]);
-  const [StorieSeen, setstorieSeen] = useState([]);
   const [scrolIndex,setScroll] = useState(0);
   const[isloaded, setloading] = React.useState(false);
  
   const modalScroll = useRef(null);
 
-  //alert(storieUrl);
-  React.useEffect(async() => {
-if(props.dataisActive == 0){
-  //await getSponsored();
-
-//setAllsotries(props.storie)
-await getStorie();
   
+  React.useEffect(() => {
+//if(dataisActive == 0){
 
-//console.log(AllStories)
+getStorie();
 
-}
+//}else{
+ // await getStorie();
+//}
 
 },[])
 
@@ -42,31 +37,23 @@ await getStorie();
 
 
 
-getSponsored = async() =>{
-
-  
-  await fetch('https://mymiix.com/public/api/GETSponsoredAds?start='+scrolIndex)
-  .then((response) => response.json())
-  .then(async(responseJson)=> {
-    setAllSponsored(responseJson)
-  })
-}
 
 
 
 
 
 
-scrollStorie = async() =>{
-  await getSponsored();
+
+const scrollStorie = () =>{
+ 
 
 
-  await fetch('https://mymiix.com/public/api/storiess?start='+scrolIndex)
+  fetch('https://mymiix.com/public/api/storiess?start='+scrolIndex)
   .then((response) => response.json())
   .then(async(responseJson)=> {
 
     //if it fetches data
-    if(responseJson.length > 0){
+    if(responseJson.length == 0)return;
     setAllsotries(AllStoriess.concat(responseJson));
     setScroll(scrolIndex + 1);
 
@@ -76,7 +63,7 @@ scrollStorie = async() =>{
 
   
   
-    }
+    
 
 
 });
@@ -86,21 +73,21 @@ scrollStorie = async() =>{
 
 
 
-getStorie = async() =>{
+const getStorie = async() =>{
 
   
   await fetch('https://mymiix.com/public/api/storiess?start='+scrolIndex)
   .then((response) => response.json())
-  .then(async(responseJson)=> {
+  .then((responseJson)=> {
 
-    if(responseJson.length > 0){
+    if(responseJson.length == 0)return;
     setAllsotries(responseJson);
     setScroll(scrolIndex + 1);
   
-
+    
     
 
-  }
+  
   
   
   
@@ -194,31 +181,22 @@ getStorie = async() =>{
   const renderSeperator = () => (
     <View style={{ height: 1, backgroundColor: '#ccc' }} />
   );
-
-renderr = ({item,index}) => {
+  
+const  Renderr = ({item,index}) => {
   
  
 
- if(isloaded == false) {
-  return(null)
- }
- 
- 
 
 
   
   return(
 
-    
-    <TouchableOpacity style={{paddingHorizontal:10}} onPress={() => onStorySelect(index)}>
-              <Avatar
-                style={styles.circle}
-                source={{ uri: item.profile }}
-                
-              />
-              <Text style={[styles.title]}>{item.name}</Text>
-            
-            </TouchableOpacity>
+    <TouchableOpacity onPress={() => onStorySelect(index)} >
+  <View style={{position:'relative'}}>
+    <Avatar size={50}  rounded={true} source={{uri:item.profile}} />
+    </View>
+    </TouchableOpacity>
+
           )
 
   
@@ -232,23 +210,89 @@ renderr = ({item,index}) => {
   
 
 
+const renderHeader = () =>{
+return(<TouchableOpacity onPress={()=>setShowDrawer(true)} >
+  <View style={{position:'relative'}}>
+    <Icon name={'add-circle'} size={20} type={'material-icons'} containerStyle={{position:'absolute',zIndex:10,right:-2,bottom:0}} />
+    <Avatar size={50}  rounded={true} source={{uri:Auth.Authuser.length > 0 ? Auth.Authuser[0]?.ProfileImage:'https://mymiix.com/public/assets/img/no-avatar.jpg'}} />
+    </View>
+    </TouchableOpacity>)};
+
 
   return (
     <View style={[styles.container,{flex:1}]}>
-      <OptimizedFlatList
+      <FlashList
         data={AllStoriess}
-        showsHorizontalScrollIndicator={false}
+        ListHeaderComponent={renderHeader}
         horizontal={true}
-        //style={{flexDirection:'row',alignItems:'center'}}
-        //estimatedItemSize={100}
-        onEndReached={this.handleLoadMore}
-        onEndReachedThreshold={0.5}
-        renderItem = {({item,index}) => renderr({item,index})
-          
-  }
+        estimatedItemSize={65}
+        onEndReached={scrollStorie}
+        onEndReachedThreshold={0.9}
+        style={{width:'100%',paddingHorizontal:5,gap:10,display:'flex',flexDirection:'row'}}
+        contentContainerStyle={{width:'100%',paddingHorizontal:5,gap:5,display:'flex',flexDirection:'row'}}
+        ListHeaderComponentStyle={{paddingRight:5}}
+        ItemSeparatorComponent={()=><View style={{paddingHorizontal:2}}></View>}
+        renderItem={Renderr}
+        
       />
 
 
+
+
+<Modal
+        animationType="slide"
+        transparent={false}
+        visible={isModelOpen}
+        style={styles.modal}
+        
+        coverScreen={false}
+        onShow={()=>{
+
+          
+            if(Platform.OS == "android"){
+              if (currentUserIndex > 0 ) {
+                      
+                modalScroll.current.scrollTo(currentUserIndex, false);
+              }
+            }
+            
+            
+                
+
+
+        }}
+
+        
+        onOrientationChange={()=>{
+        if (currentUserIndex > 0 ) {
+          
+          modalScroll.current.scrollTo(currentUserIndex, false);
+        }
+       }}
+       
+        onRequestClose={onStoryClose}
+      >
+        {/* eslint-disable-next-line max-len */}
+        <CubeNavigationHorizontal callBackAfterSwipe={g => onScrollChange(g)}   ref={modalScroll} style={styles.container}>
+          {AllStoriess.map((item, index) => (
+            <StoryContainer
+              onClose={onStoryClose}
+              onStoryNext={onStoryNext}
+              onStoryPrevious={onStoryPrevious}
+              onStoryItem={item.stories.length -1}
+              dataS={navigation}
+              user={item}
+              dataItem={item}
+              setAllStories={setAllsotries}
+              AllStoriess={AllStoriess}
+              dataIndex={index}
+              RetrieveData={()=>getStoriee()}
+              userId={currentUserIndex}
+              isNewStory={index !== currentUserIndex}
+            />
+          ))}
+        </CubeNavigationHorizontal>
+      </Modal>
      
 
     </View>
