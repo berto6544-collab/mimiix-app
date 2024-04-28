@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unused-prop-types */
 import React,{useState,useRef} from 'react';
 import { Dimensions, Image, StyleSheet,TouchableOpacity, View,Text } from 'react-native';
-import Video from 'expo-av';
+import {Video} from 'expo-av';
 import FastImage from 'react-native-fast-image';
 import PropTypes from 'prop-types';
 import UrlUti from '../../Utils/URL';
@@ -24,7 +24,8 @@ const ScreenWidth = Dimensions.get('window').width;
     if(props.isNewStory){
 if(type=="video"){
 
-  //Player.current.seek(0)
+ // Player.current.seek(0)
+  Player.current.isPlaying = true;
 }
     }
 
@@ -62,24 +63,22 @@ if(type=="video"){
        
       ): type === 'video' ?  (
           
-          <View style={styles.content}>
+          <View style={[styles.content,{flex:1}]}>
            
         <Video
-          source={{ uri:'https://mymiix.com/public/'+url }}
-          paused={props.pause || props.isNewStory}
-          playWhenInactive={false}
+          source={{uri:'https://mymiix.com/public/'+url }}
+          //paused={props.pause}
+          shouldPlay={props.pause}
           ref={Player}  
+          onLoad={async(item)=>{
+          await Player.current.setPositionAsync(0)
+          await Player.current.playAsync();
+          let s = Math.floor((item.durationMillis/1000) % 60)
+          await props.onVideoLoaded(s)
           
-          onLoad={(item)=>{
-            props.onVideoLoaded(item.duration)
-            
-            Player.current.seek(0);
-           
-            
           }}
-          
-        
-          
+          //useNativeControls={true}
+          volume={1.0}
           resizeMode={'contain'}
           style={styles.content}
         />

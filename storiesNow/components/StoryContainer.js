@@ -130,8 +130,8 @@ const StoryContainer = (props) => {
 
   const onImageLoaded = async(length) => {
    
-    setDuration(8);
-    setDurationConst(8)
+    setDuration(length);
+    setDurationConst(length)
     setLoaded(true);
     
 
