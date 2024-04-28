@@ -12,7 +12,7 @@ import { AuthContext } from "../../../AuthContext/context";
 import BlogItem from "../../../component/blogItems/blogItems";
 import { FlashList } from "@shopify/flash-list";
 import {OpenUrls} from '../../../Utils/URL';
-
+import { GAMBannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
 
 
 export default function PostComp({navigation,item,username,index,setData,data}){
@@ -22,6 +22,8 @@ export default function PostComp({navigation,item,username,index,setData,data}){
     const [isTrue,setIsTrue] = React.useState(false);
     const [start,setStart] = React.useState(0)
     const [Tabindex, setTabIndex] = React.useState(0);
+    const [AdUnit, setAdUnit] = React.useState("ca-app-pub-6989684433220866/6129242070");
+    
     const nativeAdViewRef = React.useRef();
  
 
@@ -142,6 +144,20 @@ const handleLoadMore = ()=>{
                    })
                }
 
+}
+
+
+function addExtraItemEvery4(arr) {
+  var result = [];
+  for (var i = 0; i < arr.length; i++) {
+      result.push(arr[i]);
+      if ((i + 1) % 4 === 0) {
+          result.push({
+            type:"banner"
+          });
+      }
+  }
+  return result;
 }
 
 

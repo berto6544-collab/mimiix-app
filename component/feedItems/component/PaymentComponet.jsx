@@ -4,9 +4,53 @@ import { Dimensions, Text,TouchableOpacity, View } from "react-native";
 import * as WebBrowser from 'expo-web-browser';
 import { FeedItemstyles } from "../../../StyleComponent/Style";
 import * as Sharing from 'expo-sharing';
+import { RewardedAd, RewardedAdEventType, TestIds,Auth } from 'react-native-google-mobile-ads';
+import { PostWatchedAdAPi } from "../../../API/API";
+ 
+const  adUnitId= 'ca-app-pub-6989684433220866/6129242070';
+
+  const rewarded = RewardedAd.createForAdRequest(adUnitId, {
+    keywords: ['art','gaming'],
+  });
+
+export default PaymentComponet = ({navigation,data,dataSource,setDataSource}) =>{
+
+     
+  const [loaded, setLoaded] = React.useState(false);
 
 
-export default PaymentComponet = ({navigation,data}) =>{
+
+
+  React.useEffect(() => {
+    const unsubscribeLoaded = rewarded.addAdEventListener(RewardedAdEventType.LOADED, () => {
+      setLoaded(true);
+    });
+    const unsubscribeEarned = rewarded.addAdEventListener(
+      RewardedAdEventType.EARNED_REWARD,
+      reward => {
+
+        PostWatchedAdAPi(data.PostId)
+        .then(response=>{  
+          console.log(response)
+          if(response[0].Success == "Rewarded"){      
+        data.StatData = "1";
+        data.PostImage = response[0].PostImage;
+        setDataSource([...dataSource]);
+          }
+      });
+        
+      },
+    );
+
+    // Start loading the rewarded ad straight away
+    rewarded.load();
+
+    // Unsubscribe from events on unmount
+    return () => {
+      unsubscribeLoaded();
+      unsubscribeEarned();
+    };
+  }, []);
 
 
 
@@ -59,7 +103,7 @@ export default PaymentComponet = ({navigation,data}) =>{
     return(<View style={{justifyContent:'center',alignItems:'center',zIndex:22,position:'relative'}}>{
       data.Payment.match(/acct\_([a-zA-Z0-9_]+)/)?<View style={{justifyContent:'center',alignItems:'center',zIndex:22,position:'relative'}}>
       {/*<AntDesign name="lock"  style={{fontWeight:'200',fontSize:27,color:'white'}}  />*/}
-  <Text style={{color:'white',fontWeight:'800',fontSize:19}}>Buy Content ${data.Amount}</Text>
+  <Text style={{color:'white',fontWeight:'800',fontSize:19}}>Buy Content ${data.Amount} on our site or watch ad and this content will be unlocked for a day!</Text>
       
       
      
@@ -69,15 +113,18 @@ export default PaymentComponet = ({navigation,data}) =>{
       onPress={async()=>{
         
         
-       
-         // await WebBrowser.openBrowserAsync();
-const url = 'https://mymiix.com/post/payment/'+data.UniqeId;
+       if(loaded){
+       rewarded.show();
+       }else{
+          //await WebBrowser.openBrowserAsync();
+         const url = 'https://mymiix.com/post/payment/'+data.UniqeId;
 
           await navigation.navigate('Web',{url:url,title:'@'+data?.UserName})
-      
+       }
+
         }}
       
-      style={{padding: 20,justifyContent:'center',backgroundColor:'#0aafff',alignItems:'center',marginVertical:10,borderRadius:30,flexDirection:'column',color:'white'}}><Text style={{color:'white',fontWeight:'400'}}>Pay ${data.Amount} To See Post</Text></TouchableOpacity>
+      style={{padding: 20,justifyContent:'center',backgroundColor:'#0aafff',alignItems:'center',marginVertical:10,borderRadius:30,flexDirection:'column',color:'white'}}><Text style={{color:'white',fontWeight:'400'}}>Watch ad to unlock this post for the day</Text></TouchableOpacity>
       
       
       

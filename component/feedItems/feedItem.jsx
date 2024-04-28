@@ -15,6 +15,7 @@ import FastImage from "react-native-fast-image";
 export default function FeedItem({data,navigation,dataSource,setDataSource,index,Auth,isProfile}){
 
 
+
  const Delete = () =>{
 
     PostDeleteAPi(data.PostId)
@@ -63,7 +64,7 @@ export default function FeedItem({data,navigation,dataSource,setDataSource,index
         
         <View style={{position:'absolute',display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',width:'100%',zIndex:3,height: Dimensions.get('window').height -480,backgroundColor:'rgba(0,0,0,0.9)'}} >
         
-        <PaymentComponet navigation={navigation} data={data} Auth={Auth} />
+        <PaymentComponet dataSource={dataSource} setDataSource={setDataSource} navigation={navigation} data={data} Auth={Auth} />
 
         </View>
         

@@ -17,11 +17,11 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import BoardComp from "./component/BoardComp";
 import PinnedPosts from "./component/PinnedPosts";
 
+import { GAMBannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
 
 
 
-
-
+const adUnitId = 'ca-app-pub-6989684433220866/6848090089';
 export default function Feed({navigation}){
 
     const [dataSource,setDataSource] = React.useState([]);
@@ -81,6 +81,18 @@ const handleLoadMore = ()=>{
 
 }
 
+function addExtraItemEvery4(arr) {
+  var result = [];
+  for (var i = 0; i < arr.length; i++) {
+      result.push(arr[i]);
+      if ((i + 1) % 4 === 0) {
+          result.push({
+            type:"banner"
+          });
+      }
+  }
+  return result;
+}
 
 const handleCloseDrawer = () =>{
   setShowDrawer(false);
@@ -219,23 +231,22 @@ if(ele.isViewable === true){
       
       
       data={Auth.PostDataSource}
-      renderItem={({item,index}) => {return(<FeedItem dataSource={Auth.PostDataSource} setDataSource={Auth.setPostDataSource} isProfile={false} navigation={navigation} Auth={Auth}  index={index} data={item} />)}}
+      renderItem={({item,index}) => {
+       if(item.type == ""){
+        return(<FeedItem dataSource={Auth.PostDataSource} setDataSource={Auth.setPostDataSource} isProfile={false} navigation={navigation} Auth={Auth}  index={index} data={item} />)
+       }else{
+        return(<View style={{display:'flex',flexDirection:'column',alignItems:'center',paddingBottom:20,width:'100%'}}><GAMBannerAd
+          unitId={adUnitId}
+          sizes={[BannerAdSize.BANNER]}
+          
+        /></View>)
+
+       }
+      }}
       onEndReached={handleLoadMore} 
       onEndReachedThreshold={0.9}
-      getItemLayout={(data, index) => ({
-        length: Dimensions.get('screen').height / 1.5,
-        offset: Dimensions.get('screen').height * index,
-        index,
-      })}
-      windowSize={10}
-      maxToRenderPerBatch={8}
       estimatedItemSize={530}
-      estimatedListSize={dataSource.length}
-      removeClippedSubviews={true}
-      estimatedFirstItemOffset={100}
-      drawDistance={0}
-      initialScrollIndex={0} 
-      showsVerticalScrollIndicator={false}
+     
       keyExtractor={(item,index)=>""+index}
       onViewableItemsChanged={onViewableItemsChanged}
       

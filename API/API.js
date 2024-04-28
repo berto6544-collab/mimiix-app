@@ -144,6 +144,19 @@ export async function GetPinnedcommentsAPi(postid){
 }
 
 
+//Grab pinned comment based on Post
+export async function PostWatchedAdAPi(postid){
+  const formData = new FormData();
+  formData.append("PostId",postid)
+  const data = await fetch('https://mymiix.com/public/api/WatchedAd',{
+    method:'POST',
+    body:formData
+  })
+  .then(response=>response.json())
+
+  return data;
+}
+
 
 //Grab Story data based on user or grabbing a list of user stories using API
 export async function StorieDataAPI(start,q){
@@ -207,6 +220,7 @@ export async function GetQuote(q){
 
   return data;
 }
+
 
 
 //Get specific Post by their uniqid 
