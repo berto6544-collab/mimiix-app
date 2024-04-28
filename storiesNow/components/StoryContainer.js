@@ -272,6 +272,7 @@ const StoryContainer = (props) => {
             isLoaded={isLoaded}
             duration={isPause? 0 : duration}
             pause={isPause}
+            navigation={props.dataS} 
             isNewStory={props.isNewStory}
             stories={stories}
             currentIndex={currentIndex}

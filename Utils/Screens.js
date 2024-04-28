@@ -32,6 +32,7 @@ export function LoginFunction(Stack){
      <Stack.Navigator  initialRouteName={'Home'} >
        <Stack.Screen  name="Home" options={{headerShown: false}} component={HomeScreen} />
         <Stack.Screen name="Profile" component={Profile} />
+        <Stack.Screen name="Profiles" options={{presentation:'modal'}} component={Profile} />
         <Stack.Screen  name="passwordForgot" component={Reset} />
         <Stack.Screen  name="Support" component={SuportScreen} />
         <Stack.Screen  name="Signup"  component={Signup} />
@@ -59,6 +60,7 @@ export function Authenticated(Stack,Tab){
         <Stack.Screen  name="Home" options={{headerShown: false}} headerShown={false}  component={HomeScreen} />
         <Tab.Screen name="Notifications"  component={Notifications} />
         <Tab.Screen name="Profile" component={Profile} />
+        
         <Stack.Screen  name="Blog" component={BlogScreen} />
         <Stack.Screen name="Account" component={Account} />
         <Stack.Screen name="Comment" options={{presentation:'modal'}} component={Comment} />
@@ -75,6 +77,7 @@ export function Authenticated(Stack,Tab){
         <Stack.Screen name="Signin"  component={Signin} />
         <Stack.Screen name="CreatePost"  options={{presentation:'modal'}} component={ PostScreen} />
         <Stack.Screen name="Post" component={ PostsScreen} />
+        <Stack.Screen name="Profiles" options={{presentation:'modal'}} component={Profile} />
         </Stack.Navigator>
        
        

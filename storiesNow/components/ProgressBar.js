@@ -10,7 +10,7 @@ const ProgressBar = (props) => {
   const [startTime, setStartTime] = useState(null);
   const scale = useRef(new Animated.Value(0)).current;
   const [width, setWidth] = useState(0);
-
+  const [pollingId, setPollingId] = useState(0);
   const onLayoutAdded = (evt) => {
     setWidth(evt.width);
   };
@@ -36,7 +36,14 @@ const ProgressBar = (props) => {
     }
 
 
+   
+    
+
+
   });
+
+
+
 
   const getDuration = () => {
     

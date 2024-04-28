@@ -28,6 +28,7 @@ const ProgressArray = (props) => {
           isNewStory={props.isNewStory}
           currentIndex={props.currentIndex}
           next={props.next}
+          navigation={props.navigation}
           length={props.stories.length}
           active={i === props.currentIndex ? 1 : (i < props.currentIndex ? 2 : 0)}
           isLoaded={props.isLoaded}

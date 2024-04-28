@@ -12,6 +12,8 @@ class UserView extends React.PureComponent {
     super(props);
   }
 
+
+  
 componentDidMount(){
 //console.log(this.props.name);
 
@@ -21,31 +23,30 @@ componentDidMount(){
 
 
   render() {
-    const {
-      props,
-    } = this;
+    
 
 
     return (
       <View style={styles.userView}>
-      {props.isUser?<TouchableOpacity onPress={()=>{
-      props.onEditOpen();
+      {this.props.isUser?<TouchableOpacity onPress={()=>{
+      this.props.onEditOpen();
 
 
 }} style={{backgroundColor:'rgba(83,0,235,0.5)',padding:5}}>
   <Text  style={{color:'white',fontWeight:'600'}}>Edit</Text></TouchableOpacity>:<></>}
         <FastImage
-          source={{ uri: props.profile,priority:FastImage.priority.high }}
+          source={{ uri: this.props.profile,priority:FastImage.priority.high }}
           style={styles.image}
         />
         <View style={{ flex: 1 }}>
          <TouchableOpacity onPress={()=>{
-           props.dataS.navigate('Profile',{Id: props.name})
-         }}><Text style={styles.name}>{props.name}</Text></TouchableOpacity>
-         <Text style={[styles.time,{color:'yellow'}]}>{props.story.time}</Text>
+           this.props.dataS.navigate('Profile',{username:this.props.name})
+           this.props.onClosePress();
+         }}><Text style={styles.name}>{this.props.name}</Text></TouchableOpacity>
+         <Text style={[styles.time,{color:'yellow'}]}>{this.props.story.time}</Text>
          
         </View>
-        <TouchableOpacity onPress={props.onClosePress}>
+        <TouchableOpacity onPress={this.props.onClosePress}>
           <Icon
             name="close"
             color="white"

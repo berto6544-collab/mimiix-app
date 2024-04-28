@@ -15,7 +15,9 @@ const Stories = ({dataisActive,navigation,Auth,setShowDrawer}) => {
   const [currentUserIndex, setCurrentUserIndex] = useState(0);
   const [currentScrollValue, setCurrentScrollValue] = useState(0);
   const [AllStoriess, setAllsotries] = useState([]);
+
   const [scrolIndex,setScroll] = useState(0);
+
   const[isloaded, setloading] = React.useState(false);
  
   const modalScroll = useRef(null);
@@ -58,13 +60,6 @@ const scrollStorie = () =>{
     setScroll(scrolIndex + 1);
 
 
-   
-
-
-  
-  
-    
-
 
 });
  
@@ -83,6 +78,21 @@ const getStorie = async() =>{
     if(responseJson.length == 0)return;
     setAllsotries(responseJson);
     setScroll(scrolIndex + 1);
+
+    fetch('https://mymiix.com/public/api/allLive?start='+liveIndex)
+    .then((response) => response.json())
+    .then((resp)=> {
+
+      if(resp.length == 0)return;
+      
+      setAllLive(resp)
+    
+     
+      setLiveIndex(liveIndex+1)
+
+    })
+    
+   
   
     
     
@@ -188,7 +198,7 @@ const  Renderr = ({item,index}) => {
 
 
 
-  
+ 
   return(
 
     <TouchableOpacity onPress={() => onStorySelect(index)} >
@@ -201,7 +211,7 @@ const  Renderr = ({item,index}) => {
 
   
 
-
+  
 
       
 
@@ -219,6 +229,8 @@ return(<TouchableOpacity onPress={()=>setShowDrawer(true)} >
     </TouchableOpacity>)};
 
 
+
+
   return (
     <View style={[styles.container,{flex:1}]}>
       <FlashList
@@ -233,6 +245,7 @@ return(<TouchableOpacity onPress={()=>setShowDrawer(true)} >
         ListHeaderComponentStyle={{paddingRight:5}}
         ItemSeparatorComponent={()=><View style={{paddingHorizontal:2}}></View>}
         renderItem={Renderr}
+       
         
       />
 
