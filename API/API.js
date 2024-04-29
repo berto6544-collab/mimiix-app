@@ -144,7 +144,7 @@ export async function GetPinnedcommentsAPi(postid){
 }
 
 
-//Grab pinned comment based on Post
+//When your watched the reward ads you will unlock content for 1 day
 export async function PostWatchedAdAPi(postid){
   const formData = new FormData();
   formData.append("PostId",postid)

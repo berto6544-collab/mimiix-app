@@ -184,11 +184,14 @@ style={{width:Dimensions.get('screen').width,height:Dimensions.get('screen').hei
     
       />
 
+<View style={{display:'flex',flexDirection:'column',width:'100%',alignItems:'center',paddingTop:30,justifyContent:'center'}}>
 <GAMBannerAd
       unitId={adUnitId}
       sizes={[BannerAdSize.BANNER]}
       
     />
+    </View>
+
       </SafeAreaView>
       
       )
@@ -348,11 +351,13 @@ setShow(true)
 </View>
 
 
+<View style={{display:'flex',flexDirection:'column',width:'100%',alignItems:'center',paddingTop:30,justifyContent:'center'}}>
 <GAMBannerAd
       unitId={adUnitId}
       sizes={[BannerAdSize.BANNER]}
       
     />
+    </View>
 </View>
 
 
