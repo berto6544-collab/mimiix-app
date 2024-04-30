@@ -8,6 +8,7 @@ import { FlashList } from "@shopify/flash-list";
 import FeedItem from "./component/feedItem";
 import { GAMBannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
 import { SafeAreaView } from "react-native-safe-area-context";
+import { OptimizedFlatList } from "react-native-optimized-flatlist";
 
 const adUnitId = 'ca-app-pub-6989684433220866/6848090089';
 
@@ -61,7 +62,7 @@ fetch('https://mymiix.com/public/api/RelatedPost?uniq='+uniqid)
     return(
     <SafeAreaView edges={['bottom']} style={{flex:1}} >
     <View style={{flex:1}}>
-      <FlashList 
+      <OptimizedFlatList
       data={dataSourceRelated}
       ListHeaderComponent={
         dataSource.length == 0 ?<></>:<View style={{flex:1,backgroundColor:'white'}}>
@@ -95,12 +96,18 @@ fetch('https://mymiix.com/public/api/RelatedPost?uniq='+uniqid)
       renderItem={({item,index}) => {return(<FeedItem  dataSource={dataSourceRelated} setDataSource={setDataSourceRelated} isProfile={false} navigation={navigation} Auth={Auth}  index={index} data={item} />)}}
       getItemType={({item,index})=>{return ""+index}}
       estimatedItemSize={550}
+      extraData={{}}
+      maintainVisibleContentPosition={{autoscrollToTopThreshold:0,minIndexForVisible:0}}
+      windowSize={10}
+      snapToEnd={false}
+      snapToStart={false}
+      overScrollMode="never" 
+      nestedScrollEnabled 
+      maxToRenderPerBatch={8}
       removeClippedSubviews={false}
       style={{backgroundColor:'white'}}
       keyExtractor={(item,index)=>""+item.Id}
-      maintainVisibleContentPosition={{
-        minIndexForVisible: 0,
-     }}
+      
       
       
       />

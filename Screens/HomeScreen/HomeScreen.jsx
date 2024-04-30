@@ -323,10 +323,10 @@ if(ele.isViewable === true){
     
  </SafeAreaView>
 
-<View style={{flex:1}}>
+<View style={{flex:1,overflow:'hidden'}}>
 
 
- <FlashList
+ <OptimizedFlatList
       
      ref={flashListRef}
      ListHeaderComponent={
@@ -357,12 +357,19 @@ if(ele.isViewable === true){
       }}
       onEndReached={handleLoadMore} 
       onEndReachedThreshold={0.9}
-      estimatedItemSize={530}
-      windowSize={8}
-
-      //estimatedFirstItemOffset={Dimensions.get('screen').height -530}
-      //estimatedListSize={{height:530,width:Dimensions.get('screen').width}}
-      
+      //estimatedItemSize={530}
+      estimatedItemSize={Dimensions.get('screen').height * 0.5}
+      extraData={{}}
+      scrollToOverflowEnabled={true}
+      maintainVisibleContentPosition={{autoscrollToTopThreshold:0,minIndexForVisible:0}}
+      windowSize={10}
+      snapToEnd={false}
+      snapToStart={false}
+      overScrollMode="never" 
+      nestedScrollEnabled 
+      maxToRenderPerBatch={8}
+      removeClippedSubviews={false}
+      disableIntervalMomentum
       keyExtractor={(item, index) => ""+item.Id}
       onViewableItemsChanged={onViewableItemsChanged} 
       

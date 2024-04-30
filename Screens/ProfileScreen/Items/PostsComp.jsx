@@ -285,7 +285,7 @@ const onViewableItemsChanged = ({ viewableItems, changed }) => {
 
        
 
- {<FlashList
+ {<OptimizedFlatList
       
       ListHeaderComponent={
         <View style={{width:'100%',display:'flex',paddingHorizontal:0,flex:1,flexDirection:'column',gap:20,alignItems:'flex-start',marginBottom:10}}>
@@ -502,9 +502,7 @@ const onViewableItemsChanged = ({ viewableItems, changed }) => {
       onEndReached={handleLoadMore} 
       estimatedItemSize={550}
       drawDistance={Dimensions.get('screen').height * 2}
-      maintainVisibleContentPosition={{
-        minIndexForVisible: 0,
-     }}
+      maintainVisibleContentPosition={{autoscrollToTopThreshold:0,minIndexForVisible:0}}
       getItemType={({item,index})=>{return ""+index}}
       windowSize={10}
       scrollToOverflowEnabled={true}
@@ -512,6 +510,7 @@ const onViewableItemsChanged = ({ viewableItems, changed }) => {
       snapToStart={false}
       overScrollMode="never" 
       nestedScrollEnabled 
+      extraData={{}}
       showsVerticalScrollIndicator={false}
       maxToRenderPerBatch={8}
       onEndReachedThreshold={0.9}

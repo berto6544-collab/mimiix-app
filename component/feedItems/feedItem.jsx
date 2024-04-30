@@ -35,7 +35,7 @@ export default function FeedItem({data,navigation,dataSource,loaded,setPostId,se
 
 
     return(
-    <TouchableOpacity key={data.PostId} activeOpacity={1}   onPress={()=>{
+    <TouchableOpacity key={data.Id} activeOpacity={1}   onPress={()=>{
         navigation.navigate('Post',{uniqid:data?.UniqeId})
     }} style={[FeedItemstyles.FeedItem,{position:'relative'}]}>
     <View style={[FeedItemstyles.AvatarBase,{position:'relative'}]}>
