@@ -18,33 +18,141 @@ import BoardComp from "./component/BoardComp";
 import PinnedPosts from "./component/PinnedPosts";
 
 import { GAMBannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
+import { RewardedAd, RewardedAdEventType } from 'react-native-google-mobile-ads';
+import { PostWatchedAdAPi } from "../../API/API";
 
 
 
-const adUnitId = 'ca-app-pub-6989684433220866/6848090089';
+const adUnitIdd = 'ca-app-pub-6989684433220866/6848090089';
+const adUnitId = 'ca-app-pub-6989684433220866/6129242070';
+const rewarded = RewardedAd.createForAdRequest(adUnitId);
+
 export default function Feed({navigation}){
 
     const [dataSource,setDataSource] = React.useState([]);
     const [PostData,setPostData] = React.useState(null);
     const [start,setStart] = React.useState(0)
     const [tabIndex,setTabIndex] = React.useState(0)
+    const [postId,setPostId] = React.useState(0)
+    const [profileShower,setProfileShower] = React.useState(0)
     const [showDrawer,setShowDrawer] = React.useState(false)
     const [showMessageDrawer,setShowMessageDrawer] = React.useState(false)
-    const flashListRef = useRef(null);
+    const [adUnitIds,setAdUnitId] = React.useState('ca-app-pub-6989684433220866/6129242070')
+    const [status,setStatus] = React.useState('')
+    const [loaded, setLoaded] = React.useState(false);
 
+    const flashListRef = useRef(null);
+    
   const Auth = React.useContext(AuthContext);
   /*const onBlankArea = useBenchmark (ref,(result)=>{
 
 
   })*/
 
+  
+
+
+React.useEffect(()=>{
+  fetchData();
+},[])
+
+
+
 React.useEffect(()=>{
 
-    fetchData();
 
+
+
+
+    const unsubscribeLoaded = rewarded.addAdEventListener(RewardedAdEventType.LOADED, () => {
+      setLoaded(true);
+        // Start loading the rewarded ad straight away
+    if(!rewarded.loaded){
+      rewarded.load();
+      }
+    });
+    
+    const unsubscribeEarned = rewarded.addAdEventListener(
+      RewardedAdEventType.EARNED_REWARD,
+      reward => {
+
+
+        
+        //console.log(reward.type)
+        PostWatchedAdAPi(postId,status)
+        .then(response=>{  
+          console.log(response)
+          if(response[0].Success == "Rewarded"){      
+        data.StatData = "1";
+        data.PostImage = response[0].PostImage;
+        Auth.setPostDataSource([...Auth.PostDataSource]);
+          }
+      });
+
+    
+        
+      },
+    );
+
+   
+
+    
+    // Start loading the rewarded ad straight away
+    //if(!rewarded.loaded){
+    rewarded.load();
+    //}
+
+    // Unsubscribe from events on unmount
+    return () => {
+      unsubscribeLoaded();
+      unsubscribeEarned();
+    };
 
 
 },[])
+
+
+
+const rewardAdLoad = () =>{
+  /*const unsubscribeLoaded = rewarded.addAdEventListener(RewardedAdEventType.LOADED, () => {
+    setLoaded(true);
+    
+  });
+  
+  const unsubscribeEarned = rewarded.addAdEventListener(
+    RewardedAdEventType.EARNED_REWARD,
+    reward => {
+
+
+      
+      //console.log(reward.type)
+      PostWatchedAdAPi(postId,status)
+      .then(response=>{  
+        console.log(response)
+        if(response[0].Success == "Rewarded"){      
+      data.StatData = "1";
+      data.PostImage = response[0].PostImage;
+      Auth.setPostDataSource([...Auth.PostDataSource]);
+        }
+    });
+
+   
+      
+    },
+  );
+
+ 
+  // Start loading the rewarded ad straight away
+  //if(!rewarded.loaded){
+  rewarded.load();
+  //}
+
+  // Unsubscribe from events on unmount
+  return () => {
+    unsubscribeLoaded();
+    unsubscribeEarned();
+  };*/
+}
 
 const fetchData = () => {
 
@@ -61,6 +169,7 @@ Auth.setStart(Auth.start+1)
 
 
 }
+
 
 
 const handleCloseMessageDrawer = () =>{
@@ -194,7 +303,9 @@ if(ele.isViewable === true){
 <View style={{display:'flex',flexDirection:'row',gap:10,alignItems:'center'}}>
 
   {/*Button navigates you to create post screen or if your not signed-in then the signin screen */}
-<TouchableOpacity onPress={()=>{ if(Auth.Authuser.length > 0 ){ navigation.navigate('CreatePost'); }else{ navigation.navigate('Signin') } }}>
+<TouchableOpacity onPress={()=>{
+  
+  if(Auth.Authuser.length > 0 ){ setProfileShower(true); }else{ navigation.navigate('Signin') } }}>
 <Icon  name={'plus-square'} solid={true} size={27} type={'feather'} />
 </TouchableOpacity>
 
@@ -212,7 +323,7 @@ if(ele.isViewable === true){
     
  </SafeAreaView>
 
-<View style={{flex:1,flexGrow: 1}}>
+<View style={{flex:1}}>
 
 
  <FlashList
@@ -221,10 +332,11 @@ if(ele.isViewable === true){
      ListHeaderComponent={
       <View style={{width:'100%',display:'flex',paddingHorizontal:0,flexDirection:'column',gap:20,alignItems:'flex-start'}}>
       
-      {Auth.Authuser.length == 0?<BoardComp navigation={navigation} /> : <Storie query={''} navigation={navigation} Auth={Auth} />}
+      {Auth.Authuser.length == 0?<BoardComp navigation={navigation} /> : null}
+      {<Storie query={''} profileShower={profileShower} setProfileShower={setProfileShower} navigation={navigation} Auth={Auth}  />}
       <QuoteComp Auth={Auth} navigation={navigation} />
 
-        <PinnedPosts navigation={navigation} Auth={Auth} />
+        <PinnedPosts setPostId={setPostId} loaded={loaded} setAdUnitId={setAdUnitId} setStatus={setStatus} rewarded={rewarded} navigation={navigation} Auth={Auth} />
 
       </View>
       }
@@ -233,7 +345,7 @@ if(ele.isViewable === true){
       data={Auth.PostDataSource}
       renderItem={({item,index}) => {
        if(item.type == ""){
-        return(<FeedItem dataSource={Auth.PostDataSource} setDataSource={Auth.setPostDataSource} isProfile={false} navigation={navigation} Auth={Auth}  index={index} data={item} />)
+        return(<FeedItem setPostId={setPostId} dataSource={Auth.PostDataSource} loaded={loaded} setAdUnitId={setAdUnitId} setStatus={setStatus} rewarded={rewarded} setDataSource={Auth.setPostDataSource} isProfile={false} navigation={navigation} Auth={Auth}  index={index} data={item} />)
        }else{
         return(<View style={{display:'flex',flexDirection:'column',alignItems:'center',paddingBottom:20,width:'100%'}}><GAMBannerAd
           unitId={adUnitId}
@@ -246,9 +358,13 @@ if(ele.isViewable === true){
       onEndReached={handleLoadMore} 
       onEndReachedThreshold={0.9}
       estimatedItemSize={530}
-     
-      keyExtractor={(item,index)=>""+index}
-      onViewableItemsChanged={onViewableItemsChanged}
+      windowSize={8}
+
+      //estimatedFirstItemOffset={Dimensions.get('screen').height -530}
+      //estimatedListSize={{height:530,width:Dimensions.get('screen').width}}
+      
+      keyExtractor={(item, index) => ""+item.Id}
+      onViewableItemsChanged={onViewableItemsChanged} 
       
        
        />
@@ -320,7 +436,7 @@ userStats={''}
 
 <Buttons onPressed={()=>{ if(Auth.Authuser.length > 0 ){ navigation.navigate('UserMessage'); }else{ navigation.navigate('Signin'); } setShowMessageDrawer(false); }} title={'Direct Message'} icon1={{name:'send', type:'feather'}} />
 
-<Buttons onPressed={()=>{ navigation.navigate('ChatRoom'); setShowMessageDrawer(false); }} title={'ChatRoom'} icon1={{name:'send', type:'feather'}} />
+{/*<Buttons onPressed={()=>{ navigation.navigate('ChatRoom'); setShowMessageDrawer(false); }} title={'ChatRoom'} icon1={{name:'send', type:'feather'}} />*/}
 
 </View>
 </DrawerProfileDialog>

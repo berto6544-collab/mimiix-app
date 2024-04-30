@@ -71,18 +71,20 @@ const onPlaybackStatusUpdate = async (playbackStatus) =>{
           if (playbackStatus.didJustFinish && !playbackStatus.isLooping) {
 
             if(isLooping){
-                VideoRef.current.setPositionAsync(0);
-                setProgress(0);
-                VideoRef.current.playAsync();
+             await setProgress(0);  
+             await VideoRef.current.setPositionAsync(0);
+                
+             await VideoRef.current.playAsync();
             }else{
 
             if(Auth.mediaDataSource.length -1 == Auth.index){
  
             }else{
                 Auth.setIndex(Auth.index+1)
-                VideoRef.current.setPositionAsync(0)
-                setProgress(0);
-                VideoRef.current.playAsync();
+               await setProgress(0);
+               await VideoRef.current.setPositionAsync(0)
+                
+               await VideoRef.current.playAsync();
 
             }
            
@@ -122,7 +124,8 @@ React.useEffect(()=>{
     //function updating the position
 const updatePosition =async () =>{
 
-    
+    //if the media type is an audio then update the progress bar
+    if(Auth.mediaType == 'audio'){
       if(VideoRef.current){
 const status = await VideoRef.current.getStatusAsync();
 if(status){
@@ -132,6 +135,8 @@ if(status){
 }
 
       }
+
+    }
       
     }
 
@@ -254,8 +259,8 @@ else{
 
 
 Auth.setIndex(Auth.index - 1)
-VideoRef.current.setPositionAsync(0) 
 setProgress(0);
+VideoRef.current.setPositionAsync(0) 
 VideoRef.current.playAsync();
 }
 
@@ -293,8 +298,8 @@ if(Auth.mediaDataSource.length -1 == Auth.index){
 
 
 Auth.setIndex(Auth.index + 1)
-VideoRef.current.setPositionAsync(0)
 setProgress(0);
+VideoRef.current.setPositionAsync(0)
 VideoRef.current.playAsync();
 }
 

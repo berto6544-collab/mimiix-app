@@ -4,53 +4,17 @@ import { Dimensions, Text,TouchableOpacity, View } from "react-native";
 import * as WebBrowser from 'expo-web-browser';
 import { FeedItemstyles } from "../../../StyleComponent/Style";
 import * as Sharing from 'expo-sharing';
-import { RewardedAd, RewardedAdEventType, TestIds,Auth } from 'react-native-google-mobile-ads';
-import { PostWatchedAdAPi } from "../../../API/API";
+
  
-const  adUnitId= 'ca-app-pub-6989684433220866/6129242070';
 
-  const rewarded = RewardedAd.createForAdRequest(adUnitId, {
-    keywords: ['art','gaming'],
-  });
 
-export default PaymentComponet = ({navigation,data,dataSource,setDataSource}) =>{
+  
+
+export default PaymentComponet = ({navigation,data,rewarded,setAdUnitId,setPostId,dataSource,setDataSource,setStatus}) =>{
 
      
-  const [loaded, setLoaded] = React.useState(false);
 
-
-
-
-  React.useEffect(() => {
-    const unsubscribeLoaded = rewarded.addAdEventListener(RewardedAdEventType.LOADED, () => {
-      setLoaded(true);
-    });
-    const unsubscribeEarned = rewarded.addAdEventListener(
-      RewardedAdEventType.EARNED_REWARD,
-      reward => {
-
-        PostWatchedAdAPi(data.PostId)
-        .then(response=>{  
-          console.log(response)
-          if(response[0].Success == "Rewarded"){      
-        data.StatData = "1";
-        data.PostImage = response[0].PostImage;
-        setDataSource([...dataSource]);
-          }
-      });
-        
-      },
-    );
-
-    // Start loading the rewarded ad straight away
-    rewarded.load();
-
-    // Unsubscribe from events on unmount
-    return () => {
-      unsubscribeLoaded();
-      unsubscribeEarned();
-    };
-  }, []);
+  
 
 
 
@@ -112,15 +76,23 @@ export default PaymentComponet = ({navigation,data,dataSource,setDataSource}) =>
         <TouchableOpacity  
       onPress={async()=>{
         
+        setPostId(data.PostId)
+        setStatus('content');
+        await rewarded.load();
+      
+       
+       setTimeout(async() => {
         
-       if(loaded){
-       rewarded.show();
-       }else{
+      // if(rewarded.loaded){
+       //}else{
           //await WebBrowser.openBrowserAsync();
-         const url = 'https://mymiix.com/post/payment/'+data.UniqeId;
+         //const url = 'https://mymiix.com/post/payment/'+data.UniqeId;
 
-          await navigation.navigate('Web',{url:url,title:'@'+data?.UserName})
-       }
+        //  await navigation.navigate('Web',{url:url,title:'@'+data?.UserName})
+       //}  
+        await rewarded.show();
+     }, 800);
+     
 
         }}
       

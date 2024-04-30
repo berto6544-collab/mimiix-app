@@ -12,8 +12,12 @@ import FastImage from "react-native-fast-image";
 
 
 
-export default function FeedItem({data,navigation,dataSource,setDataSource,index,Auth,isProfile}){
+export default function FeedItem({data,navigation,dataSource,loaded,setPostId,setAdUnitId,rewarded,setStatus,setDataSource,index,Auth,isProfile}){
 
+    
+
+   
+  
 
 
  const Delete = () =>{
@@ -31,7 +35,7 @@ export default function FeedItem({data,navigation,dataSource,setDataSource,index
 
 
     return(
-    <TouchableOpacity key={index} activeOpacity={1}   onPress={()=>{
+    <TouchableOpacity key={data.PostId} activeOpacity={1}   onPress={()=>{
         navigation.navigate('Post',{uniqid:data?.UniqeId})
     }} style={[FeedItemstyles.FeedItem,{position:'relative'}]}>
     <View style={[FeedItemstyles.AvatarBase,{position:'relative'}]}>
@@ -64,7 +68,7 @@ export default function FeedItem({data,navigation,dataSource,setDataSource,index
         
         <View style={{position:'absolute',display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',width:'100%',zIndex:3,height: Dimensions.get('window').height -480,backgroundColor:'rgba(0,0,0,0.9)'}} >
         
-        <PaymentComponet dataSource={dataSource} setDataSource={setDataSource} navigation={navigation} data={data} Auth={Auth} />
+        <PaymentComponet setPostId={setPostId} dataSource={dataSource} setAdUnitId={setAdUnitId} setStatus={setStatus} rewarded={rewarded} setDataSource={setDataSource} navigation={navigation} data={data} Auth={Auth} />
 
         </View>
         
@@ -137,8 +141,20 @@ navigation.navigate('Comment',{postId:data.PostId});
     }}><Icon  name={'dollar'} type={'font-awesome'} /></TouchableOpacity>:null}
 
 
-{!isProfile?<TouchableOpacity onPress={()=>{
-        navigation.navigate('Web',{url:'https://mymiix.com/pininsight/'+data.PostId})
+{!isProfile?<TouchableOpacity onPress={async()=>{
+        //navigation.navigate('Web',{url:'https://mymiix.com/pininsight/'+data.PostId})
+       
+       
+       await setStatus('pinned')
+       await setPostId(data.PostId);
+
+       await rewarded.load();
+       setTimeout(async() => {
+        
+       
+        await rewarded.show();
+     }, 900);
+
     }}><Icon  name={'map-pin'} type={'font-awesome'} /></TouchableOpacity>:null}
 
 

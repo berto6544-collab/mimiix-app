@@ -7,11 +7,13 @@ import { GetPostUL } from "../../API/API";
 import { FlashList } from "@shopify/flash-list";
 import FeedItem from "./component/feedItem";
 import { GAMBannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const adUnitId = 'ca-app-pub-6989684433220866/6848090089';
 
 const PostsScreen = ({route,navigation}) => {
 const [dataSource,setDataSource] = React.useState([])
+const [dataSourceRelated,setDataSourceRelated] = React.useState([])
 const Auth = React.useContext(AuthContext)
 const {uniqid} = route.params;
 
@@ -23,7 +25,18 @@ const FetchData = () =>{
     if(response.length == 0)return;
     setDataSource(response)
 
-  })
+fetch('https://mymiix.com/public/api/RelatedPost?uniq='+uniqid)
+.then(resps=>resps.json())
+.then(res=>{
+  if(res.length == 0);
+  setDataSourceRelated(res)
+
+});
+
+  });
+
+
+
 }
 
     React.useEffect(()=>{
@@ -46,19 +59,16 @@ const FetchData = () =>{
 
 
     return(
+    <SafeAreaView edges={['bottom']} style={{flex:1}} >
     <View style={{flex:1}}>
       <FlashList 
-      data={dataSource}
-      renderItem={({item,index}) => {return(<FeedItem dataSource={dataSource} setDataSource={setDataSource} isProfile={false} navigation={navigation} Auth={Auth}  index={index} data={item} />)}}
-      getItemType={({item,index})=>{return ""+index}}
-      estimatedItemSize={500}
-      removeClippedSubviews={false}
-      keyExtractor={(item,index)=>""+index}
-      maintainVisibleContentPosition={{
-        minIndexForVisible: 0,
-     }}
-      ListFooterComponent={
-        <View style={{width:'100%',display:'flex',flex:1,paddingHorizontal:0,flexDirection:'column',gap:20,alignItems:'center'}}>
+      data={dataSourceRelated}
+      ListHeaderComponent={
+        dataSource.length == 0 ?<></>:<View style={{flex:1,backgroundColor:'white'}}>
+          <FeedItem  dataSource={dataSource} setDataSource={setDataSource} isProfile={false} navigation={navigation} Auth={Auth}  index={0} data={dataSource[0]} />
+          
+
+          <View style={{width:'100%',display:'flex',backgroundColor:'white',flex:1,paddingHorizontal:0,marginBottom:20,flexDirection:'column',gap:20,alignItems:'center'}}>
         
         <GAMBannerAd
       unitId={adUnitId}
@@ -66,6 +76,9 @@ const FetchData = () =>{
       requestOptions={{
         requestNonPersonalizedAdsOnly: true,
       }}
+
+
+
       
     />
 
@@ -74,12 +87,28 @@ const FetchData = () =>{
 
   
         </View>
-        }
+          <View style={{width:'100%',display:'flex',borderTopColor:'lightgrey',borderTopWidth:0.5,flexDirection:'column',alignItems:'center',padding:10,backgroundColor:'white'}}>
+          <Text style={{fontSize:18,fontWeight:'700'}}>Related Post</Text>
+          </View>
+          </View>
+      }
+      renderItem={({item,index}) => {return(<FeedItem  dataSource={dataSourceRelated} setDataSource={setDataSourceRelated} isProfile={false} navigation={navigation} Auth={Auth}  index={index} data={item} />)}}
+      getItemType={({item,index})=>{return ""+index}}
+      estimatedItemSize={550}
+      removeClippedSubviews={false}
+      style={{backgroundColor:'white'}}
+      keyExtractor={(item,index)=>""+item.Id}
+      maintainVisibleContentPosition={{
+        minIndexForVisible: 0,
+     }}
+      
       
       />
 
 
-    </View>)
+    </View>
+    </SafeAreaView>
+    )
 
 
     

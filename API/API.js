@@ -145,10 +145,10 @@ export async function GetPinnedcommentsAPi(postid){
 
 
 //When your watched the reward ads you will unlock content for 1 day
-export async function PostWatchedAdAPi(postid){
+export async function PostWatchedAdAPi(postid,status){
   const formData = new FormData();
   formData.append("PostId",postid)
-  const data = await fetch('https://mymiix.com/public/api/WatchedAd',{
+  const data = await fetch('https://mymiix.com/public/api/WatchedAd?status='+status,{
     method:'POST',
     body:formData
   })

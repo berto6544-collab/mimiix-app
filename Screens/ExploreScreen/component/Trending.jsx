@@ -84,19 +84,17 @@ const fetchData = (q) =>{
 
 <FlashList 
  data={dataSource}
- renderItem={({item,index}) => {return(<FeedItem dataSource={dataSource} setDataSource={setDataSource} isProfile={false} navigation={navigation} Auth={Auth}  index={index} data={item} />)}}
+ renderItem={({item,index}) => {return(<FeedItem  dataSource={dataSource} setDataSource={setDataSource} isProfile={false} navigation={navigation} Auth={Auth}  index={index} data={item} />)}}
  estimatedItemSize={550}
  windowSize={10}
  maxToRenderPerBatch={8}
  overScrollMode="never" 
  scrollToOverflowEnabled={true}
-      snapToEnd={false}
-      snapToStart={false}
  nestedScrollEnabled 
  showsVerticalScrollIndicator={false}
  removeClippedSubviews={false}
  drawDistance={Dimensions.get('screen').height * 2}
- keyExtractor={(item,index)=>""+index}
+ keyExtractor={(item,index)=>""+item.Id}
  getItemType={({item,index})=>{return ""+index}}
 
 

@@ -13,8 +13,12 @@ import BlogItem from "../../../component/blogItems/blogItems";
 import { FlashList } from "@shopify/flash-list";
 import {OpenUrls} from '../../../Utils/URL';
 import { GAMBannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
+import { RewardedAd, RewardedAdEventType } from 'react-native-google-mobile-ads';
+import { PostWatchedAdAPi } from "../../../API/API";
 
 
+const adUnitId = 'ca-app-pub-6989684433220866/6129242070';
+const rewarded = RewardedAd.createForAdRequest(adUnitId);
 export default function PostComp({navigation,item,username,index,setData,data}){
 
     const [dataSource,setDataSource] = React.useState([]);
@@ -23,11 +27,17 @@ export default function PostComp({navigation,item,username,index,setData,data}){
     const [start,setStart] = React.useState(0)
     const [Tabindex, setTabIndex] = React.useState(0);
     const [AdUnit, setAdUnit] = React.useState("ca-app-pub-6989684433220866/6129242070");
-    
+    const [adUnitIds,setAdUnitId] = React.useState('ca-app-pub-6989684433220866/6129242070')
+    const [status,setStatus] = React.useState('content')
+    const [loaded, setLoaded] = React.useState(false);
+    const [postId,setPostId] = React.useState(0)
+
     const nativeAdViewRef = React.useRef();
  
 
   const Auth = React.useContext(AuthContext);
+
+ 
   
 
 React.useEffect(()=>{
@@ -35,6 +45,43 @@ React.useEffect(()=>{
     fetchData();
     nativeAdViewRef.current?.loadAd();
     setDataSourceLink(item.LinksArray);
+
+
+
+
+    const unsubscribeLoaded = rewarded.addAdEventListener(RewardedAdEventType.LOADED, () => {
+      setLoaded(true);
+    });
+    
+    const unsubscribeEarned = rewarded.addAdEventListener(
+      RewardedAdEventType.EARNED_REWARD,
+      reward => {
+
+
+        
+        //console.log(reward.type)
+        PostWatchedAdAPi(postId,status)
+        .then(response=>{  
+          console.log(response)
+          if(response[0].Success == "Rewarded"){      
+        data.StatData = "1";
+        data.PostImage = response[0].PostImage;
+        setDataSource([...dataSource]);
+          }
+      });
+        
+      },
+    );
+
+    if(!rewarded.loaded){
+    // Start loading the rewarded ad straight away
+    rewarded.load();
+    }
+    // Unsubscribe from events on unmount
+    return () => {
+      unsubscribeLoaded();
+      unsubscribeEarned();
+    };
 
 
 },[])
@@ -397,7 +444,7 @@ const onViewableItemsChanged = ({ viewableItems, changed }) => {
       }} style={{padding:10,width:'25%',backgroundColor:Tabindex == 3?'rgb(0, 123, 255)':'transparent',borderRadius:5}}><Text style={{color:Tabindex == 3?'white':'black',textAlign:'center',fontSize:15}}>Future Posts</Text></TouchableOpacity>:null}
      
        
-        <TouchableOpacity 
+        {/*<TouchableOpacity 
         onPress={()=>{
           setDataSource([])
          
@@ -416,7 +463,7 @@ const onViewableItemsChanged = ({ viewableItems, changed }) => {
       
       }}
         
-        style={{padding:10,width:'25%',backgroundColor:Tabindex == 1?'rgb(0, 123, 255)':'transparent',borderRadius:5}}><Text style={{color:Tabindex == 1?'white':'black',textAlign:'center',fontSize:15}}>Blogs</Text></TouchableOpacity>
+        style={{padding:10,width:'25%',backgroundColor:Tabindex == 1?'rgb(0, 123, 255)':'transparent',borderRadius:5}}><Text style={{color:Tabindex == 1?'white':'black',textAlign:'center',fontSize:15}}>Blogs</Text></TouchableOpacity>*/}
 
 
 
@@ -451,14 +498,14 @@ const onViewableItemsChanged = ({ viewableItems, changed }) => {
        
       removeClippedSubviews={true}
       data={dataSource}
-      renderItem={({item,index}) => Tabindex == 1?<BlogItem navigation={navigation} Auth={Auth} key={index} index={index} data={item} /> : Tabindex == 2 ?<FeedItemEvent isProfile={true} dataSource={dataSource} setDataSource={setDataSource} navigation={navigation} Auth={Auth} key={index} index={index} data={item} />:<FeedItem isProfile={true} dataSource={dataSource} setDataSource={setDataSource} navigation={navigation} Auth={Auth} key={index} index={index} data={item} />}
+      renderItem={({item,index}) => Tabindex == 1?<BlogItem navigation={navigation} Auth={Auth} key={index} index={index} data={item} /> : Tabindex == 2 ?<FeedItemEvent isProfile={true} dataSource={dataSource} setDataSource={setDataSource} navigation={navigation} Auth={Auth} key={index} index={index} data={item} />:<FeedItem isProfile={true} setPostId={setPostId} loaded={loaded} setAdUnitId={setAdUnitId} setStatus={setStatus} rewarded={rewarded} dataSource={dataSource} setDataSource={setDataSource} navigation={navigation} Auth={Auth} key={index} index={index} data={item} />}
       onEndReached={handleLoadMore} 
       estimatedItemSize={550}
       drawDistance={Dimensions.get('screen').height * 2}
       maintainVisibleContentPosition={{
         minIndexForVisible: 0,
      }}
-      getItemType={({item,index})=>{return index}}
+      getItemType={({item,index})=>{return ""+index}}
       windowSize={10}
       scrollToOverflowEnabled={true}
       snapToEnd={false}
@@ -468,7 +515,7 @@ const onViewableItemsChanged = ({ viewableItems, changed }) => {
       showsVerticalScrollIndicator={false}
       maxToRenderPerBatch={8}
       onEndReachedThreshold={0.9}
-      keyExtractor={(item,index)=>index}
+      keyExtractor={(item,index)=>""+item.Id}
       onViewableItemsChanged={onViewableItemsChanged}
       
        

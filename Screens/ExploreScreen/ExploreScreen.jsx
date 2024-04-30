@@ -18,7 +18,7 @@ return(
 <View style={{display:'flex',flexDirection:'row',alignItems:'center',gap:5,paddingHorizontal:10,backgroundColor:'white',width:Dimensions.get('screen').width,height:60}}>
 <TouchableOpacity onPress={()=>setIndex(0)}><Text style={{color: index == 0?'#007bff':'black',fontSize:15}}>Trending</Text></TouchableOpacity>
 <TouchableOpacity onPress={()=>setIndex(1)}><Text style={{color: index == 1?'#007bff':'black',fontSize:15}}>Users</Text></TouchableOpacity>
-<TouchableOpacity onPress={()=>setIndex(2)}><Text style={{color: index == 2?'#007bff':'black',fontSize:15}}>Unite</Text></TouchableOpacity>
+{/*<TouchableOpacity onPress={()=>setIndex(2)}><Text style={{color: index == 2?'#007bff':'black',fontSize:15}}>Unite</Text></TouchableOpacity>*/}
 
 </View>
 

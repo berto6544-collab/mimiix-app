@@ -9,11 +9,18 @@ import PaymentComponet from "../../../component/feedItems/component/PaymentCompo
 import * as Sharing from 'expo-sharing';
 import { PostDeleteAPi, PostLikeApi } from "../../../API/API";
 import FastImage from "react-native-fast-image";
+import { RewardedAd, RewardedAdEventType } from 'react-native-google-mobile-ads';
+import { PostWatchedAdAPi } from "../../../API/API";
 
-
+const adUnitId = 'ca-app-pub-6989684433220866/6129242070';
+const rewarded = RewardedAd.createForAdRequest(adUnitId);
 
 export default function FeedItem({data,navigation,dataSource,setDataSource,index,Auth,isProfile}){
 
+    const [adUnitIds,setAdUnitId] = React.useState('ca-app-pub-6989684433220866/6129242070')
+    const [status,setStatus] = React.useState('')
+    const [loaded, setLoaded] = React.useState(false);
+    const [postId,setPostId] = React.useState(0)
 
  const Delete = () =>{
 
@@ -27,6 +34,60 @@ export default function FeedItem({data,navigation,dataSource,setDataSource,index
 
     })
  }    
+
+
+ React.useEffect(()=>{
+
+
+
+
+
+    const unsubscribeLoaded = rewarded.addAdEventListener(RewardedAdEventType.LOADED, () => {
+      setLoaded(true);
+        // Start loading the rewarded ad straight away
+    if(!rewarded.loaded){
+      rewarded.load();
+      }
+    });
+    
+    const unsubscribeEarned = rewarded.addAdEventListener(
+      RewardedAdEventType.EARNED_REWARD,
+      reward => {
+
+
+        
+        //console.log(reward.type)
+        PostWatchedAdAPi(data.PostId,status)
+        .then(response=>{  
+          console.log(response)
+          if(response[0].Success == "Rewarded"){      
+        data.StatData = "1";
+        data.PostImage = response[0].PostImage;
+        Auth.setPostDataSource([...Auth.PostDataSource]);
+          }
+      });
+
+    
+        
+      },
+    );
+
+   
+
+    
+    // Start loading the rewarded ad straight away
+    //if(!rewarded.loaded){
+    rewarded.load();
+    //}
+
+    // Unsubscribe from events on unmount
+    return () => {
+      unsubscribeLoaded();
+      unsubscribeEarned();
+    };
+
+
+},[]);
 
 
     return(
@@ -61,7 +122,7 @@ export default function FeedItem({data,navigation,dataSource,setDataSource,index
         
         <View style={{position:'absolute',display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',width:'100%',zIndex:3,height: Dimensions.get('window').height -480,backgroundColor:'rgba(0,0,0,0.9)'}} >
         
-        <PaymentComponet navigation={navigation} data={data} Auth={Auth} />
+        <PaymentComponet setPostId={setPostId} loaded={loaded} setAdUnitId={setAdUnitId} setStatus={setStatus} rewarded={rewarded} navigation={navigation} data={data} Auth={Auth} />
 
         </View>
         
@@ -106,8 +167,20 @@ navigation.navigate('Comment',{postId:data.PostId});
     }}><Icon  name={'dollar'} type={'font-awesome'} /></TouchableOpacity>:null}
 
 
-{!isProfile?<TouchableOpacity onPress={()=>{
-        navigation.navigate('Web',{url:'https://mymiix.com/pininsight/'+data.PostId})
+{!isProfile?<TouchableOpacity onPress={async()=>{
+       // navigation.navigate('Web',{url:'https://mymiix.com/pininsight/'+data.PostId})
+
+     setStatus('pinned')
+     setPostId(data.PostId);
+
+       await rewarded.load();
+
+       setTimeout(async() => {
+        
+       
+       await rewarded.show();
+    }, 800);
+       
     }}><Icon  name={'map-pin'} type={'font-awesome'} /></TouchableOpacity>:null}
 
 

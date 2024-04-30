@@ -12,7 +12,7 @@ import FastImage from "react-native-fast-image";
 
 
 
-export default function FeedItemPinned({data,navigation,dataSource,setDataSource,index,Auth,isProfile}){
+export default function FeedItemPinned({data,navigation,loaded,setPostId,setAdUnitId,rewarded,setStatus,dataSource,setDataSource,index,Auth,isProfile}){
 
 
  const Delete = () =>{
@@ -76,6 +76,7 @@ export default function FeedItemPinned({data,navigation,dataSource,setDataSource
        
     </View>
     {OpenUrl(data.PostBody,data,navigation,data.PostImage,data.PostId,'')}
+    
     {data.PostImage != ""?<View style={{position:'relative',width:Dimensions.get('screen').width}}>
 
     {data.Stat != "" && data.StatData != "0" || !data.Payment.match(/acct\_([a-zA-Z0-9_]+)/) || data.PostsSecurity == "copyright"  || data.Stat == "" || data.MyUserName == data.UserName || data.usersID == 1 || data.thisID == 1  ?<MultiMedias navigation={navigation} data={data} /> :
@@ -84,7 +85,7 @@ export default function FeedItemPinned({data,navigation,dataSource,setDataSource
         
         <View style={{position:'absolute',display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',width:'100%',zIndex:3,height: Dimensions.get('window').height -480,backgroundColor:'rgba(0,0,0,0.9)'}} >
         
-        <PaymentComponet navigation={navigation} data={data} Auth={Auth} />
+        <PaymentComponet setPostId={setPostId} setAdUnitId={setAdUnitId} setStatus={setStatus} rewarded={rewarded} navigation={navigation} data={data} Auth={Auth} />
 
         </View>
         
