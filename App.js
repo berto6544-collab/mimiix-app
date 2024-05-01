@@ -22,11 +22,14 @@ export default function App({navigation}) {
   const [bannerText,setBannerText] = React.useState("ca-app-pub-3940256099942544/2521693316");
   const [theme,setTheme] = React.useState('light');
   const [token,setToken] = React.useState('');
+  const [adStatus,setAdStatus] = React.useState('');
   const [mediaType,setMediaType] = React.useState(null);
   const [mediaDataSource,setMediaDataSource] = React.useState([])
   const [index,setIndex] = React.useState(0);
   const [start,setStart] = React.useState(0);
   const [isLoaded,setisLoaded] = React.useState(false);
+
+  
 
 React.useEffect(()=>{
 
@@ -63,7 +66,7 @@ return(
 
 return(
 
-<AuthContext.Provider style={Containerstyles.container} value={{Authuser,setAuthUser,start,setStart,PostDataSource,setPostDataSource,theme,setTheme,token,setToken,mediaType,setMediaType,mediaDataSource,setMediaDataSource,index,setIndex}}>
+<AuthContext.Provider style={Containerstyles.container} value={{Authuser,setAuthUser,adStatus,setAdStatus,start,setStart,PostDataSource,setPostDataSource,theme,setTheme,token,setToken,mediaType,setMediaType,mediaDataSource,setMediaDataSource,index,setIndex}}>
  <NavigationContainer>
 
 {Authuser.length > 0 && Authuser[0].UserName == "" || Authuser.length == 0 ? LoginFunction(Stack,Tab) : Authenticated(Stack,Tab)}

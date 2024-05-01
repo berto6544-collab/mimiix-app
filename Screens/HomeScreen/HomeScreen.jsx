@@ -18,7 +18,7 @@ import BoardComp from "./component/BoardComp";
 import PinnedPosts from "./component/PinnedPosts";
 
 import { GAMBannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
-import { RewardedAd, RewardedAdEventType } from 'react-native-google-mobile-ads';
+import { RewardedAd, RewardedAdEventType,useRewardedAd } from 'react-native-google-mobile-ads';
 import { PostWatchedAdAPi } from "../../API/API";
 
 
@@ -58,7 +58,7 @@ React.useEffect(()=>{
 
 
 
-React.useEffect(()=>{
+React.useEffect(async()=>{
 
 
 
@@ -67,19 +67,18 @@ React.useEffect(()=>{
     const unsubscribeLoaded = rewarded.addAdEventListener(RewardedAdEventType.LOADED, () => {
       setLoaded(true);
         // Start loading the rewarded ad straight away
-    if(!rewarded.loaded){
-      rewarded.load();
-      }
+      //rewarded.show();
     });
     
-    const unsubscribeEarned = rewarded.addAdEventListener(
+    const unsubscribeEarned  = await rewarded.addAdEventListener(
       RewardedAdEventType.EARNED_REWARD,
       reward => {
 
 
         
-        //console.log(reward.type)
-        PostWatchedAdAPi(postId,status)
+        if(reward.type == "Reward"){
+
+     PostWatchedAdAPi(postId,Auth.adStatus)
         .then(response=>{  
           console.log(response)
           if(response[0].Success == "Rewarded"){      
@@ -87,7 +86,17 @@ React.useEffect(()=>{
         data.PostImage = response[0].PostImage;
         Auth.setPostDataSource([...Auth.PostDataSource]);
           }
+
+          if(response[0].Success == "Rewarding"){
+            Alert.alert('This post has been Pinned', "Thank you for helping this creator to get pinned on our feed!", [
+              
+              {text: 'OK', onPress: () => {
+
+              }},
+            ]);
+          }
       });
+    }
 
     
         
@@ -96,12 +105,8 @@ React.useEffect(()=>{
 
    
 
-    
-    // Start loading the rewarded ad straight away
-    //if(!rewarded.loaded){
-    rewarded.load();
-    //}
-
+   rewarded.load();
+   
     // Unsubscribe from events on unmount
     return () => {
       unsubscribeLoaded();
@@ -326,7 +331,7 @@ if(ele.isViewable === true){
 <View style={{flex:1,overflow:'hidden'}}>
 
 
- <OptimizedFlatList
+ <FlashList
       
      ref={flashListRef}
      ListHeaderComponent={
@@ -360,16 +365,10 @@ if(ele.isViewable === true){
       //estimatedItemSize={530}
       estimatedItemSize={Dimensions.get('screen').height * 0.5}
       extraData={{}}
-      scrollToOverflowEnabled={true}
       maintainVisibleContentPosition={{autoscrollToTopThreshold:0,minIndexForVisible:0}}
       windowSize={10}
-      snapToEnd={false}
-      snapToStart={false}
-      overScrollMode="never" 
-      nestedScrollEnabled 
       maxToRenderPerBatch={8}
-      removeClippedSubviews={false}
-      disableIntervalMomentum
+      removeClippedSubviews={true}
       keyExtractor={(item, index) => ""+item.Id}
       onViewableItemsChanged={onViewableItemsChanged} 
       

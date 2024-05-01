@@ -191,7 +191,7 @@ navigation.navigate('Comment',{postId:data.PostId});
 {!isProfile?<TouchableOpacity onPress={async()=>{
        // navigation.navigate('Web',{url:'https://mymiix.com/pininsight/'+data.PostId})
     
-       setStatus('pinned')
+       Auth.setAdStatus('pinned')
        setPostId(data.PostId);
 
        await rewarded.load();

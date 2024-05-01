@@ -145,15 +145,15 @@ navigation.navigate('Comment',{postId:data.PostId});
         //navigation.navigate('Web',{url:'https://mymiix.com/pininsight/'+data.PostId})
        
        
-       await setStatus('pinned')
-       await setPostId(data.PostId);
+       Auth.setAdStatus('pinned')
+       setPostId(data.PostId);
 
-       await rewarded.load();
-       setTimeout(async() => {
+       //await rewarded.load();
+      
         
        
         await rewarded.show();
-     }, 900);
+     
 
     }}><Icon  name={'map-pin'} type={'font-awesome'} /></TouchableOpacity>:null}
 

@@ -45,9 +45,7 @@ export default function FeedItem({data,navigation,dataSource,setDataSource,index
     const unsubscribeLoaded = rewarded.addAdEventListener(RewardedAdEventType.LOADED, () => {
       setLoaded(true);
         // Start loading the rewarded ad straight away
-    if(!rewarded.loaded){
-      rewarded.load();
-      }
+   rewarded.show();
     });
     
     const unsubscribeEarned = rewarded.addAdEventListener(
@@ -57,7 +55,7 @@ export default function FeedItem({data,navigation,dataSource,setDataSource,index
 
         
         //console.log(reward.type)
-        PostWatchedAdAPi(data.PostId,status)
+        PostWatchedAdAPi(data.PostId,Auth.adStatus)
         .then(response=>{  
           console.log(response)
           if(response[0].Success == "Rewarded"){      
@@ -77,7 +75,7 @@ export default function FeedItem({data,navigation,dataSource,setDataSource,index
     
     // Start loading the rewarded ad straight away
     //if(!rewarded.loaded){
-    rewarded.load();
+    
     //}
 
     // Unsubscribe from events on unmount
@@ -170,17 +168,12 @@ navigation.navigate('Comment',{postId:data.PostId});
 {!isProfile?<TouchableOpacity onPress={async()=>{
        // navigation.navigate('Web',{url:'https://mymiix.com/pininsight/'+data.PostId})
 
-     setStatus('pinned')
+     Auth.setAdStatus("pinned")
      setPostId(data.PostId);
 
        await rewarded.load();
 
-       setTimeout(async() => {
-        
-       
-       await rewarded.show();
-    }, 800);
-       
+      
     }}><Icon  name={'map-pin'} type={'font-awesome'} /></TouchableOpacity>:null}
 
 

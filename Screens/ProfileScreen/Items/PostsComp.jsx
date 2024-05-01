@@ -1,7 +1,7 @@
 import React from "react";
 import { Text,Card,Image,Avatar, Icon,Tab,Button } from "@rneui/themed";
 import { ProfilePostAPI, ProfileBlogAPI,ProfileFuturePostAPI,ProfileLiveEventAPI } from "../../../API/API";
-import { Dimensions, TouchableOpacity, View,FlatList } from "react-native";
+import { Dimensions, TouchableOpacity, View,FlatList,Alert } from "react-native";
 import FeedItem from "../../../component/feedItems/feedItem";
 import FeedItemEvent from "../../../component/feedItems/feedItemEvent";
 import {} from '../styles/styles';
@@ -60,7 +60,7 @@ React.useEffect(()=>{
 
         
         //console.log(reward.type)
-        PostWatchedAdAPi(postId,status)
+        PostWatchedAdAPi(postId,'content')
         .then(response=>{  
           console.log(response)
           if(response[0].Success == "Rewarded"){      
@@ -68,6 +68,7 @@ React.useEffect(()=>{
         data.PostImage = response[0].PostImage;
         setDataSource([...dataSource]);
           }
+         
       });
         
       },
@@ -285,7 +286,7 @@ const onViewableItemsChanged = ({ viewableItems, changed }) => {
 
        
 
- {<OptimizedFlatList
+ {<FlashList
       
       ListHeaderComponent={
         <View style={{width:'100%',display:'flex',paddingHorizontal:0,flex:1,flexDirection:'column',gap:20,alignItems:'flex-start',marginBottom:10}}>
@@ -321,7 +322,7 @@ const onViewableItemsChanged = ({ viewableItems, changed }) => {
             item.Followed = 0
             setData([...data])
           }}
-          title="UnFollow" 
+          title="Unfollow" 
           radius={5}
           containerStyle={{width:'48%'}}
           titleStyle={{color:'rgb(0, 123, 255)',fontWeight:'600'}}
@@ -357,8 +358,16 @@ const onViewableItemsChanged = ({ viewableItems, changed }) => {
           />
           :
           <Button 
-          title={"SUBSCRIBED UNTIL "+item?.SubsDate} 
+          title={"Subscribed"} 
           radius={5}
+          onPress={()=>{
+            Alert.alert('Your Subscribed To @'+item.UserName, "You have subscribed to @"+item.UserName+" until "+item?.SubsDate, [
+              
+              {text: 'OK', onPress: () => {
+
+              }},
+            ]);
+          }}
           containerStyle={{width:'100%'}}
           titleStyle={{color:'rgb(0, 123, 255)',fontWeight:'600'}}
           color={'rgb(0, 123, 255)'} 
@@ -405,7 +414,7 @@ const onViewableItemsChanged = ({ viewableItems, changed }) => {
 
             </View>
             
-        <View style={{display:'flex',width:'100%',flexDirection:'row',borderBottomColor:'lightgrey',paddingBottom:10,borderBottomWidth:1,alignItems:'center',justifyContent:'space-between',paddingHorizontal:10,paddingRight:15}}>
+        <View style={{display:'flex',width:'100%',flexDirection:'row',borderBottomColor:'lightgrey',paddingBottom:10,borderBottomWidth:1,alignItems:'center',paddingHorizontal:10,paddingRight:15}}>
         <TouchableOpacity onPress={()=>{
           
           setDataSource([])
@@ -465,6 +474,8 @@ const onViewableItemsChanged = ({ viewableItems, changed }) => {
         
         style={{padding:10,width:'25%',backgroundColor:Tabindex == 1?'rgb(0, 123, 255)':'transparent',borderRadius:5}}><Text style={{color:Tabindex == 1?'white':'black',textAlign:'center',fontSize:15}}>Blogs</Text></TouchableOpacity>*/}
 
+
+        
 
 
         <TouchableOpacity 

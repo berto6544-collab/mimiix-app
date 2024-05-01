@@ -10,7 +10,7 @@ import * as Sharing from 'expo-sharing';
 
   
 
-export default PaymentComponet = ({navigation,data,rewarded,setAdUnitId,setPostId,dataSource,setDataSource,setStatus}) =>{
+export default PaymentComponet = ({navigation,data,rewarded,Auth,setAdUnitId,setPostId,dataSource,setDataSource,setStatus}) =>{
 
      
 
@@ -77,7 +77,8 @@ export default PaymentComponet = ({navigation,data,rewarded,setAdUnitId,setPostI
       onPress={async()=>{
         
         setPostId(data.PostId)
-        setStatus('content');
+        Auth.setAdStatus('content');
+        
         await rewarded.load();
       
        
