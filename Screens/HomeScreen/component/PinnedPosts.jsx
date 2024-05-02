@@ -1,12 +1,6 @@
 import React,{useRef} from "react";
-import { Text,Card,Image,Avatar, Icon, } from "@rneui/themed";
 import { GetPinnedPost } from "../../../API/API";
-import { Dimensions, TouchableOpacity, View,FlatList } from "react-native";
-import FeedItem from "../../../component/feedItems/feedItemPinned";
-import { FeedItemstyles } from "../../../StyleComponent/Style";
-
-import { AuthContext } from "../../../AuthContext/context";
-import { SafeAreaView } from "react-native-safe-area-context";
+import FeedItemPinned from "../../../component/feedItems/feedItemPinned";
 
 
 export default PinnedPosts = ({navigation,Auth}) =>{
@@ -25,7 +19,7 @@ const [dataSource,setDataSource] = React.useState([])
 
 const content = dataSource.map((item,index) => {
 
-return(<FeedItem dataSource={dataSource} setDataSource={setDataSource} isProfile={false} navigation={navigation} Auth={Auth}  index={index} data={item} />)
+return(<FeedItemPinned dataSource={dataSource} setDataSource={setDataSource} rewarded={Auth.rewarded} isProfile={false} navigation={navigation} Auth={Auth}  index={index} data={item} />)
 
 })
 

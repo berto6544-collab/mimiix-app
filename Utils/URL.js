@@ -153,7 +153,7 @@ export function OpenUrl(url,data,navigation,postimage,postId,status){
     return (
       
         <View style={{width:'100%'}}>
-          {<View style={{width:'100%',paddingHorizontal:10,paddingBottom:10,flexWrap:'wrap',flexDirection:'row'}}>{contentss}</View>}
+          {<View style={{width:'100%',paddingHorizontal:10,paddingBottom:10,flexWrap:'wrap',alignItems:'flex-start',flexDirection:'row'}}>{contentss}</View>}
           {contents[0]}
           
           

@@ -20,12 +20,12 @@ import PinnedPosts from "./component/PinnedPosts";
 import { GAMBannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
 import { RewardedAd, RewardedAdEventType,useRewardedAd } from 'react-native-google-mobile-ads';
 import { PostWatchedAdAPi } from "../../API/API";
+import HeaderComp from "./component/HeaderComp";
 
 
 
 const adUnitIdd = 'ca-app-pub-6989684433220866/6848090089';
-const adUnitId = 'ca-app-pub-6989684433220866/6129242070';
-const rewarded = RewardedAd.createForAdRequest(adUnitId);
+
 
 export default function Feed({navigation}){
 
@@ -58,106 +58,18 @@ React.useEffect(()=>{
 
 
 
-React.useEffect(async()=>{
+React.useEffect(()=>{
 
 
 
 
-
-    const unsubscribeLoaded = rewarded.addAdEventListener(RewardedAdEventType.LOADED, () => {
-      setLoaded(true);
-        // Start loading the rewarded ad straight away
-      //rewarded.show();
-    });
-    
-    const unsubscribeEarned  = await rewarded.addAdEventListener(
-      RewardedAdEventType.EARNED_REWARD,
-      reward => {
-
-
-        
-        if(reward.type == "Reward"){
-
-     PostWatchedAdAPi(postId,Auth.adStatus)
-        .then(response=>{  
-          console.log(response)
-          if(response[0].Success == "Rewarded"){      
-        data.StatData = "1";
-        data.PostImage = response[0].PostImage;
-        Auth.setPostDataSource([...Auth.PostDataSource]);
-          }
-
-          if(response[0].Success == "Rewarding"){
-            Alert.alert('This post has been Pinned', "Thank you for helping this creator to get pinned on our feed!", [
-              
-              {text: 'OK', onPress: () => {
-
-              }},
-            ]);
-          }
-      });
-    }
 
     
-        
-      },
-    );
-
-   
-
-   rewarded.load();
-   
-    // Unsubscribe from events on unmount
-    return () => {
-      unsubscribeLoaded();
-      unsubscribeEarned();
-    };
 
 
 },[])
 
 
-
-const rewardAdLoad = () =>{
-  /*const unsubscribeLoaded = rewarded.addAdEventListener(RewardedAdEventType.LOADED, () => {
-    setLoaded(true);
-    
-  });
-  
-  const unsubscribeEarned = rewarded.addAdEventListener(
-    RewardedAdEventType.EARNED_REWARD,
-    reward => {
-
-
-      
-      //console.log(reward.type)
-      PostWatchedAdAPi(postId,status)
-      .then(response=>{  
-        console.log(response)
-        if(response[0].Success == "Rewarded"){      
-      data.StatData = "1";
-      data.PostImage = response[0].PostImage;
-      Auth.setPostDataSource([...Auth.PostDataSource]);
-        }
-    });
-
-   
-      
-    },
-  );
-
- 
-  // Start loading the rewarded ad straight away
-  //if(!rewarded.loaded){
-  rewarded.load();
-  //}
-
-  // Unsubscribe from events on unmount
-  return () => {
-    unsubscribeLoaded();
-    unsubscribeEarned();
-  };*/
-}
 
 const fetchData = () => {
 
@@ -249,21 +161,11 @@ if(ele.isViewable === true){
          }
          
        })
-       .then((response) => response.json())
-        .then((responseJson)=>{
-           
-         
-         //this.ViewItem(ele.key,responseJson['Likes'])
-        
-         
+       .then((response) => response.json());
        
-         
-       
-        });
        }
 
        
-       console.log(ele.item['Vieweddd'])
        
        }
        }
@@ -284,47 +186,7 @@ if(ele.isViewable === true){
     <View style={{flex:1}}>
 
 <SafeAreaView style={{backgroundColor:'white'}} edges={['top']}>
- <View style={[FeedItemstyles.TopNav,{backgroundColor:'white'}]}>
-
-  <View style={{display:'flex',flexDirection:'row',gap:5,alignItems:'center'}}>
-
-    {/*Button navigates you to the message screen or if your not signed-in then the signin screen */}
-  <Icon  name={'send'} size={25} onPress={()=>{ setShowMessageDrawer(true);}} type={'feather'} />
-
-
- {/*Button navigates you to the explore screen */}
-<TouchableOpacity onPress={()=>{ 
-  if(Auth.Authuser.length > 0){
-  navigation.navigate('Explore');
-  }else{
-    navigation.navigate('Signin');
-  }
-  
-  }}><Icon name={'compass-outline'} size={30} type={'ionicon'} /></TouchableOpacity>
-
-  </View>
-<Image style={{width:100,height:40}} source={require('../../assets/img/logo(3).png')} />
- 
-<View style={{display:'flex',flexDirection:'row',gap:10,alignItems:'center'}}>
-
-  {/*Button navigates you to create post screen or if your not signed-in then the signin screen */}
-<TouchableOpacity onPress={()=>{
-  
-  if(Auth.Authuser.length > 0 ){ setProfileShower(true); }else{ navigation.navigate('Signin') } }}>
-<Icon  name={'plus-square'} solid={true} size={27} type={'feather'} />
-</TouchableOpacity>
-
-<TouchableOpacity onPress={()=>{ 
-  setShowDrawer(true);
-  
-  }} >
-<Icon  name={'menu'} solid={true} size={27} type={'feather'} />
-</TouchableOpacity>
-
-
-</View>
-
- </View>
+ <HeaderComp navigation={navigation} Auth={Auth} setProfileShower={setProfileShower} setShowDrawer={setShowDrawer} setShowMessageDrawer={setShowMessageDrawer} />
     
  </SafeAreaView>
 
@@ -341,7 +203,7 @@ if(ele.isViewable === true){
       {<Storie query={''} profileShower={profileShower} setProfileShower={setProfileShower} navigation={navigation} Auth={Auth}  />}
       <QuoteComp Auth={Auth} navigation={navigation} />
 
-        <PinnedPosts setPostId={setPostId} loaded={loaded} setAdUnitId={setAdUnitId} setStatus={setStatus} rewarded={rewarded} navigation={navigation} Auth={Auth} />
+        <PinnedPosts setPostId={setPostId} loaded={loaded} setAdUnitId={setAdUnitId} setStatus={setStatus} rewarded={Auth.rewarded} navigation={navigation} Auth={Auth} />
 
       </View>
       }
@@ -350,7 +212,7 @@ if(ele.isViewable === true){
       data={Auth.PostDataSource}
       renderItem={({item,index}) => {
        if(item.type == ""){
-        return(<FeedItem setPostId={setPostId} dataSource={Auth.PostDataSource} loaded={loaded} setAdUnitId={setAdUnitId} setStatus={setStatus} rewarded={rewarded} setDataSource={Auth.setPostDataSource} isProfile={false} navigation={navigation} Auth={Auth}  index={index} data={item} />)
+        return(<FeedItem setPostId={setPostId} dataSource={Auth.PostDataSource} loaded={loaded} setAdUnitId={setAdUnitId} setStatus={setStatus} rewarded={Auth.rewarded} setDataSource={Auth.setPostDataSource} isProfile={false} navigation={navigation} Auth={Auth}  index={index} data={item} />)
        }else{
         return(<View style={{display:'flex',flexDirection:'column',alignItems:'center',paddingBottom:20,width:'100%'}}><GAMBannerAd
           unitId={adUnitId}
@@ -363,7 +225,7 @@ if(ele.isViewable === true){
       onEndReached={handleLoadMore} 
       onEndReachedThreshold={0.9}
       //estimatedItemSize={530}
-      estimatedItemSize={Dimensions.get('screen').height * 0.5}
+      estimatedItemSize={530}
       extraData={{}}
       maintainVisibleContentPosition={{autoscrollToTopThreshold:0,minIndexForVisible:0}}
       windowSize={10}

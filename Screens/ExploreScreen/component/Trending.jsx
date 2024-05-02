@@ -84,7 +84,7 @@ const fetchData = (q) =>{
 
 <OptimizedFlatList
  data={dataSource}
- renderItem={({item,index}) => {return(<FeedItem  dataSource={dataSource} setDataSource={setDataSource} isProfile={false} navigation={navigation} Auth={Auth}  index={index} data={item} />)}}
+ renderItem={({item,index}) => {return(<FeedItem rewarded={Auth.rewarded} dataSource={dataSource} setDataSource={setDataSource} isProfile={false} navigation={navigation} Auth={Auth}  index={index} data={item} />)}}
  estimatedItemSize={550}
  maxToRenderPerBatch={8}
  overScrollMode="never" 

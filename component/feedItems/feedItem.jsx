@@ -9,7 +9,8 @@ import PaymentComponet from "./component/PaymentComponet";
 import * as Sharing from 'expo-sharing';
 import { PostDeleteAPi, PostLikeApi } from "../../API/API";
 import FastImage from "react-native-fast-image";
-
+import { RewardedAdEventType} from 'react-native-google-mobile-ads';
+import { PostWatchedAdAPi } from "../../API/API";
 
 
 export default function FeedItem({data,navigation,dataSource,loaded,setPostId,setAdUnitId,rewarded,setStatus,setDataSource,index,Auth,isProfile}){
@@ -141,19 +142,62 @@ navigation.navigate('Comment',{postId:data.PostId});
     }}><Icon  name={'dollar'} type={'font-awesome'} /></TouchableOpacity>:null}
 
 
-{!isProfile?<TouchableOpacity onPress={async()=>{
+{!isProfile?<TouchableOpacity onPress={()=>{
         //navigation.navigate('Web',{url:'https://mymiix.com/pininsight/'+data.PostId})
        
        
-       Auth.setAdStatus('pinned')
-       setPostId(data.PostId);
+       
 
-       //await rewarded.load();
+      rewarded.load();
       
         
        
-        await rewarded.show();
-     
+        //await rewarded.show();
+        const unsubscribeLoaded = rewarded.addAdEventListener(RewardedAdEventType.LOADED, () => {
+            //setLoaded(true);
+              // Start loading the rewarded ad straight away
+            rewarded.show();
+          });
+          
+          const unsubscribeEarned  = rewarded.addAdEventListener(
+            RewardedAdEventType.EARNED_REWARD,
+            reward => {
+      
+      
+              
+             //if(reward.type == "Reward"){
+      
+           PostWatchedAdAPi(data.PostId,'pinned')
+              .then(response=>{  
+                console.log(response)
+               
+      
+                if(response[0].Success == "Rewarding"){
+                  Alert.alert('This post has been Pinned', "Thank you for helping this creator to get pinned on our feed!", [
+                    
+                    {text: 'OK', onPress: () => {
+      
+                    }},
+                  ]);
+                }
+            });
+          //}
+      
+          
+              
+            }
+          );
+      
+         
+      
+         
+          // Unsubscribe from events on unmount
+          return () => {
+            unsubscribeLoaded();
+            unsubscribeEarned();
+          };
+
+
 
     }}><Icon  name={'map-pin'} type={'font-awesome'} /></TouchableOpacity>:null}
 

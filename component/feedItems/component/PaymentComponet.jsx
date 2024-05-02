@@ -4,7 +4,8 @@ import { Dimensions, Text,TouchableOpacity, View } from "react-native";
 import * as WebBrowser from 'expo-web-browser';
 import { FeedItemstyles } from "../../../StyleComponent/Style";
 import * as Sharing from 'expo-sharing';
-
+import { RewardedAdEventType} from 'react-native-google-mobile-ads';
+import { PostWatchedAdAPi } from "../../../API/API";
  
 
 
@@ -74,25 +75,52 @@ export default PaymentComponet = ({navigation,data,rewarded,Auth,setAdUnitId,set
         
         
         <TouchableOpacity  
-      onPress={async()=>{
+      onPress={()=>{
         
-        setPostId(data.PostId)
-        Auth.setAdStatus('content');
-        
-        await rewarded.load();
-      
+         
        
-       setTimeout(async() => {
-        
-      // if(rewarded.loaded){
-       //}else{
-          //await WebBrowser.openBrowserAsync();
-         //const url = 'https://mymiix.com/post/payment/'+data.UniqeId;
 
-        //  await navigation.navigate('Web',{url:url,title:'@'+data?.UserName})
-       //}  
-        await rewarded.show();
-     }, 800);
+      rewarded.load();
+      
+        
+       
+      //await rewarded.show();
+      rewarded.addAdEventListener(RewardedAdEventType.LOADED, () => {
+          
+            // Start loading the rewarded ad straight away
+          rewarded.show();
+        });
+        
+     rewarded.addAdEventListener(
+          RewardedAdEventType.EARNED_REWARD,
+          reward => {
+    
+    
+            
+           //if(reward.type == "Reward"){
+    
+         PostWatchedAdAPi(data.PostId,'content')
+            .then(response=>{  
+              console.log(response)
+              if(response[0].Success == "Rewarded"){      
+            data.StatData = "1";
+            data.PostImage = response[0].PostImage;
+            Auth.setPostDataSource([...Auth.PostDataSource]);
+              }
+    
+              
+          });
+        //}
+    
+        
+            
+          }
+        );
+    
+       
+    
+      
+
      
 
         }}

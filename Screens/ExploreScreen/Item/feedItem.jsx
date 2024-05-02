@@ -8,73 +8,21 @@ import {MultiMedias} from '../../../component/Media/Media';
 import PaymentComponet from "../../../component/feedItems/component/PaymentComponet";
 import * as Sharing from 'expo-sharing';
 import { PostDeleteAPi, PostLikeApi } from "../../../API/API";
-import { RewardedAd, RewardedAdEventType } from 'react-native-google-mobile-ads';
+import {  RewardedAdEventType } from 'react-native-google-mobile-ads';
 import { PostWatchedAdAPi } from "../../../API/API";
 
-const adUnitId = 'ca-app-pub-6989684433220866/6129242070';
-const rewarded = RewardedAd.createForAdRequest(adUnitId);
 
-export default function FeedItem({data,navigation,dataSource,setDataSource,index,Auth,isProfile}){
+
+export default function FeedItem({data,navigation,dataSource,rewarded,setDataSource,index,Auth,isProfile}){
 
     const [adUnitIds,setAdUnitId] = React.useState('ca-app-pub-6989684433220866/6129242070')
-    const [status,setStatus] = React.useState('content')
+    const [status,setStatus] = React.useState('')
     const [loaded, setLoaded] = React.useState(false);
     const [postId,setPostId] = React.useState(0)
 
 
 
-    React.useEffect(()=>{
-
-
-
-
-
-        const unsubscribeLoaded = rewarded.addAdEventListener(RewardedAdEventType.LOADED, () => {
-          setLoaded(true);
-            // Start loading the rewarded ad straight away
-        if(!rewarded.loaded){
-          rewarded.load();
-          }
-        });
-        
-        const unsubscribeEarned = rewarded.addAdEventListener(
-          RewardedAdEventType.EARNED_REWARD,
-          reward => {
     
-    
-            
-            //console.log(reward.type)
-            PostWatchedAdAPi(data.PostId,status)
-            .then(response=>{  
-              console.log(response)
-              if(response[0].Success == "Rewarded"){      
-            data.StatData = "1";
-            data.PostImage = response[0].PostImage;
-            Auth.setPostDataSource([...Auth.PostDataSource]);
-              }
-          });
-    
-        
-            
-          },
-        );
-    
-       
-    
-        
-        // Start loading the rewarded ad straight away
-        //if(!rewarded.loaded){
-        rewarded.load();
-        //}
-    
-        // Unsubscribe from events on unmount
-        return () => {
-          unsubscribeLoaded();
-          unsubscribeEarned();
-        };
-    
-    
-    },[]);
 
 
  const Delete = () =>{
@@ -191,16 +139,57 @@ navigation.navigate('Comment',{postId:data.PostId});
 {!isProfile?<TouchableOpacity onPress={async()=>{
        // navigation.navigate('Web',{url:'https://mymiix.com/pininsight/'+data.PostId})
     
-       Auth.setAdStatus('pinned')
-       setPostId(data.PostId);
+      
 
-       await rewarded.load();
-
-       setTimeout(async() => {
+      
+       rewarded.load();
+      
         
        
-        await rewarded.show();
-     }, 800);
+       //await rewarded.show();
+       const unsubscribeLoaded = rewarded.addAdEventListener(RewardedAdEventType.LOADED, () => {
+           //setLoaded(true);
+             // Start loading the rewarded ad straight away
+           rewarded.show();
+         });
+         
+         const unsubscribeEarned  = rewarded.addAdEventListener(
+           RewardedAdEventType.EARNED_REWARD,
+           reward => {
+     
+     
+             
+            //if(reward.type == "Reward"){
+     
+          PostWatchedAdAPi(data.PostId,'pinned')
+             .then(response=>{  
+               console.log(response)
+              
+     
+               if(response[0].Success == "Rewarding"){
+                 Alert.alert('This post has been Pinned', "Thank you for helping this creator to get pinned on our feed!", [
+                   
+                   {text: 'OK', onPress: () => {
+     
+                   }},
+                 ]);
+               }
+           });
+         //}
+     
+         
+             
+           }
+         );
+     
+        
+     
+        
+         // Unsubscribe from events on unmount
+         return () => {
+           unsubscribeLoaded();
+           unsubscribeEarned();
+         };
     
     }}><Icon  name={'map-pin'} type={'font-awesome'} /></TouchableOpacity>:null}
 

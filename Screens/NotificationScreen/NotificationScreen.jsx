@@ -7,6 +7,7 @@ import { AuthContext } from "../../AuthContext/context";
 import { FlashList } from "@shopify/flash-list";
 import ItemNotificationComp from "./component/ItemNotificationComp";
 import { GetNotificationAPI } from "../../API/API";
+import BigList from "react-native-big-list";
 
 export default function Notify({route,navigation}){
 
@@ -65,10 +66,11 @@ return(<View style={{flex:1,paddingBottom:10}}>
 
 
 
-<FlashList 
+<BigList
 data={dataSource}
 renderItem={({item,index})=>{return(<ItemNotificationComp post={item} navigation={navigation} index={index} />)}}
 estimatedItemSize={100}
+itemHeight={80}
 onEndReached={handleLoadMore} 
 onEndReachedThreshold={0.8}
 

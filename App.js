@@ -10,7 +10,10 @@ import { NavigationContainer} from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import FastImage from 'react-native-fast-image';
+import { RewardedAd, RewardedAdEventType,useRewardedAd } from 'react-native-google-mobile-ads';
 
+const adUnitId = 'ca-app-pub-6989684433220866/6129242070';
+const rewarded = RewardedAd.createForAdRequest(adUnitId);
 
 const Stack = createNativeStackNavigator();
 const Tab =  createBottomTabNavigator();
@@ -66,7 +69,7 @@ return(
 
 return(
 
-<AuthContext.Provider style={Containerstyles.container} value={{Authuser,setAuthUser,adStatus,setAdStatus,start,setStart,PostDataSource,setPostDataSource,theme,setTheme,token,setToken,mediaType,setMediaType,mediaDataSource,setMediaDataSource,index,setIndex}}>
+<AuthContext.Provider style={Containerstyles.container} value={{Authuser,setAuthUser,rewarded,adStatus,setAdStatus,start,setStart,PostDataSource,setPostDataSource,theme,setTheme,token,setToken,mediaType,setMediaType,mediaDataSource,setMediaDataSource,index,setIndex}}>
  <NavigationContainer>
 
 {Authuser.length > 0 && Authuser[0].UserName == "" || Authuser.length == 0 ? LoginFunction(Stack,Tab) : Authenticated(Stack,Tab)}

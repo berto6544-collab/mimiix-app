@@ -75,7 +75,7 @@ export default function FeedItemPinned({data,navigation,loaded,setPostId,setAdUn
         
        
     </View>
-    {OpenUrl(data.PostBody,data,navigation,data.PostImage,data.PostId,'')}
+    <View style={{display:'flex',flexDirection:'row',width:'100%',alignItems:'flex-start'}}>{OpenUrl(data.PostBody,data,navigation,data.PostImage,data.PostId,'')}</View>
     
     {data.PostImage != ""?<View style={{position:'relative',width:Dimensions.get('screen').width}}>
 

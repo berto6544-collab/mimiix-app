@@ -13,12 +13,9 @@ import BlogItem from "../../../component/blogItems/blogItems";
 import { FlashList } from "@shopify/flash-list";
 import {OpenUrls} from '../../../Utils/URL';
 import { GAMBannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
-import { RewardedAd, RewardedAdEventType } from 'react-native-google-mobile-ads';
-import { PostWatchedAdAPi } from "../../../API/API";
 
 
-const adUnitId = 'ca-app-pub-6989684433220866/6129242070';
-const rewarded = RewardedAd.createForAdRequest(adUnitId);
+
 export default function PostComp({navigation,item,username,index,setData,data}){
 
     const [dataSource,setDataSource] = React.useState([]);
@@ -47,42 +44,6 @@ React.useEffect(()=>{
     setDataSourceLink(item.LinksArray);
 
 
-
-
-    const unsubscribeLoaded = rewarded.addAdEventListener(RewardedAdEventType.LOADED, () => {
-      setLoaded(true);
-    });
-    
-    const unsubscribeEarned = rewarded.addAdEventListener(
-      RewardedAdEventType.EARNED_REWARD,
-      reward => {
-
-
-        
-        //console.log(reward.type)
-        PostWatchedAdAPi(postId,'content')
-        .then(response=>{  
-          console.log(response)
-          if(response[0].Success == "Rewarded"){      
-        data.StatData = "1";
-        data.PostImage = response[0].PostImage;
-        setDataSource([...dataSource]);
-          }
-         
-      });
-        
-      },
-    );
-
-    if(!rewarded.loaded){
-    // Start loading the rewarded ad straight away
-    rewarded.load();
-    }
-    // Unsubscribe from events on unmount
-    return () => {
-      unsubscribeLoaded();
-      unsubscribeEarned();
-    };
 
 
 },[])
@@ -509,7 +470,7 @@ const onViewableItemsChanged = ({ viewableItems, changed }) => {
        
       removeClippedSubviews={true}
       data={dataSource}
-      renderItem={({item,index}) => Tabindex == 1?<BlogItem navigation={navigation} Auth={Auth} key={index} index={index} data={item} /> : Tabindex == 2 ?<FeedItemEvent isProfile={true} dataSource={dataSource} setDataSource={setDataSource} navigation={navigation} Auth={Auth} key={index} index={index} data={item} />:<FeedItem isProfile={true} setPostId={setPostId} loaded={loaded} setAdUnitId={setAdUnitId} setStatus={setStatus} rewarded={rewarded} dataSource={dataSource} setDataSource={setDataSource} navigation={navigation} Auth={Auth} key={index} index={index} data={item} />}
+      renderItem={({item,index}) => Tabindex == 1?<BlogItem navigation={navigation} Auth={Auth} key={index} index={index} data={item} /> : Tabindex == 2 ?<FeedItemEvent isProfile={true} dataSource={dataSource} setDataSource={setDataSource} navigation={navigation} Auth={Auth} key={index} index={index} data={item} />:<FeedItem isProfile={true} setPostId={setPostId} loaded={loaded} setAdUnitId={setAdUnitId} setStatus={setStatus} rewarded={Auth.rewarded} dataSource={dataSource} setDataSource={setDataSource} navigation={navigation} Auth={Auth} key={index} index={index} data={item} />}
       onEndReached={handleLoadMore} 
       estimatedItemSize={550}
       drawDistance={Dimensions.get('screen').height * 2}

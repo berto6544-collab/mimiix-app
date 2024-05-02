@@ -62,11 +62,12 @@ fetch('https://mymiix.com/public/api/RelatedPost?uniq='+uniqid)
     return(
     <SafeAreaView edges={['bottom']} style={{flex:1}} >
     <View style={{flex:1}}>
-      <OptimizedFlatList
+      <FlashList
       data={dataSourceRelated}
+      estimatedItemSize={100}
       ListHeaderComponent={
         dataSource.length == 0 ?<></>:<View style={{flex:1,backgroundColor:'white'}}>
-          <FeedItem  dataSource={dataSource} setDataSource={setDataSource} isProfile={false} navigation={navigation} Auth={Auth}  index={0} data={dataSource[0]} />
+          <FeedItem  dataSource={dataSource} setDataSource={setDataSource} rewarded={Auth.rewarded} isProfile={false} navigation={navigation} Auth={Auth}  index={0} data={dataSource[0]} />
           
 
           <View style={{width:'100%',display:'flex',backgroundColor:'white',flex:1,paddingHorizontal:0,marginBottom:20,flexDirection:'column',gap:20,alignItems:'center'}}>
@@ -93,9 +94,9 @@ fetch('https://mymiix.com/public/api/RelatedPost?uniq='+uniqid)
           </View>
           </View>
       }
-      renderItem={({item,index}) => {return(<FeedItem  dataSource={dataSourceRelated} setDataSource={setDataSourceRelated} isProfile={false} navigation={navigation} Auth={Auth}  index={index} data={item} />)}}
+      renderItem={({item,index}) => {return(<FeedItem  dataSource={dataSourceRelated} rewarded={Auth.rewarded} setDataSource={setDataSourceRelated} isProfile={false} navigation={navigation} Auth={Auth}  index={index} data={item} />)}}
       getItemType={({item,index})=>{return ""+index}}
-      estimatedItemSize={550}
+     
       extraData={{}}
       maintainVisibleContentPosition={{autoscrollToTopThreshold:0,minIndexForVisible:0}}
       windowSize={10}

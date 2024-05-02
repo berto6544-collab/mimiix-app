@@ -21,7 +21,7 @@ export default ItemNotificationComp = ({post,index,navigation}) =>{
            else if(post.Posttype == 5){
             //started Invoice
           
-            navigation.navigate('Invoice',{token: post.Token})
+            navigation.navigate('Web',{url: 'https://mymiix.com/public/invoice.php?token='+post.Token})
         }
            
            
