@@ -27,11 +27,11 @@ export default ProfileItem = ({navigation,item,index,setData,data}) =>{
         <Text style={{fontSize:16,fontWeight:'600'}}>About Me</Text>
         <Text >{item.AboutMe}</Text>
 
-        <Button containerStyle={{width:'100%',marginTop:20}} radius={5} size={'md'} onPress={()=>{
-        navigation.navigate('Profile',{username:item.UserName})
+        <Button titleStyle={{color:'rgb(0, 123, 255)',fontWeight:'600'}} color={'rgb(0, 123, 255)'}  containerStyle={{width:'100%',marginTop:20}} radius={5} size={'md'} onPress={()=>{
+        navigation.navigate('Web',{url:'https://mymiix.com/@'+item.UserName})
     }}><Text style={{color:'white'}}>Profile</Text></Button>
 
-    {item?.Payment.match(/acct\_([a-zA-Z0-9_]+)/)?<Button containerStyle={{width:'100%',marginTop:20}} radius={5} size={'md'} onPress={()=>{
+    {item?.Payment.match(/acct\_([a-zA-Z0-9_]+)/)?<Button color={'rgb(0, 123, 255)'}  titleStyle={{color:'rgb(0, 123, 255)',fontWeight:'600'}} containerStyle={{width:'100%',marginTop:20}} radius={5} size={'md'} onPress={()=>{
         navigation.navigate('Web',{url:'https://mymiix.com/@'+item.UserName+'/tip'})
     }}><Text style={{color:'white'}}>Tip</Text></Button>:null}
         </View>

@@ -20,7 +20,7 @@ const setClose = () =>{
 
     return(<View style={{display:'flex',flexDirection:'column',justifyContent:'center',alignItems:'center',width:'100%',zIndex:2,flex:0.7,gap:5}}>
 
-    <FastImage  source={{uri:Auth.mediaDataSource[Auth.index].cover,priority:'high'}} style={{width:'100%',height:300}} />
+    <FastImage  source={{uri:Auth.mediaDataSource[Auth.index].cover,priority:'high'}} style={{width:'85%',borderRadius:20,height:300}} />
     <Text style={{fontSize:25,fontWeight:'600',color:'black',textAlign:'center'}}>{Auth.mediaDataSource[Auth.index].artist.song}</Text>
     {Auth.mediaDataSource[Auth.index].artist.tag.split(',').length > 0?<View style={{display:'flex',flexDirection:'row',justifyContent:'center',paddingHorizontal:10,alignItems:'center',width:'100%',gap:5}}>
     {Auth.mediaDataSource[Auth.index].artist.tag.split(',').map((item,index)=>{
@@ -55,17 +55,16 @@ const setClose = () =>{
     username={''}
     userStats={''}
     title={'Profile'}
+    modalComponent={{paddingHorizontal:5,borderRadius:5}}
     >
-    <FlashList
-    style={{paddingHorizontal:0}} 
-ListHeaderComponent={ () =>
-    profileDataSource.map((item,index) =>{
+   
+   {profileDataSource.map((item,index) =>{
         return<ProfileItem navigation={navigation} item={item} index={index} data={profileDataSource} setData={setProfileData} />
         
     })
 }
     
-        />
+      
 
     </DrawerProfileDialog>}
 

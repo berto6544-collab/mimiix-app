@@ -20,6 +20,7 @@ import MessageScreen from '../Screens/MessageScreen/MessageScreen';
 import UniteScreen from '../Screens/UniteScreen/UniteScreen';
 import ChatroomScreen from '../Screens/Chatroom/ChatroomScreen';
 import ExploreScreen from '../Screens/ExploreScreen/ExploreScreen';
+import DeactivationScreen from '../Screens/DeactivationScreen/DeactivationScreen';
 
 
 export function LoginFunction(Stack){
@@ -48,10 +49,10 @@ export function LoginFunction(Stack){
 }
 
 
-export function Authenticated(Stack,Tab){
+export function Authenticated(Stack,Tab,Authuser,deactiveed){
 
     
-
+if(deactiveed == false){
     return (
     
        
@@ -79,5 +80,20 @@ export function Authenticated(Stack,Tab){
        
        
     )
+}else{
+
+    return (
+    
+       
+        <Stack.Navigator style={Containerstyles.container} initialRouteName={'Deactivation'}>
+           <Stack.Screen  name="Deactivation" options={{headerShown: false}} headerShown={false}  component={DeactivationScreen} />
+           
+           
+           </Stack.Navigator>
+          
+          
+       )
+
+}
 }
 

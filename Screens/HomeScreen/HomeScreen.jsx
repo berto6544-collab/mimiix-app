@@ -44,6 +44,7 @@ export default function Feed({navigation}){
     const flashListRef = useRef(null);
     
   const Auth = React.useContext(AuthContext);
+  
   /*const onBlankArea = useBenchmark (ref,(result)=>{
 
 
@@ -196,6 +197,7 @@ if(ele.isViewable === true){
  <FlashList
       
      ref={flashListRef}
+     removeClippedSubviews={false}
      ListHeaderComponent={
       <View style={{width:'100%',display:'flex',paddingHorizontal:0,flexDirection:'column',gap:20,alignItems:'flex-start'}}>
       
@@ -210,6 +212,7 @@ if(ele.isViewable === true){
       
       
       data={Auth.PostDataSource}
+      
       renderItem={({item,index}) => {
        if(item.type == ""){
         return(<FeedItem setPostId={setPostId} dataSource={Auth.PostDataSource} loaded={loaded} setAdUnitId={setAdUnitId} setStatus={setStatus} rewarded={Auth.rewarded} setDataSource={Auth.setPostDataSource} isProfile={false} navigation={navigation} Auth={Auth}  index={index} data={item} />)
@@ -224,13 +227,19 @@ if(ele.isViewable === true){
       }}
       onEndReached={handleLoadMore} 
       onEndReachedThreshold={0.9}
-      //estimatedItemSize={530}
       estimatedItemSize={530}
+      //estimatedItemSize={530}
       extraData={{}}
-      maintainVisibleContentPosition={{autoscrollToTopThreshold:0,minIndexForVisible:0}}
-      windowSize={10}
+      //maintainVisibleContentPosition={{autoscrollToTopThreshold:0,minIndexForVisible:0}}
+      //windowSize={10}
+      getItemType={({item,index})=>{return ""+index}}
+  
+      
+      //maxToRenderPerBatch={8}
+      windowSize={11}
+      initialNumToRender={8}
       maxToRenderPerBatch={8}
-      removeClippedSubviews={true}
+      //removeClippedSubviews={false}
       keyExtractor={(item, index) => ""+item.Id}
       onViewableItemsChanged={onViewableItemsChanged} 
       

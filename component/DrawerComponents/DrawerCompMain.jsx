@@ -102,12 +102,52 @@ export default DrawerCompMain = ({navigation,setClose,Auth,setStart}) =>{
        }
        
 
-      const Deactivate = () =>{
+      const Deactivate = async() =>{
+       await fetch('https://mymiix.com/public/api/accountactivation?type=activation')
+       .then(response=>response.json())
+       .then(response =>{
+    if(response.length == 0)return;
+   
+    Auth.setPostDataSource([])
+Auth.setStart(0)
+Auth.Authuser[0].IsActive == "0";
+Auth.setAuthUser([...Auth.Authuser])
+//navigation.replace('Deactivation')
+setClose(); 
+Auth.setDeactivate(true)
+})
 
       } 
 
 
       const DeleteAccount = () =>{
+        
+   
+               
+        fetch('https://mymiix.com/public/api/Logout',{method:'POST'})
+        .then(js =>js.text())
+        .then(response=>{
+         
+         Auth.setStart(0)
+         Auth.setAuthUser([])
+         Auth.setPostDataSource([])
+ 
+         
+         
+        FeedsData(0).then(res=>{
+         if(res.length == 0)
+         return;
+         Auth.setPostDataSource(res)
+         Auth.setStart(Auth.start+1)
+  
+         
+         
+        })
+        
+        setClose();
+ 
+ 
+        })
         
       } 
 

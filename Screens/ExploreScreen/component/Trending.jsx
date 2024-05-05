@@ -85,19 +85,19 @@ const fetchData = (q) =>{
 <OptimizedFlatList
  data={dataSource}
  renderItem={({item,index}) => {return(<FeedItem rewarded={Auth.rewarded} dataSource={dataSource} setDataSource={setDataSource} isProfile={false} navigation={navigation} Auth={Auth}  index={index} data={item} />)}}
- estimatedItemSize={550}
- maxToRenderPerBatch={8}
- overScrollMode="never" 
- scrollToOverflowEnabled={true}
- nestedScrollEnabled 
- extraData={{}}
- maintainVisibleContentPosition={{autoscrollToTopThreshold:0,minIndexForVisible:0}}
- windowSize={10}
- snapToEnd={false}
- snapToStart={false}
+ //estimatedItemSize={550}
+ //maxToRenderPerBatch={8}
+ //overScrollMode="never" 
+ //scrollToOverflowEnabled={true}
+ //nestedScrollEnabled 
+ extraData={Auth.PostDataSource}
+ //maintainVisibleContentPosition={{autoscrollToTopThreshold:0,minIndexForVisible:0}}
+ //windowSize={10}
+ //snapToEnd={false}
+ //snapToStart={false}
  showsVerticalScrollIndicator={false}
  removeClippedSubviews={false}
- drawDistance={Dimensions.get('screen').height * 2}
+ //drawDistance={Dimensions.get('screen').height * 2}
  keyExtractor={(item,index)=>""+item.Id}
  getItemType={({item,index})=>{return ""+index}}
 

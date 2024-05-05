@@ -12,11 +12,11 @@ import { GAMBannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-a
 import { SafeAreaView } from "react-native-safe-area-context";
 
 
-const adUnitId = 'ca-app-pub-6989684433220866/6848090089';
+//const adUnitId = 'ca-app-pub-6989684433220866/6848090089';
 
 export default MediaScreen  = ({route,navigation}) =>{
 
-    const {title,type,url} = route.params;
+    const {title,type,url,adUnitIds} = route.params;
 
 
 const [progress,setProgress] = React.useState(0)
@@ -24,7 +24,7 @@ const [durationMills,setDurationMills] = React.useState(0);
 const [isPlaying,setIsPlaying] = React.useState(true)
 const [isLooping,setIsLooping] = React.useState(false);
 const [durationTime,setDurationTime] = React.useState('00:00');
-
+const [adUnitId,setAdUnitId] = React.useState(adUnitIds != undefined && adUnitIds !=""?adUnitIds:'ca-app-pub-6989684433220866/6848090089');
 const [show,setShow] = React.useState(false);
 
 
@@ -194,7 +194,9 @@ style={{width:Dimensions.get('screen').width,height:Dimensions.get('screen').hei
 <GAMBannerAd
       unitId={adUnitId}
       sizes={[BannerAdSize.BANNER]}
-      
+      requestOptions={{
+        keywords:['music','art','podcast','games']
+    }}
     />
     </View>
 
@@ -279,7 +281,7 @@ if(isPlaying){
 VideoRef.current.isPlaying = false;
 
 }else{
-    VideoRef.current.isPlaying = true;
+VideoRef.current.isPlaying = true;
 
 }
 
@@ -360,6 +362,10 @@ setShow(true)
 <View style={{display:'flex',flexDirection:'column',width:'100%',alignItems:'center',paddingTop:30,justifyContent:'center'}}>
 <GAMBannerAd
       unitId={adUnitId}
+      
+      requestOptions={{
+        keywords:['music','art','podcast','games']
+    }}
       sizes={[BannerAdSize.BANNER]}
       
     />
@@ -373,7 +379,7 @@ setShow(true)
 <FlashList 
 data={Auth.mediaDataSource}
 estimatedItemSize={100}
-renderItem={({item,index})=><ItemList item={item} ind={index} indexx={Auth.index} setProgress={setProgress} VideoRef={VideoRef} Auth={Auth} />}
+renderItem={({item,index})=><ItemList item={item} isPlaying={isPlaying} setIsPlaying={setIsPlaying} ind={index} indexx={Auth.index} setProgress={setProgress} VideoRef={VideoRef} Auth={Auth} />}
 
 
 />

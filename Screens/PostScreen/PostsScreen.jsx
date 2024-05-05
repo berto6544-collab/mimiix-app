@@ -9,7 +9,7 @@ import FeedItem from "./component/feedItem";
 import { GAMBannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
 import { SafeAreaView } from "react-native-safe-area-context";
 import { OptimizedFlatList } from "react-native-optimized-flatlist";
-
+import { convertToUSD } from "../../Utils/Currency";
 const adUnitId = 'ca-app-pub-6989684433220866/6848090089';
 
 const PostsScreen = ({route,navigation}) => {
@@ -75,6 +75,19 @@ fetch('https://mymiix.com/public/api/RelatedPost?uniq='+uniqid)
         <GAMBannerAd
       unitId={adUnitId}
       sizes={[BannerAdSize.BANNER]}
+      onPaid={(paid)=>{
+
+        convertToUSD(paid.value,paid.currency)
+        .then(convertedAmount => {
+          if (convertedAmount !== null) {
+
+            console.log(convertedAmount);
+              
+          } else {
+              console.log('Failed to convert currency.');
+          }
+      });
+      }}
       requestOptions={{
         requestNonPersonalizedAdsOnly: true,
       }}
@@ -123,6 +136,7 @@ fetch('https://mymiix.com/public/api/RelatedPost?uniq='+uniqid)
   }
 
 
+  
 
 
   export default PostsScreen;

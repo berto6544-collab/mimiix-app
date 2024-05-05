@@ -9,30 +9,39 @@ import FastImage from "react-native-fast-image";
 
 const {width: screenWidth} = Dimensions.get('window');
  
-export const MultiMedias = ({data,navigation,indexx}) =>{
+export const MultiMedias = ({data,navigation,indexx,keyImage}) =>{
+
+   
+  const lastItemId = React.useRef(data.Id);
 const [dataSource,setDataSource] = React.useState([]);
 const [dataSourceMusic,setDataSourceMusic] = React.useState([]);
 const [musicPlayer,setMusicPlayer] = React.useState([])
 const [ActiveSlide,setActiveSlide] = React.useState(0)
+const [imageKeys,setImageKey] = React.useState(0) 
 const reffed = React.useRef(null)
 const Auth = React.useContext(AuthContext)
 const carouselRef = React.useRef(null);
 
 
 React.useEffect(()=>{
+  if (data.Id !== lastItemId.current) { 
+    lastItemId.current = data.Id; 
+    setImageKey(prev => prev + 1); 
+    
+    
+  }
+  GetData();
 
-    GetData();
-   
 },[])
     
 
 
 const GetData = () =>{
     
-    let con = data?.PostImage.split(",");
-    let conn = data?.PostImage.split(",");
+    let con = new String(data?.PostImage).split(",");
+    let conn = new String(data.PostImage).split(",");
     
-    var tmp = [];
+   // var tmp = [];
   
      
 
@@ -109,14 +118,17 @@ if(item.match(/\.jpg|\.png|\.jpeg|\.gif/gi)){
 
 
     return(
-    <TouchableOpacity key={indexx} onPress={()=>{
+    <TouchableOpacity recyclingKey={keyImage}
+    onPress={()=>{
      
 
     }} activeOpacity={1} style={{height: Dimensions.get('window').height -470,position:'relative',zIndex:2, width: Dimensions.get('window').width}}>
 
 
     
-      <FastImage style={{
+      <FastImage 
+     recyclingKey={imageKeys}
+      style={{
         width: "100%",
         zIndex:2,
         marginHorizontal: 0,
@@ -131,7 +143,8 @@ if(item.match(/\.jpg|\.png|\.jpeg|\.gif/gi)){
 
 
     return(
-    <TouchableOpacity key={indexx} onPress={()=>{
+    <TouchableOpacity recyclingKey={data.Id}
+    onPress={()=>{
 
       const videoData = [{
         trackNumber:1,
@@ -155,7 +168,9 @@ if(item.match(/\.jpg|\.png|\.jpeg|\.gif/gi)){
 
     <Icon name={'play'} containerStyle={{position:'absolute',top:'45%',zIndex:3,left:'45%'}} size={70} color={'#0086ff'}  type={'font-awesome'} /> 
 
-    <FastImage style={{
+    <FastImage 
+    recyclingKey={imageKeys}
+        style={{
         width: "100%",
         zIndex:2,
         marginHorizontal: 0,
@@ -170,7 +185,8 @@ if(item.match(/\.jpg|\.png|\.jpeg|\.gif/gi)){
         
 
         return(
-        <TouchableOpacity key={indexx} activeOpacity={1} onPress={()=>{
+        <TouchableOpacity recyclingKey={keyImage}
+        activeOpacity={1} onPress={()=>{
 
         
           Auth.setMediaType('audio')
@@ -180,7 +196,9 @@ if(item.match(/\.jpg|\.png|\.jpeg|\.gif/gi)){
         }}  style={{height: Dimensions.get('window').height -470,position:'relative',zIndex:2, width: Dimensions.get('window').width,}}>
         <Icon name={'play'} containerStyle={{position:'absolute',top:'45%',zIndex:3,left:'45%'}} size={70} color={'#0086ff'}  type={'font-awesome-5'} /> 
 
-        <FastImage style={{
+        <FastImage 
+        recyclingKey={imageKeys}
+        style={{
         width: "100%",
         zIndex:2,
         marginHorizontal: 0,
@@ -206,7 +224,7 @@ const goForward = () => {
 
 return(
 
-  <View style={{width:'100%',justifyContent:'center',marginBottom:10,alignItems:'center',flexDirection:'column',zIndex:2}}>
+  <View recyclingKey={data.Id} style={{width:'100%',justifyContent:'center',marginBottom:10,alignItems:'center',flexDirection:'column',zIndex:2}}>
           
 
 
@@ -216,13 +234,15 @@ return(
   <Carousel
   ref={carouselRef}
  layout={'default'} 
- 
  sliderWidth={screenWidth} 
  sliderHeight={screenWidth}
- itemWidth={screenWidth}
+ itemWidth={screenWidth} 
+ extraData={{}}
+ recyclingKey={imageKeys}
  style={{width:'100%', height: Dimensions.get('screen').height -470,zIndex:2}}
  data={dataSource || dataSourceMusic}
  ParallaxImage={true}
+ keyExtractor={(item,index)=>""+index}
  renderItem={content} />
  </View>
 )

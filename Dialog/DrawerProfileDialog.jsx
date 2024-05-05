@@ -5,7 +5,7 @@ import { Dimensions, Text, View,Button } from "react-native";
 import AvatarComp from "../component/AvatarComponent/AvatarComp";
 
 
-export default DrawerProfileDialog = ({children,title,onshow,Auth,navigation,username,profileImage,userStats,setClose}) =>{
+export default DrawerProfileDialog = ({children,title,onshow,Auth,navigation,username,profileImage,userStats,setClose,modalComponent}) =>{
 
 
 
@@ -13,9 +13,9 @@ export default DrawerProfileDialog = ({children,title,onshow,Auth,navigation,use
    return(
     <Dialog
     isVisible={onshow}
-    overlayStyle={{width:'100%',flex:1,borderTopLeftRadius:20,borderTopRightRadius:20,height:Dimensions.get('screen').height/1.5,bottom:0,position:'absolute',bottom:0}}
+    overlayStyle={[{width:'100%',flex:1,borderTopLeftRadius:20,borderTopRightRadius:20,height:Dimensions.get('screen').height/1.5,bottom:0,position:'absolute',bottom:0},modalComponent]}
     onPressIn={setClose}
-    
+   
     >
         
 <View style={{display:'flex',alignItems:'center',flexDirection:'row',justifyContent:'space-between',position:'relative',width:'100%',paddingTop:0}}>

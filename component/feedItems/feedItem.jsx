@@ -15,10 +15,17 @@ import { PostWatchedAdAPi } from "../../API/API";
 
 export default function FeedItem({data,navigation,dataSource,loaded,setPostId,setAdUnitId,rewarded,setStatus,setDataSource,index,Auth,isProfile}){
 
-    
-
+  const lastItemId = React.useRef(data.Id); 
+  const [imageKey,setImageKey] = React.useState(0) 
+  
+  React.useEffect(()=>{
+    if (data.Id !== lastItemId.current) { lastItemId.current = data.Id; setImageKey(prev => prev + 1); }
+  },[])
    
   
+  lastItemId.current = data.Id;
+  //const [liked, setLiked] = React.useState(data.liked);
+ 
 
 
  const Delete = () =>{
@@ -36,7 +43,7 @@ export default function FeedItem({data,navigation,dataSource,loaded,setPostId,se
 
 
     return(
-    <TouchableOpacity key={data.Id} activeOpacity={1}   onPress={()=>{
+    <TouchableOpacity recyclingKey={data.Id} key={lastItemId.current}  activeOpacity={1}   onPress={()=>{
         navigation.navigate('Post',{uniqid:data?.UniqeId})
     }} style={[FeedItemstyles.FeedItem,{position:'relative'}]}>
     <View style={[FeedItemstyles.AvatarBase,{position:'relative'}]}>
@@ -69,11 +76,11 @@ export default function FeedItem({data,navigation,dataSource,loaded,setPostId,se
         
         <View style={{position:'absolute',display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',width:'100%',zIndex:3,height: Dimensions.get('window').height -480,backgroundColor:'rgba(0,0,0,0.9)'}} >
         
-        <PaymentComponet setPostId={setPostId} dataSource={dataSource} setAdUnitId={setAdUnitId} setStatus={setStatus} rewarded={rewarded} setDataSource={setDataSource} navigation={navigation} data={data} Auth={Auth} />
+        <PaymentComponet key={lastItemId}  setPostId={setPostId} dataSource={dataSource} setAdUnitId={setAdUnitId} setStatus={setStatus} rewarded={rewarded} setDataSource={setDataSource} navigation={navigation} data={data} Auth={Auth} />
 
         </View>
         
-        <MultiMedias indexx={index} navigation={navigation} data={data} />
+        {MultiMedias(data,navigation,index,imageKey)}
         </View>
         
         
