@@ -4,7 +4,7 @@ import { Dimensions, Text,TouchableOpacity, View } from "react-native";
 
 import { FeedItemstyles } from "../../../StyleComponent/Style";
 import { OpenUrl } from "../../../Utils/URL";
-import {MultiMedias} from '../../../component/Media/Media';
+import MultiMedias from '../../../component/Media/Media';
 import PaymentComponet from "../../../component/feedItems/component/PaymentComponet";
 import * as Sharing from 'expo-sharing';
 import { PostDeleteAPi, PostLikeApi } from "../../../API/API";
@@ -83,7 +83,7 @@ export default function FeedItem({data,navigation,dataSource,setDataSource,index
 
         </View>
         
-        <MultiMedias navigation={navigation} data={data} />
+        {MultiMedias(data,navigation,index,data.Id) }
         </View>
         
         

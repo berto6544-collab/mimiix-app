@@ -143,6 +143,15 @@ export async function GetPinnedcommentsAPi(postid){
   return data;
 }
 
+//Grab LiveEvent based on Post
+export async function GetEventLiveAPi(start,q){
+
+  const data = await fetch('https://mymiix.com/public/api/UsersLiveEvent?start='+start+'&q='+q)
+  .then(response=>response.json())
+
+  return data;
+}
+
 
 //When your watched the reward ads you will unlock content for 1 day
 export async function PostWatchedAdAPi(postid,status){

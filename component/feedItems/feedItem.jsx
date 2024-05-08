@@ -4,7 +4,7 @@ import { Dimensions, Text,TouchableOpacity, View } from "react-native";
 
 import { FeedItemstyles } from "../../StyleComponent/Style";
 import { OpenUrl } from "../../Utils/URL";
-import {MultiMedias} from '../Media/Media';
+import MultiMedias from '../Media/Media';
 import PaymentComponet from "./component/PaymentComponet";
 import * as Sharing from 'expo-sharing';
 import { PostDeleteAPi, PostLikeApi } from "../../API/API";
@@ -17,15 +17,97 @@ export default function FeedItem({data,navigation,dataSource,loaded,setPostId,se
 
   const lastItemId = React.useRef(data.Id); 
   const [imageKey,setImageKey] = React.useState(0) 
+  const [dataSourcce,setDataSourcce] = React.useState([]);
+  const [dataSourceMusic,setDataSourceMusic] = React.useState([]);
+  const [musicPlayer,setMusicPlayer] = React.useState([])
+
+
+/*
+  const GetData = () =>{
+    
+    let con = data.PostImage.split(",");
+    let conn = data.PostImage.split(",");
+    
+   // var tmp = [];
   
+     
+  
+  conn = conn.filter(ar => conn.find(rm => (rm.match(/^.*\.(jpg|jpeg|png|JPG|gif|mp4|avi|MOV|mov|mkv)$/) === ar.match(/^.*\.(jpg|jpeg|png|JPG|gif|mp4|avi|MOV|mov|mkv)$/) ) )) 
+  
+  
+  
+  
+  
+    setDataSourcce([...con])
+    setDataSourceMusic([...conn]);
+  
+  
+  
+    conn.map((posts,index)=>{
+        const varrr = index+1;
+        const filename = posts.replace("https://mymiix.com/public/assets/img/images/","");
+        //console.log('log song', filename + ' post url = '+posts)
+        if(data.Music.length > 0 ){
+        
+          musicPlayer.push({
+            trackNumber:index+1,
+            url:posts,
+            uniqueId:data.UniqeId,
+            cover: ''+data.Poster,
+            artist:{
+              name:data.Music[index].artist,
+              song:data.Music[index].name,
+              duration:data.Music[index].duration,
+              tag:data.Music[index].tag,
+              genre:data.Music[index].genre,
+        
+        
+            }
+          })
+        
+        }else{
+            musicPlayer.push({
+              trackNumber:index+1,
+              url:posts,
+              uniqueId:data.UniqeId,
+              cover: ''+data.Poster,
+              artist:{
+                name:"",
+                song:"Track "+varrr,
+                duration:'unknown',
+                tag:'',
+                genre:'',
+              }
+            })
+          }
+        
+          })
+  
+  
+  
+  setMusicPlayer([...musicPlayer])
+  
+  
+  
+  
+  }*/
+
   React.useEffect(()=>{
-    if (data.Id !== lastItemId.current) { lastItemId.current = data.Id; setImageKey(prev => prev + 1); }
+   // GetData();
+    if (data.Id !== lastItemId.current) { lastItemId.current = data.Id; setImageKey(index); }
+
+
+  
+
   },[])
    
   
   lastItemId.current = data.Id;
   //const [liked, setLiked] = React.useState(data.liked);
  
+
+
+
 
 
  const Delete = () =>{
@@ -43,7 +125,7 @@ export default function FeedItem({data,navigation,dataSource,loaded,setPostId,se
 
 
     return(
-    <TouchableOpacity recyclingKey={data.Id} key={lastItemId.current}  activeOpacity={1}   onPress={()=>{
+    <TouchableOpacity recyclingKey={data.Id}   activeOpacity={1}   onPress={()=>{
         navigation.navigate('Post',{uniqid:data?.UniqeId})
     }} style={[FeedItemstyles.FeedItem,{position:'relative'}]}>
     <View style={[FeedItemstyles.AvatarBase,{position:'relative'}]}>
@@ -80,7 +162,7 @@ export default function FeedItem({data,navigation,dataSource,loaded,setPostId,se
 
         </View>
         
-        {MultiMedias(data,navigation,index,imageKey)}
+        <MultiMedias data={data}  navigation={navigation} indexx={index} imageKey={imageKey} dataSource={dataSourcce} dataSourceMusic={dataSourceMusic} musicPlayer={musicPlayer} />
         </View>
         
         

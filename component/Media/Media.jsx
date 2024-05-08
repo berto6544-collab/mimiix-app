@@ -2,14 +2,14 @@ import React from "react";
 import { Text,Card,Image,Avatar, Icon } from "@rneui/themed";
 import { TouchableOpacity,Dimensions, View } from "react-native";
 import Carousel, { ParallaxImage } from 'react-native-snap-carousel';
-import { FeedItemstyles } from "../../StyleComponent/Style";
+
 import { AuthContext } from "../../AuthContext/context";
 import FastImage from "react-native-fast-image";
 
 
 const {width: screenWidth} = Dimensions.get('window');
  
-export const MultiMedias = ({data,navigation,indexx,keyImage}) =>{
+export default MultiMedias = ({data,navigation,indexx,keyImage}) =>{
 
    
   const lastItemId = React.useRef(data.Id);
@@ -23,78 +23,66 @@ const Auth = React.useContext(AuthContext)
 const carouselRef = React.useRef(null);
 
 
-React.useEffect(()=>{
-  if (data.Id !== lastItemId.current) { 
-    lastItemId.current = data.Id; 
-    setImageKey(prev => prev + 1); 
-    
-    
-  }
-  GetData();
-
-},[])
-    
-
 
 const GetData = () =>{
     
-    let con = new String(data?.PostImage).split(",");
-    let conn = new String(data.PostImage).split(",");
-    
-   // var tmp = [];
+  let con = new String(data.PostImage).split(",");
+  let conn = new String(data.PostImage).split(",");
   
-     
+ // var tmp = [];
 
-  conn = conn.filter(ar => conn.find(rm => (rm.match(/^.*\.(jpg|jpeg|png|JPG|gif|mp4|avi|MOV|mov|mkv)$/) === ar.match(/^.*\.(jpg|jpeg|png|JPG|gif|mp4|avi|MOV|mov|mkv)$/) ) )) 
+   
 
-
-
-
-
-    setDataSource([...con])
-    setDataSourceMusic([...conn]);
+conn = conn.filter(ar => conn.find(rm => (rm.match(/^.*\.(jpg|jpeg|png|JPG|gif|mp4|avi|MOV|mov|mkv)$/) === ar.match(/^.*\.(jpg|jpeg|png|JPG|gif|mp4|avi|MOV|mov|mkv)$/) ) )) 
 
 
 
-    conn.map((posts,index)=>{
-        const varrr = index+1;
-        const filename = posts.replace("https://mymiix.com/public/assets/img/images/","");
-        //console.log('log song', filename + ' post url = '+posts)
-        if(data.Music.length > 0 ){
-        
+
+
+  setDataSource([...con.concat(conn)])
+  setDataSourceMusic([...conn]);
+
+
+
+  conn.map((posts,index)=>{
+      const varrr = index+1;
+      const filename = posts.replace("https://mymiix.com/public/assets/img/images/","");
+      //console.log('log song', filename + ' post url = '+posts)
+      if(data.Music.length > 0 ){
+      
+        musicPlayer.push({
+          trackNumber:index+1,
+          url:posts,
+          uniqueId:data.UniqeId,
+          cover: ''+data.Poster,
+          artist:{
+            name:data.Music[index].artist,
+            song:data.Music[index].name,
+            duration:data.Music[index].duration,
+            tag:data.Music[index].tag,
+            genre:data.Music[index].genre,
+      
+      
+          }
+        })
+      
+      }else{
           musicPlayer.push({
             trackNumber:index+1,
             url:posts,
             uniqueId:data.UniqeId,
             cover: ''+data.Poster,
             artist:{
-              name:data.Music[index].artist,
-              song:data.Music[index].name,
-              duration:data.Music[index].duration,
-              tag:data.Music[index].tag,
-              genre:data.Music[index].genre,
-        
-        
+              name:"",
+              song:"Track "+varrr,
+              duration:'unknown',
+              tag:'',
+              genre:'',
             }
           })
-        
-        }else{
-            musicPlayer.push({
-              trackNumber:index+1,
-              url:posts,
-              uniqueId:data.UniqeId,
-              cover: ''+data.Poster,
-              artist:{
-                name:"",
-                song:"Track "+varrr,
-                duration:'unknown',
-                tag:'',
-                genre:'',
-              }
-            })
-          }
-        
-          })
+        }
+      
+        })
 
 
 
@@ -104,6 +92,26 @@ setMusicPlayer([...musicPlayer])
 
 
 }
+
+
+
+React.useEffect(()=>{
+  GetData();
+  //console.log(data?.Music)
+  if (data.Id !== lastItemId.current) { 
+    lastItemId.current = data.Id; 
+    setImageKey(prev => prev + 1); 
+    
+    
+  }
+
+  
+ 
+
+},[])
+    
+
+
   
 
 
@@ -143,7 +151,7 @@ if(item.match(/\.jpg|\.png|\.jpeg|\.gif/gi)){
 
 
     return(
-    <TouchableOpacity recyclingKey={data.Id}
+    <TouchableOpacity recyclingKey={keyImage}
     onPress={()=>{
 
       const videoData = [{
@@ -187,10 +195,60 @@ if(item.match(/\.jpg|\.png|\.jpeg|\.gif/gi)){
         return(
         <TouchableOpacity recyclingKey={keyImage}
         activeOpacity={1} onPress={()=>{
-
+          let conn = new String(data.PostImage).split(",");
+          let musicPl = [];
+          // var tmp = [];
+         
+            
+         
+         conn = conn.filter(ar => conn.find(rm => (rm.match(/^.*\.(jpg|jpeg|png|JPG|gif|mp4|avi|MOV|mov|mkv)$/) === ar.match(/^.*\.(jpg|jpeg|png|JPG|gif|mp4|avi|MOV|mov|mkv)$/) ) )) 
+         
+         
         
+
+          conn.map((posts,index)=>{
+            const varrr = index+1;
+            const filename = posts.replace("https://mymiix.com/public/assets/img/images/","");
+            //console.log('log song', filename + ' post url = '+posts)
+            if(data.Music.length > 0 ){
+            
+              musicPl.push({
+                trackNumber:index+1,
+                url:posts,
+                uniqueId:data.UniqeId,
+                cover: ''+data.Poster,
+                artist:{
+                  name:data.Music[index].artist,
+                  song:data.Music[index].name,
+                  duration:data.Music[index].duration,
+                  tag:data.Music[index].tag,
+                  genre:data.Music[index].genre,
+            
+            
+                }
+              })
+            
+            }else{
+              musicPl.push({
+                  trackNumber:index+1,
+                  url:posts,
+                  uniqueId:data.UniqeId,
+                  cover: ''+data.Poster,
+                  artist:{
+                    name:"",
+                    song:"Track "+varrr,
+                    duration:'unknown',
+                    tag:'',
+                    genre:'',
+                  }
+                })
+              }
+            
+              })
+
+
           Auth.setMediaType('audio')
-          Auth.setMediaDataSource(musicPlayer)
+          Auth.setMediaDataSource(musicPl)
           navigation.navigate('Media',{title:data.UserName, url:item,type:'video'})
 
         }}  style={{height: Dimensions.get('window').height -470,position:'relative',zIndex:2, width: Dimensions.get('window').width,}}>
@@ -240,9 +298,10 @@ return(
  extraData={{}}
  recyclingKey={imageKeys}
  style={{width:'100%', height: Dimensions.get('screen').height -470,zIndex:2}}
- data={dataSource || dataSourceMusic}
+ data={data.PostImage.split(",")}
  ParallaxImage={true}
- keyExtractor={(item,index)=>""+index}
+ //windowSize={10}
+ keyExtractor={(item,index)=>""+item}
  renderItem={content} />
  </View>
 )

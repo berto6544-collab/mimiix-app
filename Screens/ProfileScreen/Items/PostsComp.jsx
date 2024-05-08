@@ -247,7 +247,7 @@ const onViewableItemsChanged = ({ viewableItems, changed }) => {
 
        
 
- {<OptimizedFlatList
+ {<FlashList
       
       ListHeaderComponent={
         <View style={{width:'100%',display:'flex',paddingHorizontal:0,flex:1,flexDirection:'column',gap:20,alignItems:'flex-start',marginBottom:10}}>
@@ -472,10 +472,10 @@ const onViewableItemsChanged = ({ viewableItems, changed }) => {
       data={dataSource}
       renderItem={({item,index}) => Tabindex == 1?<BlogItem navigation={navigation} Auth={Auth} key={index} index={index} data={item} /> : Tabindex == 2 ?<FeedItemEvent isProfile={true} dataSource={dataSource} setDataSource={setDataSource} navigation={navigation} Auth={Auth} key={index} index={index} data={item} />:<FeedItem isProfile={true} setPostId={setPostId} loaded={loaded} setAdUnitId={setAdUnitId} setStatus={setStatus} rewarded={Auth.rewarded} dataSource={dataSource} setDataSource={setDataSource} navigation={navigation} Auth={Auth} key={index} index={index} data={item} />}
       onEndReached={handleLoadMore} 
-      //estimatedItemSize={550}
+      estimatedItemSize={530}
       //drawDistance={Dimensions.get('screen').height * 2}
       //maintainVisibleContentPosition={{autoscrollToTopThreshold:0,minIndexForVisible:0}}
-      getItemType={({item,index})=>{return ""+item.Id}}
+      getItemType={({item,index})=>{return ""+index}}
       style={{flex:1}}
       //windowSize={10}
       //scrollToOverflowEnabled={true}

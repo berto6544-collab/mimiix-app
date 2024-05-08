@@ -379,6 +379,7 @@ setShow(true)
 <FlashList 
 data={Auth.mediaDataSource}
 estimatedItemSize={100}
+contentContainerStyle={{gap:20,flex:1,display:'flex',flexDirection:'column'}}
 renderItem={({item,index})=><ItemList item={item} isPlaying={isPlaying} setIsPlaying={setIsPlaying} ind={index} indexx={Auth.index} setProgress={setProgress} VideoRef={VideoRef} Auth={Auth} />}
 
 

@@ -1,11 +1,13 @@
 import React from "react";
 import { StorieStyle } from "../../StyleComponent/Style";
 import { View,Text,TouchableOpacity, Dimensions } from "react-native";
-import { StorieDataAPI } from "../../API/API";
+import { GetEventLiveAPi} from "../../API/API";
 import { Avatar } from "@rneui/themed";
 import { Icon } from "@rneui/base";
 import Stories from "../../storiesNow/screens/Stories";
 import DrawerProfileDialog from "../../Dialog/DrawerProfileDialog";
+import { FlashList } from "@shopify/flash-list";
+import { OptimizedFlatList } from "react-native-optimized-flatlist";
 
 
 export default Story = ({query,Auth,navigation,setProfileShower,profileShower}) =>{
@@ -20,26 +22,64 @@ const [showDrawer,setShowDrawer] = React.useState(false)
 
 React.useEffect(()=>{
 
-
+getData();
 
 },[])
 
+const getData = () =>{
+  GetEventLiveAPi(start,'')
+  .then(response=>{
+    if(response.length == 0)return;
+    setDataSource(response);
+    setStart(start+1);
+
+  })
+}
 
 
+const handleLoadMore = () =>{
+  GetEventLiveAPi(start,'')
+  .then(response=>{
+    if(response.length == 0)return;
+    setDataSource(dataSource.concat(response));
+    setStart(start+1);
+
+  })
+}
 
 return(
 <View style={[StorieStyle.StoryBase,{paddingVertical:20,paddingTop:20}]}>
 
 
 
-{/*<TouchableOpacity onPress={() => onStorySelect(index)} >
-  <View style={{position:'relative'}}>
-    <Avatar size={50}  rounded={true} source={{uri:item.profile}} />
-    </View>
-</TouchableOpacity>*/}
+
+<OptimizedFlatList
+
+data={dataSource}
+estimatedItemSize={75}
+keyExtractor={(item, index) => ""+item.id}
+horizontal={true}
+showsHorizontalScrollIndicator={false}
+style={{height:75,width:'100%',flex:dataSource.length > 0?0.3:0,gap:5}}
+onEndReached={handleLoadMore} 
+onEndReachedThreshold={0.9}
+renderItem={({item,index})=>{
+return(
+<TouchableOpacity onPress={() =>{
+  navigation.navigate('Web',{url:item.Link,title:item.title})
+}} >
+<View style={{position:'relative',backgroundColor:'white',padding:10,borderRadius:5,alignItems:'center',display:'flex',flexDirection:'column'}}>
+  <Avatar size={50} containerStyle={{borderColor:'black',borderWidth:1.5}}  rounded={true} source={{uri:item.profileImg}} />
+<Text>Event </Text>
+  </View>
+
+</TouchableOpacity>) 
+
+}}
+/>
+
 {/*<Stories navigation={navigation} Auth={Auth} setShowDrawer={setShowDrawer} />*/}
-
-
+ 
 <DrawerProfileDialog 
 onshow={profileShower} 
 navigation={navigation}
