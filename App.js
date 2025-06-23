@@ -12,7 +12,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import FastImage from 'react-native-fast-image';
 import { RewardedAd, RewardedAdEventType,useRewardedAd } from 'react-native-google-mobile-ads';
 
-const adUnitId = 'ca-app-pub-6989684433220866/6129242070';
+const adUnitId = 'ca-app-pub-';
 const rewarded = RewardedAd.createForAdRequest(adUnitId);
 
 const Stack = createNativeStackNavigator();
@@ -22,7 +22,7 @@ export default function App({navigation}) {
   const [Authuser,setAuthUser] = React.useState([]);
 
   const [PostDataSource,setPostDataSource] = React.useState([]);
-  const [bannerText,setBannerText] = React.useState("ca-app-pub-3940256099942544/2521693316");
+  const [bannerText,setBannerText] = React.useState("ca-app-pub-");
   const [publisherId,setPublisherId] = React.useState('')
   const [theme,setTheme] = React.useState('light');
   const [token,setToken] = React.useState('');
