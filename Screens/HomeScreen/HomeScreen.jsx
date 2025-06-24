@@ -24,7 +24,7 @@ import HeaderComp from "./component/HeaderComp";
 
 
 
-const adUnitIdd = 'ca-app-pub-6989684433220866/6848090089';
+const adUnitIdd = 'ca-app-pub-';
 
 
 export default function Feed({navigation}){
@@ -37,7 +37,7 @@ export default function Feed({navigation}){
     const [profileShower,setProfileShower] = React.useState(0)
     const [showDrawer,setShowDrawer] = React.useState(false)
     const [showMessageDrawer,setShowMessageDrawer] = React.useState(false)
-    const [adUnitIds,setAdUnitId] = React.useState('ca-app-pub-6989684433220866/6129242070')
+    const [adUnitIds,setAdUnitId] = React.useState('ca-app-pub-')
     const [status,setStatus] = React.useState('')
     const [loaded, setLoaded] = React.useState(false);
 
